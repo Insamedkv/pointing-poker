@@ -1,0 +1,7 @@
+export enum SiteColors {
+  MAIN_COLOR = '#2B3A67',
+  SECONDARY_COLOR = '#496A81',
+  THIRD_COLOR = '#66999B',
+  FOURTH_COLOR = '#B3AF8F',
+  FIFTH_COLOT = '#FFC482',
+}
