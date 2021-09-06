@@ -1,4 +1,4 @@
-export const textConstants = {
+export const buttonTextConstants = {
   CONFIRM: 'confirm',
   CANCEL: 'cancel',
   YES: 'yes',

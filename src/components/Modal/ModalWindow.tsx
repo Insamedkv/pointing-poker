@@ -3,7 +3,7 @@ import { Button, Container, Modal } from '@material-ui/core';
 import { ModalBody } from './Components/ModalBody';
 import { ModalHeader } from './Components/ModalHeader';
 import { useStyles } from './ModalWindow.styles';
-import { textConstants } from '../../utils/textConstants';
+import { buttonTextConstants } from '../../utils/buttonTextConstants';
 
 interface IModalProps {
   title?: string;
@@ -28,10 +28,10 @@ const ModalWindow: React.FC<IModalProps> = ({ title, content }) => {
 
           <Container className={classes.buttonsBlock}>
             <Button className={classes.btn} variant="contained" color="primary">
-              {textConstants.CONFIRM}
+              {buttonTextConstants.CONFIRM}
             </Button>
             <Button className={classes.btn} color="secondary" variant="outlined" onClick={closeModalHandler}>
-              {textConstants.CANCEL}
+              {buttonTextConstants.CANCEL}
             </Button>
           </Container>
         </Container>
