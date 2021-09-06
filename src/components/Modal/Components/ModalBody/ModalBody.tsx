@@ -1,18 +1,12 @@
+import { Container } from '@material-ui/core';
 import React from 'react';
-import { Typography } from '@material-ui/core';
 
 interface IModalBodyProps {
-  text: string;
+  content: string | React.FC;
 }
 
-const ModalBody: React.FC<IModalBodyProps> = ({ text }) => {
-  return (
-    <>
-      <Typography align="center" paragraph={true}>
-        {text}
-      </Typography>
-    </>
-  );
+const ModalBody: React.FC<IModalBodyProps> = ({ content }) => {
+  return <Container>{content}</Container>;
 };
 
 export { ModalBody };
