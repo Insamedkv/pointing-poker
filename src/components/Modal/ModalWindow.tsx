@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
-import { Button, Container, Modal, useTheme } from '@material-ui/core';
-import { ThemeProvider } from '@material-ui/styles';
+import { Container, Modal } from '@material-ui/core';
 import { ModalBody } from './Components/ModalBody';
 import { ModalHeader } from './Components/ModalHeader';
 import { useStyles } from './ModalWindow.styles';
-import { baseTheme } from '../../utils/customTheme';
+import CustomButton from '../CustomButton';
+import { IButton } from '../../defaultTypes';
 
-const ModalWindow: React.FC = () => {
-  const theme = useTheme();
+interface IModalProps {
+  title: string;
+  content: string | React.FC;
+  buttons: Array<IButton>;
+}
+
+const ModalWindow: React.FC<IModalProps> = ({ title, content, buttons }) => {
   const classes = useStyles();
-  const [isOpened, setIsOpened] = useState(true);
-  const someTitle = 'some title';
-  const someMessage = "It's a message inside a modal window";
+  const [isOpened, setIsOpened] = useState(false);
 
   const closeModalHandler = () => {
     setIsOpened(false);
@@ -19,24 +22,25 @@ const ModalWindow: React.FC = () => {
 
   return (
     <>
-      <ThemeProvider theme={baseTheme}>
-        {!isOpened && <Button onClick={() => setIsOpened(!isOpened)}>Show modal</Button>}
-        <Modal open={isOpened} onClose={closeModalHandler}>
-          <Container className={classes.modal}>
-            <ModalHeader text={someTitle} />
-            <ModalBody text={someMessage} />
+      <Modal open={isOpened} onClose={closeModalHandler}>
+        <Container className={classes.modal}>
+          <ModalHeader text={title} />
+          <ModalBody content={content as React.FC} />
 
-            <Container className={classes.buttonsBlock}>
-              <Button className={classes.btn} variant="contained" color="primary">
-                confirm
-              </Button>
-              <Button className={classes.btn} color="secondary" variant="outlined" onClick={closeModalHandler}>
-                cancel
-              </Button>
-            </Container>
+          <Container className={classes.buttonsBlock}>
+            {buttons.map((button) => (
+              <CustomButton
+                key={button.buttonCaption}
+                buttonCaption={button.buttonCaption}
+                variant={button.variant}
+                color={button.color}
+                className={classes.btn}
+                onClick={button.onClick}
+              />
+            ))}
           </Container>
-        </Modal>
-      </ThemeProvider>
+        </Container>
+      </Modal>
     </>
   );
 };

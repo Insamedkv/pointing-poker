@@ -1,15 +1,47 @@
-import React from 'react';
-import { Button, Input } from '@material-ui/core';
+import React, { useState } from 'react';
+import { Container, Input, InputLabel } from '@material-ui/core';
 import { useStyles } from './CustomInput.styles';
+import CustomButton from '../CustomButton';
+import { IButton } from '../../defaultTypes';
 
-const CustomInput: React.FC = () => {
+interface IInput {
+  label: string;
+  type?: 'text' | 'number' | 'file' | 'date';
+  required?: boolean;
+}
+
+interface IInputProps {
+  input: IInput;
+  button?: IButton;
+}
+
+const CustomInput: React.FC<IInputProps> = ({ input, button }) => {
   const classes = useStyles();
+  const [isError, setError] = useState(false);
+
   return (
     <>
-      <Input className={classes.root} />
-      <Button variant="contained" color="primary" size="small">
-        Copy
-      </Button>
+      <InputLabel className={classes.inputLabel}>{input.label}:</InputLabel>
+      <Container className={classes.container}>
+        <Input
+          fullWidth
+          color="primary"
+          classes={{ root: classes.root, focused: classes.focused, error: classes.inputError }}
+          disableUnderline
+          required={input.required}
+          error={isError}
+          type={input.type || 'text'}
+        />
+        {button && (
+          <CustomButton
+            className={classes.inputButton}
+            buttonCaption={button.buttonCaption}
+            variant={button.variant || 'contained'}
+            color={button.color || 'primary'}
+            onClick={button.onClick}
+          />
+        )}
+      </Container>
     </>
   );
 };
