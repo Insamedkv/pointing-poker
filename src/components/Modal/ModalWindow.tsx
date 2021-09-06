@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
-import { Button, Container, Modal, useTheme } from '@material-ui/core';
-import { ThemeProvider } from '@material-ui/styles';
+import { Button, Container, Modal } from '@material-ui/core';
 import { ModalBody } from './Components/ModalBody';
 import { ModalHeader } from './Components/ModalHeader';
 import { useStyles } from './ModalWindow.styles';
-import { baseTheme } from '../../utils/customTheme';
+import { textConstants } from '../../utils/textConstants';
 
-const ModalWindow: React.FC = () => {
-  const theme = useTheme();
+interface IModalProps {
+  title?: string;
+  content?: string | React.FC;
+}
+
+const ModalWindow: React.FC<IModalProps> = ({ title, content }) => {
   const classes = useStyles();
   const [isOpened, setIsOpened] = useState(true);
-  const someTitle = 'some title';
-  const someMessage = "It's a message inside a modal window";
 
   const closeModalHandler = () => {
     setIsOpened(false);
@@ -19,24 +20,22 @@ const ModalWindow: React.FC = () => {
 
   return (
     <>
-      <ThemeProvider theme={baseTheme}>
-        {!isOpened && <Button onClick={() => setIsOpened(!isOpened)}>Show modal</Button>}
-        <Modal open={isOpened} onClose={closeModalHandler}>
-          <Container className={classes.modal}>
-            <ModalHeader text={someTitle} />
-            <ModalBody text={someMessage} />
+      {!isOpened && <Button onClick={() => setIsOpened(!isOpened)}>Show modal</Button>}
+      <Modal open={isOpened} onClose={closeModalHandler}>
+        <Container className={classes.modal}>
+          <ModalHeader text={title || 'some title'} />
+          <ModalBody content={content || "It's a message inside a modal window"} />
 
-            <Container className={classes.buttonsBlock}>
-              <Button className={classes.btn} variant="contained" color="primary">
-                confirm
-              </Button>
-              <Button className={classes.btn} color="secondary" variant="outlined" onClick={closeModalHandler}>
-                cancel
-              </Button>
-            </Container>
+          <Container className={classes.buttonsBlock}>
+            <Button className={classes.btn} variant="contained" color="primary">
+              {textConstants.CONFIRM}
+            </Button>
+            <Button className={classes.btn} color="secondary" variant="outlined" onClick={closeModalHandler}>
+              {textConstants.CANCEL}
+            </Button>
           </Container>
-        </Modal>
-      </ThemeProvider>
+        </Container>
+      </Modal>
     </>
   );
 };

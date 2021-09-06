@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core';
-import { SiteColors } from '../../utils/styleConstants';
+import { common } from '@material-ui/core/colors';
 
 const useStyles = makeStyles({
   modal: {
@@ -12,16 +12,7 @@ const useStyles = makeStyles({
     background: '#fff',
     margin: 'auto',
     marginTop: 'calc(50vh - 250px)',
-    border: '2px solid #000',
-  },
-  close: {
-    fontFamily: '',
-    position: 'absolute',
-    right: 0,
-    top: '10px',
-    '&:hover': {
-      color: 'red',
-    },
+    border: `2px solid ${common.black}`,
   },
   buttonsBlock: {
     display: 'flex',
