@@ -1,16 +1,25 @@
 import React, { useState } from 'react';
-import { Button, Container, Modal } from '@material-ui/core';
+import { Container, Modal } from '@material-ui/core';
 import { ModalBody } from './Components/ModalBody';
 import { ModalHeader } from './Components/ModalHeader';
 import { useStyles } from './ModalWindow.styles';
-import { buttonTextConstants } from '../../utils/buttonTextConstants';
+import CustomButton from '../CustomButton';
+
+interface IButton {
+  buttonCaption: string;
+  color: 'primary' | 'secondary';
+  variant: 'text' | 'outlined' | 'contained' | undefined;
+  className?: string;
+  onClick?: React.MouseEventHandler;
+}
 
 interface IModalProps {
   title?: string;
-  content?: string | React.FC;
+  content: string | React.FC;
+  buttons: Array<IButton>;
 }
 
-const ModalWindow: React.FC<IModalProps> = ({ title, content }) => {
+const ModalWindow: React.FC<IModalProps> = ({ title, content, buttons }) => {
   const classes = useStyles();
   const [isOpened, setIsOpened] = useState(true);
 
@@ -20,19 +29,22 @@ const ModalWindow: React.FC<IModalProps> = ({ title, content }) => {
 
   return (
     <>
-      {!isOpened && <Button onClick={() => setIsOpened(!isOpened)}>Show modal</Button>}
       <Modal open={isOpened} onClose={closeModalHandler}>
         <Container className={classes.modal}>
-          <ModalHeader text={title || 'some title'} />
-          <ModalBody content={content || "It's a message inside a modal window"} />
+          <ModalHeader text={title} />
+          <ModalBody content={content as React.FC} />
 
           <Container className={classes.buttonsBlock}>
-            <Button className={classes.btn} variant="contained" color="primary">
-              {buttonTextConstants.CONFIRM}
-            </Button>
-            <Button className={classes.btn} color="secondary" variant="outlined" onClick={closeModalHandler}>
-              {buttonTextConstants.CANCEL}
-            </Button>
+            {buttons.map((button) => (
+              <CustomButton
+                key={button.buttonCaption}
+                buttonCaption={button.buttonCaption}
+                variant={button.variant}
+                color={button.color}
+                className={classes.btn}
+                onClick={button.onClick}
+              />
+            ))}
           </Container>
         </Container>
       </Modal>
