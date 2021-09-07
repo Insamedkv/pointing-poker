@@ -10,7 +10,7 @@ const devServer = (isDev) => !isDev ? {} : {
     open: {
       app: ['chrome', '--incognito'],
     },
-    port: 8080,
+    port: 3001,
     contentBase: path.join(__dirname, 'public'),
     hot: true,
     compress: true,
