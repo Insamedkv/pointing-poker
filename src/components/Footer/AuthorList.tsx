@@ -1,19 +1,19 @@
-interface Authors {
+interface IAuthors {
   name: string;
-  GitHubSrc: string;
+  gitHubSrc: string;
 }
 
-export const data: Array<Authors> = [
+export const data: Array<IAuthors> = [
   {
     name: 'Konstantin',
-    GitHubSrc: 'https://github.com/Insamedkv',
+    gitHubSrc: 'https://github.com/Insamedkv',
   },
   {
     name: 'Rostislav',
-    GitHubSrc: 'https://github.com/upmyskills',
+    gitHubSrc: 'https://github.com/upmyskills',
   },
   {
-    name: 'Alexandr',
-    GitHubSrc: 'https://github.com/Cooler2012',
+    name: 'Aleksandr',
+    gitHubSrc: 'https://github.com/Cooler2012',
   },
 ];

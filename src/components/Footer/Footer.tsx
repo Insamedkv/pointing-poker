@@ -8,10 +8,10 @@ export const Footer: FC = (): ReactElement => {
   const classes = useStyles();
 
   const authors = data.map((item, index) => {
-    const { name, GitHubSrc } = item;
+    const { name, gitHubSrc } = item;
 
     return (
-      <Link href={GitHubSrc} key={index}>
+      <Link href={gitHubSrc} key={index}>
         <Box className={classes.author}>
           <IconButton>
             <GitHubIcon />
@@ -23,9 +23,12 @@ export const Footer: FC = (): ReactElement => {
   });
 
   return (
-    <Container className={classes.footer_container}>
-      <Box className={classes.footer_container}>
-        <Typography variant="h5"> Authors:</Typography> {authors}
+    <Container className={classes.footerContainer}>
+      <Box className={classes.footerContainer} bgcolor="primary.main">
+        <Typography variant="h6" className={classes.title}>
+          Authors:
+          <Box className={classes.author}>{authors}</Box>
+        </Typography>
       </Box>
     </Container>
   );

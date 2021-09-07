@@ -1,6 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
+import { constants } from '../constants';
 
-export const useStyles = makeStyles({
+export const useStyles = makeStyles(() => ({
   container: {
     width: '100%',
     height: 'auto',
@@ -9,22 +10,25 @@ export const useStyles = makeStyles({
     margin: '0px',
     maxWidth: 'none',
   },
-  container__high: {
-    background: '#2B3A67',
+  containerHigh: {
     width: '100%',
     height: '50px',
   },
-  container__low: {
-    background: '#66999B',
+  containerLow: {
     width: '100%',
     height: '20px',
   },
-  container__logo: {
+  containerLogo: {
     top: '20px',
     left: '5%',
+    width: '70px',
+    height: '70px',
+    position: 'absolute',
   },
-  container__icon: {
+  containerIcon: {
     top: '2px',
     right: '5%',
+    position: 'absolute',
+    color: `${constants.whiteColor}`,
   },
-});
+}));

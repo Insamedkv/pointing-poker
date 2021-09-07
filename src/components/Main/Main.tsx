@@ -7,8 +7,8 @@ export const Main: FC = (): ReactElement => {
   const classes = useStyles();
 
   return (
-    <Container className={classes.main_container}>
-      <Avatar alt="Main__img" src={MainImage} className={classes.image} />
+    <Container className={classes.mainContainer}>
+      <Avatar alt="MainImg" src={MainImage} className={classes.image} />
     </Container>
   );
 };
