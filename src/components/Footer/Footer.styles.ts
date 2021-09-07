@@ -1,7 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { constants } from '../constants';
 
-export const useStyles = makeStyles({
+export const useStyles = makeStyles(({ palette }) => ({
   footerContainer: {
     height: '50px',
     margin: '0px',
@@ -16,13 +15,14 @@ export const useStyles = makeStyles({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    color: `${constants.whiteColor}`,
+    color: palette.common.white,
+    cursor: 'default',
   },
   author: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    color: `${constants.whiteColor}`,
+    color: palette.common.white,
     fontSize: '18px',
   },
-});
+}));

@@ -5,16 +5,17 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 
-const devServer = (isDev) =>
-  !isDev
-    ? {}
-    : {
-        devServer: {
-          open: true,
-          port: 8080,
-          contentBase: path.join(__dirname, 'public'),
-        },
-      };
+const devServer = (isDev) => !isDev ? {} : {
+  devServer: {
+    open: {
+      app: ['chrome', '--incognito'],
+    },
+    port: 3001,
+    contentBase: path.join(__dirname, 'public'),
+    hot: true,
+    compress: true,
+  },
+};
 
 const esLintPlugin = (isDev) => (isDev ? [] : [new ESLintPlugin({ extensions: ['tsx', 'ts'] })]);
 

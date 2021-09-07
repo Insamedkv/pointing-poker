@@ -1,10 +1,9 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { constants } from '../constants';
 
 export const useStyles = makeStyles({
   mainContainer: {
     minHeight: '500px',
-    height: `calc(100vh - ${constants.heigthFooter} - ${constants.marginMain})`,
+    height: `calc(100vh - 120px)`,
     maxWidth: 'none',
     width: '100%',
   },

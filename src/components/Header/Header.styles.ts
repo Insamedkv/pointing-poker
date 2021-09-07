@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { constants } from '../constants';
+import { baseTheme } from '../../utils/customTheme';
 
-export const useStyles = makeStyles(() => ({
+export const useStyles = makeStyles({
   container: {
     width: '100%',
     height: 'auto',
@@ -29,6 +29,6 @@ export const useStyles = makeStyles(() => ({
     top: '2px',
     right: '5%',
     position: 'absolute',
-    color: `${constants.whiteColor}`,
+    color: baseTheme.palette.common.white,
   },
-}));
+});
