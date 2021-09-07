@@ -26,6 +26,7 @@ export const App: FC = (): ReactElement => {
       color: 'secondary',
     },
   ];
+
   return (
     <ThemeProvider theme={baseTheme}>
       <div className="wrapper">
