@@ -1,17 +1,10 @@
 import React from 'react';
 import { Button } from '@material-ui/core';
+import { IButton } from '../../defaultTypes';
 
-interface ICustomButtonProps {
-  buttonCaption: string;
-  color: 'primary' | 'secondary';
-  variant: 'text' | 'outlined' | 'contained' | undefined;
-  className: string;
-  onClick?: React.MouseEventHandler;
-}
-
-const CustomButton: React.FC<ICustomButtonProps> = ({ buttonCaption, color, variant, onClick, className }) => {
+const CustomButton: React.FC<IButton> = ({ buttonCaption, color, variant, onClick, className, size }) => {
   return (
-    <Button variant={variant} color={color} onClick={onClick} className={className}>
+    <Button size={size} variant={variant} color={color} onClick={onClick} className={className}>
       {buttonCaption}
     </Button>
   );

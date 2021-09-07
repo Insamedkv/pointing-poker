@@ -4,24 +4,17 @@ import { ModalBody } from './Components/ModalBody';
 import { ModalHeader } from './Components/ModalHeader';
 import { useStyles } from './ModalWindow.styles';
 import CustomButton from '../CustomButton';
-
-interface IButton {
-  buttonCaption: string;
-  color: 'primary' | 'secondary';
-  variant: 'text' | 'outlined' | 'contained' | undefined;
-  className?: string;
-  onClick?: React.MouseEventHandler;
-}
+import { IButton } from '../../defaultTypes';
 
 interface IModalProps {
-  title?: string;
+  title: string;
   content: string | React.FC;
   buttons: Array<IButton>;
 }
 
 const ModalWindow: React.FC<IModalProps> = ({ title, content, buttons }) => {
   const classes = useStyles();
-  const [isOpened, setIsOpened] = useState(true);
+  const [isOpened, setIsOpened] = useState(false);
 
   const closeModalHandler = () => {
     setIsOpened(false);

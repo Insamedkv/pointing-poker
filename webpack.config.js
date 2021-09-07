@@ -7,9 +7,13 @@ const ESLintPlugin = require('eslint-webpack-plugin');
 
 const devServer = (isDev) => !isDev ? {} : {
   devServer: {
-    open: true,
-    port: 8080,
+    open: {
+      app: ['chrome', '--incognito'],
+    },
+    port: 3001,
     contentBase: path.join(__dirname, 'public'),
+    hot: true,
+    compress: true,
   },
 };
 

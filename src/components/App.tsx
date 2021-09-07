@@ -6,17 +6,8 @@ import { Footer } from './Footer/index';
 import ModalWindow from './Modal';
 import { baseTheme } from '../utils/customTheme';
 import { buttonTextConstants } from '../utils/buttonTextConstants';
-import Avatara from './Avatara';
-import { IAvataraInfo } from '../defaultTypes';
-import PersonPanel from './PersonPanel';
-
-interface IButton {
-  buttonCaption: string;
-  color: 'primary' | 'secondary';
-  variant: 'text' | 'outlined' | 'contained' | undefined;
-  className?: string;
-  onClick?: React.MouseEventHandler;
-}
+import CustomInput from './CustomInput';
+import { IButton } from '../defaultTypes';
 
 export const App: FC = (): ReactElement => {
   const testButtons: Array<IButton> = [
@@ -41,6 +32,7 @@ export const App: FC = (): ReactElement => {
       <div className="wrapper">
         <Header />
         <Main />
+        <CustomInput input={{ label: 'label', type: 'text' }} button={testButtons[0]} />
         <Footer />
         <ModalWindow title={'title'} content={'content'} buttons={testButtons} />
       </div>
