@@ -18,7 +18,12 @@ const baseTheme = createTheme({
     },
   },
   typography: {
-    fontWeightBold: 700,
+    h2: {
+      fontSize: '48px',
+    },
+    subtitle2: {
+      fontSize: '10px',
+    },
     button: {
       fontFamily: ['Ruda', 'serif'].join(','),
       fontWeight: 700,

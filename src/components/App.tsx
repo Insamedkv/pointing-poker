@@ -6,6 +6,9 @@ import { Footer } from './Footer/index';
 import ModalWindow from './Modal';
 import { baseTheme } from '../utils/customTheme';
 import { buttonTextConstants } from '../utils/buttonTextConstants';
+import Avatara from './Avatara';
+import { IAvataraInfo } from '../defaultTypes';
+import PersonPanel from './PersonPanel';
 
 interface IButton {
   buttonCaption: string;
@@ -32,6 +35,7 @@ export const App: FC = (): ReactElement => {
       color: 'secondary',
     },
   ];
+
   return (
     <ThemeProvider theme={baseTheme}>
       <div className="wrapper">
