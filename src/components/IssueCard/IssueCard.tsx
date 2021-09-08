@@ -8,12 +8,19 @@ import classNames from 'classnames';
 import { useStyles } from './IssueCard.styles';
 import { IIssue } from '../../defaultTypes';
 
-interface IIssueProps {
-  issue: IIssue;
-  mode?: 'create';
+interface IPropsForCreate {
+  mode: 'create';
+  issue?: undefined;
 }
 
-const IssueCard: React.FC<IIssueProps> = ({ issue, mode }) => {
+interface IPropsForShow {
+  mode: 'show';
+  issue: IIssue;
+}
+
+type IIssueProps = IPropsForShow | IPropsForCreate;
+
+const IssueCard: React.FC<IIssueProps> = ({ mode, issue }) => {
   const classes = useStyles();
 
   const issueObj: IIssue = {
@@ -52,7 +59,7 @@ const IssueCard: React.FC<IIssueProps> = ({ issue, mode }) => {
   };
 
   return (
-    <Card className={classNames(classes.root, issue.inProgress && classes.currentIssue)}>
+    <Card className={classNames(classes.root, issue?.inProgress && classes.currentIssue)}>
       {mode === 'create' ? (
         <>
           <CardContent className={classes.cardBody}>
@@ -63,8 +70,8 @@ const IssueCard: React.FC<IIssueProps> = ({ issue, mode }) => {
       ) : (
         <>
           <CardContent className={classes.cardBody}>
-            <Typography variant="h5">{issue.issueName}</Typography>
-            <Typography variant="subtitle2">Priority: {issue.issuePriority}</Typography>
+            <Typography variant="h5">{issue?.issueName}</Typography>
+            <Typography variant="subtitle2">Priority: {issue?.issuePriority}</Typography>
           </CardContent>
 
           {isDiller && <Container classes={{ root: classes.actionContainer }}>{setControls()}</Container>}

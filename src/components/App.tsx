@@ -11,6 +11,7 @@ export const App: FC = (): ReactElement => {
       <div className="wrapper">
         <Header />
         <IssueCard
+          mode="show"
           issue={{
             issueID: 'fsdfs-sdfsdf-sdf-sdf',
             issueLink: 'http://github.com/',
@@ -20,6 +21,7 @@ export const App: FC = (): ReactElement => {
           }}
         />
         <IssueCard
+          mode="show"
           issue={{
             issueID: 'asdfs-sd42df-shff-sdsf',
             issueLink: 'http://github.com/',
@@ -28,6 +30,7 @@ export const App: FC = (): ReactElement => {
             inProgress: false,
           }}
         />
+        <IssueCard mode="create" />
         <Footer />
       </div>
     </ThemeProvider>
