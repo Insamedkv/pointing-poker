@@ -1,5 +1,5 @@
 import React, { FC, ReactElement } from 'react';
-import { ThemeProvider } from '@material-ui/styles';
+import { ThemeProvider } from '@material-ui/core';
 import { Header } from './Header/index';
 import { Main } from './Main/index';
 import { Footer } from './Footer/index';
