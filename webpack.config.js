@@ -17,7 +17,7 @@ const devServer = (isDev) => !isDev ? {} : {
   },
 };
 
-const esLintPlugin = (isDev) => isDev ? [] : [ new ESLintPlugin({ extensions: ['tsx', 'ts'] }) ];
+const esLintPlugin = (isDev) => (isDev ? [] : [new ESLintPlugin({ extensions: ['tsx', 'ts'] })]);
 
 module.exports = ({ development }) => ({
   mode: development ? 'development' : 'production',
@@ -51,8 +51,8 @@ module.exports = ({ development }) => ({
       },
       {
         test: /\.s[ac]ss$/i,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
-      }
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+      },
     ],
   },
   plugins: [
@@ -60,15 +60,17 @@ module.exports = ({ development }) => ({
     new MiniCssExtractPlugin({ filename: '[name].[contenthash].css' }),
     new HtmlWebpackPlugin({ template: './src/index.html' }),
     new CopyPlugin({
-      patterns: [{
-        from: 'public',
-        noErrorOnMissing: true,
-      }],
+      patterns: [
+        {
+          from: 'public',
+          noErrorOnMissing: true,
+        },
+      ],
     }),
     new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
   ],
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
   },
-  ...devServer(development)
+  ...devServer(development),
 });
