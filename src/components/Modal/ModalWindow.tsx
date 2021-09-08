@@ -14,7 +14,7 @@ interface IModalProps {
 
 const ModalWindow: React.FC<IModalProps> = ({ title, content, buttons }) => {
   const classes = useStyles();
-  const [isOpened, setIsOpened] = useState(false);
+  const [isOpened, setIsOpened] = useState(true);
 
   const closeModalHandler = () => {
     setIsOpened(false);
@@ -25,7 +25,7 @@ const ModalWindow: React.FC<IModalProps> = ({ title, content, buttons }) => {
       <Modal open={isOpened} onClose={closeModalHandler}>
         <Container className={classes.modal}>
           <ModalHeader text={title} />
-          <ModalBody content={content as React.FC} />
+          <ModalBody Content={content as React.FC} />
 
           <Container className={classes.buttonsBlock}>
             {buttons.map((button) => (

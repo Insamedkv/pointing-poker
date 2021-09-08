@@ -11,9 +11,9 @@ const baseTheme = createTheme({
       contrastText: common.white,
     },
     secondary: {
-      main: SiteColors.MAIN_COLOR,
+      main: SiteColors.SECONDARY_COLOR,
       light: SiteColors.THIRD_COLOR,
-      dark: SiteColors.SECONDARY_COLOR,
+      dark: SiteColors.MAIN_COLOR,
       contrastText: SiteColors.MAIN_COLOR,
     },
   },

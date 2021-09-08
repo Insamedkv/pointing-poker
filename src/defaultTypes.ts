@@ -13,3 +13,11 @@ export interface IAvataraInfo {
   size: 'large' | 'medium';
   src?: string;
 }
+
+export interface IIssue {
+  issueID: string;
+  issueName: string;
+  issueLink: string;
+  issuePriority: 'low' | 'medium' | 'hight';
+  inProgress?: boolean;
+}
