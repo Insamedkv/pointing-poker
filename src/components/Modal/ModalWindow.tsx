@@ -1,34 +1,31 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Container, Modal } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
 import { ModalBody } from './Components/ModalBody';
 import { ModalHeader } from './Components/ModalHeader';
 import { useStyles } from './ModalWindow.styles';
 import CustomButton from '../CustomButton';
-import { IButton } from '../../defaultTypes';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { toggleModal } from '../../redux/modalReducer/modalActions';
 
-interface IModalProps {
-  title: string;
-  content: string | React.FC;
-  buttons: Array<IButton>;
-}
-
-const ModalWindow: React.FC<IModalProps> = ({ title, content, buttons }) => {
+const ModalWindow: React.FC = () => {
   const classes = useStyles();
-  const [isOpened, setIsOpened] = useState(true);
+  const modalState = useTypedSelector((state) => state.modal);
+  const dispatch = useDispatch();
 
   const closeModalHandler = () => {
-    setIsOpened(false);
+    dispatch(toggleModal(false));
   };
 
   return (
     <>
-      <Modal open={isOpened} onClose={closeModalHandler}>
+      <Modal open={modalState.isOpen} onClose={closeModalHandler}>
         <Container className={classes.modal}>
-          <ModalHeader text={title} />
-          <ModalBody Content={content as React.FC} />
+          {/* <ModalHeader text={modalState.title} /> */}
+          <ModalBody Content={modalState.Component} />
 
           <Container className={classes.buttonsBlock}>
-            {buttons.map((button) => (
+            {modalState.buttons.map((button) => (
               <CustomButton
                 key={button.buttonCaption}
                 buttonCaption={button.buttonCaption}

@@ -21,3 +21,9 @@ export interface IIssue {
   issuePriority: 'low' | 'medium' | 'hight';
   inProgress?: boolean;
 }
+
+export interface IInput {
+  label: string;
+  type?: 'text' | 'number' | 'file' | 'date';
+  required?: boolean;
+}

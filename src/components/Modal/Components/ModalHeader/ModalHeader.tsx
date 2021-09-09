@@ -3,7 +3,7 @@ import { Typography } from '@material-ui/core';
 import { useStyles } from '../../ModalWindow.styles';
 
 interface IModalHeaderProps {
-  text: string | undefined;
+  text: string | React.FC;
 }
 
 const ModalHeader: React.FC<IModalHeaderProps> = ({ text }) => {

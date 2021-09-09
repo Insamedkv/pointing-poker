@@ -1,5 +1,6 @@
 import { common } from '@material-ui/core/colors';
 import { createTheme } from '@material-ui/core/styles';
+import shadows from '@material-ui/core/styles/shadows';
 import { SiteColors } from './styleConstants';
 
 const baseTheme = createTheme({
@@ -28,6 +29,7 @@ const baseTheme = createTheme({
       fontFamily: ['Ruda', 'serif'].join(','),
       fontWeight: 700,
       fontSize: '24px',
+      boxShadow: shadows[4],
     },
   },
 });

@@ -1,15 +1,21 @@
 import React, { FC, ReactElement } from 'react';
-import { ThemeProvider } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
+import { Container, ThemeProvider } from '@material-ui/core';
 import { Header } from './Header/index';
 import { Footer } from './Footer/index';
 import { baseTheme } from '../utils/customTheme';
 import IssueCard from './IssueCard';
+import ModalWindow from './Modal';
+import CustomButton from './CustomButton';
+import { toggleModal } from '../redux/modalReducer/modalActions';
+import { LobbyContent } from './Modal/Components/ModalBody/Components/LobbyContent';
 
 export const App: FC = (): ReactElement => {
+  const dispatch = useDispatch();
   return (
     <ThemeProvider theme={baseTheme}>
-      <div className="wrapper">
-        <Header />
+      <Container>
+        {/* <Header /> */}
         <IssueCard
           mode="show"
           issue={{
@@ -31,8 +37,17 @@ export const App: FC = (): ReactElement => {
           }}
         />
         <IssueCard mode="create" />
-        <Footer />
-      </div>
+
+        <CustomButton
+          buttonCaption={'Open lobby modal'}
+          color={'primary'}
+          variant={'outlined'}
+          onClick={() => dispatch(toggleModal(true, LobbyContent))}
+        />
+
+        <ModalWindow />
+        {/* <Footer /> */}
+      </Container>
     </ThemeProvider>
   );
 };
