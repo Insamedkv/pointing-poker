@@ -2,11 +2,15 @@ import { Container } from '@material-ui/core';
 import React from 'react';
 
 interface IModalBodyProps {
-  content: string | React.FC;
+  Content: React.FC;
 }
 
-const ModalBody: React.FC<IModalBodyProps> = ({ content }) => {
-  return <Container>{content}</Container>;
+const ModalBody: React.FC<IModalBodyProps> = ({ Content }) => {
+  return (
+    <Container>
+      <Content />
+    </Container>
+  );
 };
 
 export { ModalBody };
