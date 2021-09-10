@@ -30,6 +30,8 @@ const baseTheme = createTheme({
       fontWeight: 700,
       fontSize: '24px',
       boxShadow: shadows[4],
+      textShadow: `0px 2px 4px ${SiteColors.MAIN_COLOR}`,
+      textTransform: 'none',
     },
   },
 });

@@ -1,5 +1,3 @@
-import { IButton } from '../../defaultTypes';
-
 export const modalActions = {
   TOGGLE_MODAL: 'TOGGLE_MODAL',
 };
@@ -11,13 +9,12 @@ export interface IModalAction {
 
 export interface IModalPayload {
   isOpen: boolean;
-  title?: React.FC;
+  title: string;
   Component?: React.FC;
 }
 
 export interface IModalState {
   isOpen: boolean;
-  buttons: Array<IButton>;
-  title?: React.FC;
+  title?: string;
   Component?: React.FC;
 }

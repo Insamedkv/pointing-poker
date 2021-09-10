@@ -6,11 +6,12 @@ import { IButton, IInput } from '../../defaultTypes';
 
 interface IInputProps {
   input: IInput;
+  name?: string;
   button?: IButton;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
 
-const CustomInput: React.FC<IInputProps> = ({ input, button, onChange }) => {
+const CustomInput: React.FC<IInputProps> = ({ input, button, name, onChange }) => {
   const classes = useStyles();
   const requireClass = input.required ? classes.requiredField : '';
   const [isError, setError] = useState(false);
@@ -25,6 +26,7 @@ const CustomInput: React.FC<IInputProps> = ({ input, button, onChange }) => {
           className={requireClass}
           classes={{ root: classes.root, focused: classes.focused, error: classes.inputError }}
           disableUnderline
+          name={name}
           required={input.required}
           error={isError}
           type={input.type || 'text'}

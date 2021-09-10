@@ -1,19 +1,40 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import path from 'path';
 import { Button, Container, Input, InputLabel } from '@material-ui/core';
 import { useStyles } from './FileChooser.styles';
 
-const FileChooser: React.FC = () => {
+interface IFileChooserProps {
+  value?: string;
+  fieldName?: string;
+  getFile?: (name: string, value: string) => void;
+  setImage?: (src: ArrayBuffer | string) => void;
+}
+
+const FileChooser: React.FC<IFileChooserProps> = ({ fieldName, value, getFile, setImage }) => {
   const classes = useStyles();
-  const [fileName, setFileName] = useState('');
   const hiddenInputFile = document.createElement('input');
 
+  const getBase64 = (file: Blob) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      if (reader.result && setImage) setImage(reader.result);
+      return reader.result;
+    };
+    reader.onerror = (error) => console.log(error);
+  };
+
+  if (fieldName) hiddenInputFile.setAttribute('name', fieldName);
   hiddenInputFile.setAttribute('type', 'file');
-  hiddenInputFile.addEventListener('change', (event) => {
-    if (event.target) {
-      const fullPath = (event.target as HTMLInputElement).value;
-      const name: string = path.basename(fullPath.split('\\').join('/'));
-      setFileName(name);
+  hiddenInputFile.setAttribute('accept', 'image/*');
+  hiddenInputFile.addEventListener('change', (event: Event) => {
+    if (event.target && getFile) {
+      const { name, files } = event.target as HTMLInputElement;
+      if (files?.length) {
+        const [currentFile] = files;
+        getBase64(currentFile);
+        getFile(name, currentFile.name);
+      }
     }
   });
 
@@ -25,7 +46,7 @@ const FileChooser: React.FC = () => {
           type="text"
           disableUnderline
           readOnly
-          value={fileName}
+          value={value}
           classes={{ root: classes.root, focused: classes.focused, input: classes.textCentration }}
         />
         <Button

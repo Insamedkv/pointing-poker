@@ -42,7 +42,7 @@ export const App: FC = (): ReactElement => {
           buttonCaption={'Open lobby modal'}
           color={'primary'}
           variant={'outlined'}
-          onClick={() => dispatch(toggleModal(true, LobbyContent))}
+          onClick={() => dispatch(toggleModal(true, 'Connect to lobby', LobbyContent))}
         />
 
         <ModalWindow />

@@ -11,7 +11,7 @@ export interface IAvataraInfo {
   firstName: string;
   lastName: string;
   size: 'large' | 'medium';
-  src?: string;
+  src?: string | ArrayBuffer;
 }
 
 export interface IIssue {

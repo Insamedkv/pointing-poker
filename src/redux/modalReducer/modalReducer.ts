@@ -2,7 +2,7 @@ import { IModalAction, IModalState, modalActions as actions } from './modalActio
 
 const initialState: IModalState = {
   isOpen: false,
-  buttons: [],
+  title: '',
 };
 
 const modalReducer = (state = initialState, action: IModalAction): IModalState => {
@@ -10,8 +10,7 @@ const modalReducer = (state = initialState, action: IModalAction): IModalState =
     case actions.TOGGLE_MODAL: {
       return {
         isOpen: action.payload.isOpen,
-        title: action.payload.title,
-        buttons: [],
+        title: action.payload.title || '',
         Component: action.payload.Component,
       };
     }
