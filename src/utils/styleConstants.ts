@@ -17,3 +17,7 @@ export enum AdditionalColors {
   AV80 = '#A1B261',
   AV90 = '#A1BB41',
 }
+
+export enum BackgrCardColor {
+  ACTIVE_CARD = 'rgba(38%, 85%, 75%, 0.5)',
+}

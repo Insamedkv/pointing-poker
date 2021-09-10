@@ -21,3 +21,7 @@ export interface IIssue {
   issuePriority: 'low' | 'medium' | 'hight';
   inProgress?: boolean;
 }
+
+export interface ICardItemProps {
+  name: string;
+}
