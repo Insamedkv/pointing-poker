@@ -1,17 +1,14 @@
 import React, { FC, useState } from 'react';
 import { Avatar, Box, Card } from '@material-ui/core';
 import { useStyles } from './Card.styles';
-import CardIconCoffe from '../../asset/CardIconCoffe.png';
+import CardIconCoffee from '../../asset/CardIconCoffee.png';
 import SPIcon from '../../asset/SPIcon.png';
 import ApprovedCardIcon from '../../asset/ApprovedCardIcon.png';
-
-export interface ICardItemProps {
-  name: string;
-}
+import { ICardItemProps } from '../../defaultTypes';
 
 export const CardItem: FC<ICardItemProps> = ({ name }) => {
   const classes = useStyles();
-  const result = name === 'Unknown' ? CardIconCoffe : SPIcon;
+  const result = name === 'Unknown' ? CardIconCoffee : SPIcon;
   const [active, setActive] = useState<boolean>(false);
 
   return (
