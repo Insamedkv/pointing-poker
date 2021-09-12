@@ -1,22 +1,23 @@
-import { IModalAction, IModalState, modalActions as actions } from './modalActionTypes';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { IModalAction, IModalPayload, IModalState, modalActions as actions } from './modalActionTypes';
 
 const initialState: IModalState = {
   isOpen: false,
-  title: '',
 };
 
-const modalReducer = (state = initialState, action: IModalAction): IModalState => {
-  switch (action.type) {
-    case actions.TOGGLE_MODAL: {
-      return {
-        isOpen: action.payload.isOpen,
-        title: action.payload.title || '',
-        Component: action.payload.Component,
-      };
-    }
-    default:
-      return state;
-  }
-};
+const modalReducer = createSlice({
+  name: 'modal',
+  initialState,
+  reducers: {
+    toggle: (state: IModalState, action: PayloadAction<IModalPayload>) => ({ ...state, isOpen: action.payload.isOpen }),
+  },
+  extraReducers: (builder) => {
+    builder.addCase(actions.TOGGLE_MODAL, (state, action: IModalAction) => ({
+      ...state,
+      isOpen: action.payload.isOpen,
+      modalType: action.payload.modalType,
+    }));
+  },
+});
 
-export { modalReducer };
+export default modalReducer;

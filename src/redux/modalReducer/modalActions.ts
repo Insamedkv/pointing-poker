@@ -1,10 +1,6 @@
-import { IModalAction, modalActions } from './modalActionTypes';
+import { createAction } from '@reduxjs/toolkit';
+import { modalActions as actions, IModalPayload } from './modalActionTypes';
 
-export const toggleModal = (open: boolean, title = '', Component?: React.FC): IModalAction => ({
-  type: modalActions.TOGGLE_MODAL,
-  payload: {
-    title,
-    isOpen: open,
-    Component,
-  },
-});
+const toggleModal = createAction<IModalPayload>(actions.TOGGLE_MODAL);
+
+export { toggleModal };

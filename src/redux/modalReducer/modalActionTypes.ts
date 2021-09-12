@@ -9,12 +9,10 @@ export interface IModalAction {
 
 export interface IModalPayload {
   isOpen: boolean;
-  title: string;
-  Component?: React.FC;
+  modalType?: 'connectToLobby' | 'kick';
 }
 
 export interface IModalState {
   isOpen: boolean;
-  title?: string;
-  Component?: React.FC;
+  modalType?: 'connectToLobby' | 'kick';
 }

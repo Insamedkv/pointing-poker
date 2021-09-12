@@ -1,17 +1,29 @@
-import { Container } from '@material-ui/core';
 import React from 'react';
+import { Container } from '@material-ui/core';
+import { LobbyContent } from './Components/LobbyContent';
 
 interface IModalBodyProps {
-  Content?: React.FC;
+  modalType?: string;
 }
 
-const ModalBody: React.FC<IModalBodyProps> = ({ Content }) => {
-  if (Content)
+interface IBodyVariants {
+  [index: string]: React.FC;
+}
+
+const bodyVariants: IBodyVariants = {
+  connectToLobby: LobbyContent,
+};
+
+const ModalBody: React.FC<IModalBodyProps> = ({ modalType }) => {
+  if (modalType && Object.keys(bodyVariants).includes(modalType)) {
+    const Body: React.FC = bodyVariants[modalType];
     return (
       <Container>
-        <Content />
+        <Body />
       </Container>
     );
+  }
+
   return <Container> </Container>;
 };
 

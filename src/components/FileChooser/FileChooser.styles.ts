@@ -1,12 +1,11 @@
 import { makeStyles, createStyles } from '@material-ui/core';
-import { grey } from '@material-ui/core/colors';
 
 const useStyles = makeStyles(({ typography, palette, shadows }) =>
   createStyles({
     root: {
       position: 'relative',
       fontSize: '24px',
-      border: `1px solid ${grey.A200}`,
+      border: `1px solid ${palette.divider}`,
       borderBottomLeftRadius: '10px',
       padding: '2px 10px',
       height: '47px',

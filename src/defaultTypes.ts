@@ -27,3 +27,7 @@ export interface IInput {
   type?: 'text' | 'number' | 'file' | 'date';
   required?: boolean;
 }
+
+export interface ICardItemProps {
+  name: string;
+}

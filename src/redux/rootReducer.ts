@@ -1,8 +1,10 @@
 import { combineReducers } from '@reduxjs/toolkit';
-import { modalReducer } from './modalReducer';
+import modalReducer from './modalReducer';
 
-export const rootReducer = combineReducers({
-  modal: modalReducer,
+const rootReducer = combineReducers({
+  modal: modalReducer.reducer,
 });
 
-export type RootState = ReturnType<typeof rootReducer>;
+type RootState = ReturnType<typeof rootReducer>;
+
+export { rootReducer, RootState };

@@ -1,13 +1,14 @@
+import React, { useState } from 'react';
 import { Container, Typography, Switch, FormControlLabel } from '@material-ui/core';
-import React, { useEffect, useState } from 'react';
-import { IInput } from '../../../../../../defaultTypes';
-import { useTypedSelector } from '../../../../../../hooks/useTypedSelector';
-import { buttonTextConstants } from '../../../../../../utils/buttonTextConstants';
-import Avatara from '../../../../../Avatara';
-import CustomButton from '../../../../../CustomButton';
-import CustomInput from '../../../../../CustomInput';
-import FileChooser from '../../../../../FileChooser/FileChooser';
-import { useStyles } from '../../../../ModalWindow.styles';
+import { buttonTextConstants } from 'utils/buttonTextConstants';
+import { IInput } from 'defaultTypes';
+import { useStyles } from 'components/Modal/ModalWindow.styles';
+import Avatara from 'components/Avatara';
+import CustomButton from 'components/CustomButton';
+import CustomInput from 'components/CustomInput';
+import FileChooser from 'components/FileChooser';
+import { useDispatch } from 'react-redux';
+import { toggleModal } from 'reduxstore/modalReducer/modalActions';
 
 interface IUserData {
   firstName: string;
@@ -18,6 +19,7 @@ interface IUserData {
 }
 
 const LobbyContent: React.FC = () => {
+  const dispatch = useDispatch();
   const userState: IUserData = {
     lastName: '',
     firstName: '',
@@ -25,7 +27,6 @@ const LobbyContent: React.FC = () => {
     avatar: '',
     asObserver: false,
   };
-  const { modal } = useTypedSelector((state) => state);
   const classes = useStyles();
   const [userData, setUserData] = useState<IUserData>(userState);
   const [blobImage, setBlobImage] = useState<ArrayBuffer | string | null>();
@@ -61,13 +62,11 @@ const LobbyContent: React.FC = () => {
     setBlobImage(src);
   };
 
-  useEffect(() => console.log(userData), [userData]);
-
   return (
     <>
       <Container className={classes.modalHeaderContainer}>
         <Typography className={classes.modalHeader} variant="h2">
-          {modal.title}:
+          Connect to Lobby:
         </Typography>
         <FormControlLabel
           control={
@@ -104,7 +103,12 @@ const LobbyContent: React.FC = () => {
       )}
       <Container className={classes.buttonsBlock}>
         <CustomButton className={classes.btn} buttonCaption={buttonTextConstants.CONFIRM} />
-        <CustomButton className={classes.btn} buttonCaption={buttonTextConstants.CANCEL} variant="outlined" />
+        <CustomButton
+          className={classes.btn}
+          buttonCaption={buttonTextConstants.CANCEL}
+          variant="outlined"
+          onClick={() => dispatch(toggleModal({ isOpen: false }))}
+        />
       </Container>
     </>
   );

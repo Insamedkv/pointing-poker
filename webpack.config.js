@@ -73,6 +73,13 @@ module.exports = ({ development }) => ({
   ],
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
+    alias: {
+      components: path.resolve(__dirname, 'src/components/'),
+      defaultTypes: path.resolve(__dirname, 'src/defaultTypes.ts'),
+      hooks: path.resolve(__dirname, 'src/hooks/'),
+      reduxstore: path.resolve(__dirname, 'src/redux/'),
+      utils: path.resolve(__dirname, 'src/utils/'),
+    }
   },
   ...devServer(development),
 });
