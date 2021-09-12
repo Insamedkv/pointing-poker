@@ -20,19 +20,6 @@ const ModalWindow: React.FC = () => {
       <Modal open={modalState.isOpen} onClose={closeModalHandler}>
         <Container className={classes.modal}>
           <ModalBody modalType={modalState.modalType} />
-
-          {/* <Container className={classes.buttonsBlock}>
-            {modalState.buttons.map((button) => (
-              <CustomButton
-                key={button.buttonCaption}
-                buttonCaption={button.buttonCaption}
-                variant={button.variant}
-                color={button.color}
-                className={classes.btn}
-                onClick={button.onClick}
-              />
-            ))} 
-          </Container> */}
         </Container>
       </Modal>
     </>
