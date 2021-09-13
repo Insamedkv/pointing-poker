@@ -15,7 +15,12 @@ const Avatara: React.FC<IAvataraProps> = ({ avatar }) => {
 
   return (
     <>
-      <Avatar src={src} alt={lastName} className={sizeStyle} classes={{ root: classes.root }}>
+      <Avatar
+        src={src as string}
+        alt={lastName}
+        className={sizeStyle}
+        classes={{ root: classes.root, colorDefault: classes.colorDefault }}
+      >
         {shortName}
       </Avatar>
     </>
