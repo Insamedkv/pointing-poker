@@ -1,0 +1,60 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "lastName": "Ivabov",
+      "firstName": "Hachatryan",
+      "imgPath": "https://s3-alpha-sig.figma.com/img/bde8/9189/e50d7b26f23cf8d15830c4675759eddf?Expires=1632700800&Signature=IStzjvMKRDkzFyYPL83jMeY78NC-bREqaeZSsVNjk0KlsTH~xNzSPtYLAHqBEnxuktAwtuA64rFSSLl4I3hP2ehTU9bZocu8P4jd7uv5Xrqp3dBHhiM1RCYj2plohtUzNETW0Ukkk~ca5u7iEal8AO4-ZS4YEKunALue4zg2E3-4BA4GmzM0GbpjTL4Pmoq4I6~q1cuv6Uv2P6ETjUGechrwaQFRXH5EYrolcv16hLYdoBR-vCAMOsGEFDHv7bl9-N09N7JDFTVGDr3EAM2OiuDvYd4mB29D1QRjP7Dn4aZyKR0VLzct11XYbIAsAtfdEcQqP3GxkFUqiT6ohi6gbw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA",
+      "position": "Worker"
+    },
+    {
+      "id": 2,
+      "lastName": "Alica",
+      "firstName": "Nikanorova",
+      "imgPath": "https://s3-alpha-sig.figma.com/img/ece6/f0b6/775c9cac4ed96b1a5fa8806989239844?Expires=1632700800&Signature=RkOWrUyI6WqF2C-6LyeXklM1nkyxdsZ~4P6XteBjimxQONAy4bY~u3a9nHddw9drj9hNKPedxZw~qdehe-FWEdk9cc6KRnAgENShQYoNBDfD1vwvyw0yX~EDTEiFwRlhm~emGKNlHDrwMXR6aA8Hrs~UMWAPbtfV-54PRl5NV8ixiJ9kBAYE3InwEcqSXNVuuIyCaqe7SEpHWvV9yNNgIirlf65AwXN2omQN3XZJsCWkmB1WkvmHGM277TIl~E4XekEHfzWaCWQo8w8-URdncFEpGXefvzRiYCIfGjXwbFAPx499G3J-T5KY9zmmNhYzUoDg9wQGu34tzdkunCn8cg__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA",
+      "position": "Merchendaiser"
+    },
+    {
+      "id": 3,
+      "lastName": "",
+      "firstName": "On",
+      "imgPath": "https://s3-alpha-sig.figma.com/img/7998/d3c3/6ce94d9d22ee71fe300a730249aa5643?Expires=1632700800&Signature=NN9zTCCcX~TQLlyngz5BGwImg-zIZtXtAdxqKoEQG3mSDq3Uo2PETHc2gwWHSAiKeciak1ePRI1LxiWY8c1cEWh-AVgPoevqaOzcJLcIkzjxswHQCrqSZecRry0niU3YOliFceWOzILM7yFcbuKUXs6c-~dLGenfawWyqqu3NR3BHEZAiNWZI8yu5YJJRiJcX7psi-r~TBg0eqOQWkMcd~9o2CLBowjJfd7sqlhx8DOgHf557PMHBTrP2vb3J7lsV5nI7SufPW42STfAEV~9xk0B7WmfLGGJq2lTUrznfWTpPYA0CuFMALIGbROVzbRavFyPstbYTXjB-xYtTUHAFg__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA",
+      "position": "Mage"
+    },
+    {
+      "id": 4,
+      "lastName": "Hitrii",
+      "firstName": "Li",
+      "imgPath": "",
+      "position": "Deployer"
+    },
+    {
+      "id": 5,
+      "lastName": "Gennadij",
+      "firstName": "Hvastunev",
+      "imgPath": "",
+      "position": "Engeneer"
+    },
+    {
+      "id": 6,
+      "lastName": "Vasiliy",
+      "firstName": "Karamislov",
+      "imgPath": "",
+      "position": "Checkist"
+    },
+    {
+      "id": 7,
+      "firstName": "Paraskofen",
+      "lastName": "Valerianchik",
+      "imgPath": "https://get.pxhere.com/photo/white-medicine-close-up-product-pharmacy-drug-tooth-vitamins-medical-sick-medication-disease-diet-pills-multivitamin-808201.jpg",
+      "position": ""
+    },
+    {
+      "id": 8,
+      "lastName": "Samii",
+      "firstName": "Ynikalnii",
+      "imgPath": "",
+      "position": ""
+    }
+  ]
+}

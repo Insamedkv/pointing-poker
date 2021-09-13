@@ -5,24 +5,30 @@ import { createStyles, makeStyles } from '@material-ui/styles';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      // height: '120px',
+      position: 'relative',
+      height: '132px',
       // width: '500px',
       boxShadow: '0px 1px 4px rgba(0, 0, 0, .25)',
       borderRadius: '4px',
     },
     personName: {
-      width: '310px',
+      // width: '310px',
       whiteSpace: 'nowrap',
+      textAlign: 'center',
     },
     cardContent: {
       display: 'flex',
       justifyContent: 'space-between',
+      height: '91px',
       alignItems: 'center',
       padding: '18px 22px',
     },
     blockIcon: {
-      fontSize: '48px',
-      opacity: '.7',
+      position: 'absolute',
+      fontSize: '32px',
+      opacity: '.3',
+      top: '10px',
+      right: '15px',
       transition: 'all .2s ease-in-out',
       '&:hover': {
         cursor: 'pointer',
@@ -38,13 +44,13 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     upperText: {
-      padding: '0 5px',
       height: '14px',
       fontWeight: theme.typography.fontWeightBold,
+      textAlign: 'left',
     },
     lowerText: {
-      padding: '0 5px',
       height: '11px',
+      textAlign: 'right',
     },
   })
 );

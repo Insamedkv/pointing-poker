@@ -9,13 +9,14 @@ import { Header } from './Header/index';
 import { Footer } from './Footer/index';
 import { baseTheme } from '../utils/customTheme';
 import DealerPanel from './DealerPanel';
+import MembersList from './MembersList';
 
 export const App: FC = (): ReactElement => {
   const dispatch = useDispatch();
 
   return (
     <ThemeProvider theme={baseTheme}>
-      {/* <Header /> */}
+      <Header />
       <Container className="wrapper">
         <SprintHeader
           sprintId={'44'}
@@ -27,10 +28,7 @@ export const App: FC = (): ReactElement => {
           ]}
         />
         <DealerPanel />
-        <CustomButton
-          buttonCaption="Open modal"
-          onClick={() => dispatch(toggleModal({ isOpen: true, modalType: 'connectToLobby' }))}
-        />
+        <MembersList />
       </Container>
       <Footer />
       <ModalWindow />
