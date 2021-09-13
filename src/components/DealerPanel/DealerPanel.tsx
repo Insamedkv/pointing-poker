@@ -7,7 +7,7 @@ import { IUserInfo } from 'defaultTypes';
 import { buttonTextConstants } from 'utils/buttonTextConstants';
 import { useStyles } from './DealerPanel.styles';
 
-const DealerPanel = () => {
+const DealerPanel: React.FC = () => {
   const classes = useStyles();
   const userInfo: IUserInfo = {
     firstName: 'David',
@@ -17,6 +17,9 @@ const DealerPanel = () => {
   };
 
   const link = 'https://linkatolobby.com/room/fdsfa-kjkkgh-sdgfsd';
+
+  const startGame = () => {};
+  const cancelGame = () => {};
 
   return (
     <div className={classes.dealerPanel}>

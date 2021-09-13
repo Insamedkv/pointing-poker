@@ -14,8 +14,7 @@ const SprintHeader: React.FC<ISprintHeaderProps> = ({ sprintId, issuesList }) =>
   const baseTitle = `Sprint ${sprintId} planing, ISSUES: ${issuesList.map((issue) => issue.issueName).join(', ')}.`;
   const [title, setTitle] = useState(baseTitle);
 
-  const startGame = () => {};
-  const cancelGame = () => {};
+  const editTitle = () => {};
 
   return (
     <>
