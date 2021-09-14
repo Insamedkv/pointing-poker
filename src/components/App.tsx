@@ -1,7 +1,7 @@
 import React, { FC, ReactElement } from 'react';
 import { useDispatch } from 'react-redux';
 import { Container, ThemeProvider } from '@material-ui/core';
-import { toggleModal } from 'reduxstore/modalReducer/modalActions';
+import { toggleModal } from 'reduxstore/modalSlice/modalActions';
 import SprintHeader from 'components/SprintHeader';
 import ModalWindow from './Modal';
 import CustomButton from './CustomButton';
