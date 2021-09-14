@@ -5,7 +5,7 @@ const initialState: IModalState = {
   isOpen: false,
 };
 
-const modalReducer = createSlice({
+const modal = createSlice({
   name: 'modal',
   initialState,
   reducers: {
@@ -20,4 +20,4 @@ const modalReducer = createSlice({
   },
 });
 
-export default modalReducer;
+export default modal;

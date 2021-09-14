@@ -8,7 +8,7 @@ import CustomButton from 'components/CustomButton';
 import CustomInput from 'components/CustomInput';
 import FileChooser from 'components/FileChooser';
 import { useDispatch } from 'react-redux';
-import { toggleModal } from 'reduxstore/modalReducer/modalActions';
+import { toggleModal } from 'reduxstore/modalSlice/modalActions';
 
 interface IUserData {
   firstName: string;
