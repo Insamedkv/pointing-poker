@@ -24,6 +24,7 @@ const CustomInput: React.FC<IInputProps> = ({ input, button, name, onChange }) =
           fullWidth
           color="primary"
           className={requireClass}
+          readOnly={input.readOnly}
           classes={{ root: classes.root, focused: classes.focused, error: classes.inputError }}
           disableUnderline
           name={name}
@@ -31,6 +32,7 @@ const CustomInput: React.FC<IInputProps> = ({ input, button, name, onChange }) =
           error={isError}
           type={input.type || 'text'}
           onChange={onChange}
+          value={input.value}
         />
         {button && (
           <CustomButton

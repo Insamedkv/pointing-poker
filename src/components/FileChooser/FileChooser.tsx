@@ -1,6 +1,6 @@
-import React, { ChangeEvent, useState } from 'react';
-import path from 'path';
+import React from 'react';
 import { Button, Container, Input, InputLabel } from '@material-ui/core';
+import { buttonTextConstants } from 'utils/buttonTextConstants';
 import { useStyles } from './FileChooser.styles';
 
 interface IFileChooserProps {
@@ -55,7 +55,7 @@ const FileChooser: React.FC<IFileChooserProps> = ({ fieldName, value, getFile, s
           onClick={() => hiddenInputFile.click()}
           className={classes.inputButton}
         >
-          FILE
+          {buttonTextConstants.FILE}
         </Button>
       </Container>
     </>

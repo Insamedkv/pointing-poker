@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Modal } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { useTypedSelector } from 'hooks/useTypedSelector';
-import { toggleModal } from 'reduxstore/modalReducer/modalActions';
+import { toggleModal } from 'reduxstore/modalSlice/modalActions';
 import { ModalBody } from './Components/ModalBody';
 import { useStyles } from './ModalWindow.styles';
 

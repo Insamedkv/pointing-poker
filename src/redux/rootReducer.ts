@@ -1,8 +1,8 @@
 import { combineReducers } from '@reduxjs/toolkit';
-import modalReducer from './modalReducer';
+import modal from './modalSlice';
 
 const rootReducer = combineReducers({
-  modal: modalReducer.reducer,
+  modal: modal.reducer,
 });
 
 type RootState = ReturnType<typeof rootReducer>;
