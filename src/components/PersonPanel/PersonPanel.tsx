@@ -5,7 +5,7 @@ import CardContent from '@material-ui/core/CardContent';
 import BlockIcon from '@material-ui/icons/Block';
 import { useStyles } from './PersonPanel.styles';
 import Avatara from '../Avatara';
-import { IAvataraInfo } from '../../defaultTypes';
+import { IAvataraInfo, IUserInfo } from '../../defaultTypes';
 
 const testAva: IAvataraInfo = {
   firstName: 'David',
@@ -15,19 +15,14 @@ const testAva: IAvataraInfo = {
 };
 
 interface IPersonPanelProps {
-  userInfo: {
-    firstName: string;
-    lastName: string;
-    imgPath: string;
-    position: string;
-  };
+  userInfo: IUserInfo;
 }
 
 const PersonPanel: React.FC<IPersonPanelProps> = ({ userInfo }) => {
   const classes = useStyles();
   const { lastName, firstName, imgPath, position } = userInfo;
 
-  const isDiller = true;
+  const isDealer = true;
   const whatAmI = true;
 
   const getUserInfo = (): IAvataraInfo => {
@@ -49,14 +44,14 @@ const PersonPanel: React.FC<IPersonPanelProps> = ({ userInfo }) => {
           <Typography className={classes.upperText} variant="subtitle2">
             {whatAmI && 'IT’S YOU'}
           </Typography>
-          <Typography variant="h2">
-            {testAva.firstName} {testAva.lastName}
+          <Typography variant="h2" className={classes.personName}>
+            {userInfo.firstName} {userInfo.lastName}
           </Typography>
           <Typography className={classes.lowerText} variant="subtitle2">
             {position && position}
           </Typography>
         </Container>
-        {isDiller && <BlockIcon className={classes.blockIcon} />}
+        {isDealer && !whatAmI && <BlockIcon className={classes.blockIcon} />}
       </CardContent>
     </Card>
   );

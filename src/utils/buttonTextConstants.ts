@@ -1,6 +1,7 @@
 export const buttonTextConstants = {
   CONFIRM: 'Confirm',
   CANCEL: 'Cancel',
+  FILE: 'File',
   YES: 'Yes',
   NO: 'No',
   COPY: 'Copy',

@@ -5,10 +5,14 @@ import { createStyles, makeStyles } from '@material-ui/styles';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      height: '120px',
-      width: '500px',
+      // height: '120px',
+      // width: '500px',
       boxShadow: '0px 1px 4px rgba(0, 0, 0, .25)',
       borderRadius: '4px',
+    },
+    personName: {
+      width: '310px',
+      whiteSpace: 'nowrap',
     },
     cardContent: {
       display: 'flex',

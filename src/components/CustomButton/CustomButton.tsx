@@ -4,7 +4,13 @@ import { IButton } from '../../defaultTypes';
 
 const CustomButton: React.FC<IButton> = ({ buttonCaption, color, variant, onClick, className, size }) => {
   return (
-    <Button size={size} variant={variant} color={color} onClick={onClick} className={className}>
+    <Button
+      size={size}
+      variant={variant || 'contained'}
+      color={color || 'primary'}
+      onClick={onClick}
+      className={className}
+    >
       {buttonCaption}
     </Button>
   );
