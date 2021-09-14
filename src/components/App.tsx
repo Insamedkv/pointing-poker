@@ -28,8 +28,12 @@ export const App: FC = (): ReactElement => {
         />
         <DealerPanel />
         <CustomButton
-          buttonCaption="Open modal"
+          buttonCaption="Open lobby modal"
           onClick={() => dispatch(toggleModal({ isOpen: true, modalType: 'connectToLobby' }))}
+        />
+        <CustomButton
+          buttonCaption="Open kick modal"
+          onClick={() => dispatch(toggleModal({ isOpen: true, modalType: 'kickPlayer' }))}
         />
       </Container>
       <Footer />

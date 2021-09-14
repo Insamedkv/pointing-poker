@@ -9,10 +9,10 @@ export interface IModalAction {
 
 export interface IModalPayload {
   isOpen: boolean;
-  modalType?: 'connectToLobby' | 'kick';
+  modalType?: 'connectToLobby' | 'kickPlayer';
 }
 
 export interface IModalState {
   isOpen: boolean;
-  modalType?: 'connectToLobby' | 'kick';
+  modalType?: 'connectToLobby' | 'kickPlayer';
 }
