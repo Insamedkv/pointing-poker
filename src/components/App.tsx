@@ -9,6 +9,7 @@ import { Header } from './Header/index';
 import { Footer } from './Footer/index';
 import { baseTheme } from '../utils/customTheme';
 import DealerPanel from './DealerPanel';
+import IssueCreation from './IssueCreation';
 
 export const App: FC = (): ReactElement => {
   const dispatch = useDispatch();
@@ -17,16 +18,7 @@ export const App: FC = (): ReactElement => {
     <ThemeProvider theme={baseTheme}>
       {/* <Header /> */}
       <Container className="wrapper">
-        <SprintHeader
-          sprintId={'44'}
-          issuesList={[
-            { issueID: '1', issueLink: 'fdssd', issueName: 'ussue 443', issuePriority: 'low' },
-            { issueID: '2', issueLink: 'fasdfasdf', issueName: 'ussue 556', issuePriority: 'medium' },
-            { issueID: '3', issueLink: 'fdasdfasdfssd', issueName: 'ussue 12', issuePriority: 'low' },
-            { issueID: '4', issueLink: 'asdfasdf', issueName: 'ussue 64', issuePriority: 'hight' },
-          ]}
-        />
-        <DealerPanel />
+        <IssueCreation />
         <CustomButton
           buttonCaption="Open modal"
           onClick={() => dispatch(toggleModal({ isOpen: true, modalType: 'connectToLobby' }))}
