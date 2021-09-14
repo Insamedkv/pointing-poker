@@ -29,7 +29,7 @@ export const App: FC = (): ReactElement => {
           ]}
         />
         <DealerPanel />
-        <SectionHeader header="Members:" />
+        <SectionHeader header="Members" />
         <MembersList />
       </Container>
       <Footer />

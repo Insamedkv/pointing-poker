@@ -4,14 +4,16 @@ import { useStyles } from './SectionHeader.styles';
 
 interface ISectionHeaderProps {
   header: string;
+  withoutColon?: true;
 }
 
-const SectionHeader: React.FC<ISectionHeaderProps> = ({ header }) => {
+const SectionHeader: React.FC<ISectionHeaderProps> = ({ header, withoutColon }) => {
   const classes = useStyles();
+  const fullHeader = withoutColon ? header : `${header}:`;
 
   return (
     <Typography className={classes.root} variant="h5">
-      {header}
+      {fullHeader}
     </Typography>
   );
 };
