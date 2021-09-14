@@ -10,6 +10,7 @@ import { Footer } from './Footer/index';
 import { baseTheme } from '../utils/customTheme';
 import DealerPanel from './DealerPanel';
 import MembersList from './MembersList';
+import SectionHeader from './SectionHeader';
 
 export const App: FC = (): ReactElement => {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ export const App: FC = (): ReactElement => {
           ]}
         />
         <DealerPanel />
+        <SectionHeader header="Members:" />
         <MembersList />
       </Container>
       <Footer />
