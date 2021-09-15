@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Container, Fade, Grid, Slide, Zoom } from '@material-ui/core';
 import { IUserInfo } from 'defaultTypes';
+import * as list from 'utils/fakeData/fakeUser.json';
 import { useStyles } from './Chat.styles';
 import MessageBlock from './Components/MessageBlock';
 
@@ -10,14 +11,9 @@ interface IMessages {
 }
 
 const Chat: React.FC = () => {
+  const messagesList: Array<IMessages> = list.messages;
   const classes = useStyles();
   const [isOpenChat, setChatOpen] = useState(false);
-  const messagesList: Array<IMessages> = [
-    {
-      user: { lastName: 'Vladimir', firstName: 'Voba' },
-      message: { date: '12-05-2001', text: 'Hello!' },
-    },
-  ];
 
   const toggleChat = () => {
     setChatOpen((prev) => !prev);
@@ -26,13 +22,13 @@ const Chat: React.FC = () => {
   return (
     <>
       <Button onClick={toggleChat}>{isOpenChat.toString()}</Button>
-      <Slide in={isOpenChat} timeout={300}>
+      <Slide in={!isOpenChat} timeout={300}>
         <Container className={classes.chatMainContainer}>
-          <Grid container className={classes.chatWorkflow} spacing={1}>
-            {messagesList.map((message) => (
-              <MessageBlock key={message.message.text} user={message.user} message={message.message.text} />
+          <Container className={classes.chatWorkflow}>
+            {messagesList.map((msg, index) => (
+              <MessageBlock key={index} user={msg.user} message={msg.message} />
             ))}
-          </Grid>
+          </Container>
         </Container>
       </Slide>
     </>

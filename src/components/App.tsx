@@ -10,14 +10,16 @@ import { Header } from './Header/index';
 import { Footer } from './Footer/index';
 import { baseTheme } from '../utils/customTheme';
 import DealerPanel from './DealerPanel';
+import MembersList from './MembersList';
+import SectionHeader from './SectionHeader';
 
 export const App: FC = (): ReactElement => {
   const dispatch = useDispatch();
 
   return (
     <ThemeProvider theme={baseTheme}>
-      {/* <Header /> */}
-      <Container className="wrapper" style={{ height: '300vh' }}>
+      <Header />
+      <Container className="wrapper">
         <SprintHeader
           sprintId={'44'}
           issuesList={[
@@ -33,6 +35,8 @@ export const App: FC = (): ReactElement => {
           buttonCaption="Open modal"
           onClick={() => dispatch(toggleModal({ isOpen: true, modalType: 'connectToLobby' }))}
         />
+        <SectionHeader header="Members" />
+        <MembersList />
       </Container>
       <Footer />
       <ModalWindow />
