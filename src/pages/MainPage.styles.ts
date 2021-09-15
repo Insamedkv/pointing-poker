@@ -41,14 +41,13 @@ export const useStyles = makeStyles(({ palette }) => ({
     alignSelf: 'flex-start',
   },
   btn: {
-    background: `${SiteColors.MAIN_COLOR}`,
-    color: palette.common.white,
+    width: '220px',
   },
   connectGame: {
     width: '70%',
     height: '30%',
     display: 'flex',
-    justifyContent: 'space-evenly',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     flexDirection: 'column',
   },
@@ -68,9 +67,9 @@ export const useStyles = makeStyles(({ palette }) => ({
   inputURL: {
     marginRight: '10px',
     width: '300px',
-    // borderRadius: '0 0 0 20px',
+    borderRadius: '20px 0 0 0',
     height: '55px',
     boxShadow: '0px 5px 18px 1px grey',
-    padding: '5px 10px',
+    padding: '5px 30px',
   },
 }));
