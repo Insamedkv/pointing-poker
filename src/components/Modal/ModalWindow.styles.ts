@@ -14,6 +14,12 @@ const useStyles = makeStyles(({ typography, palette }) => ({
     border: `2px solid ${palette.grey[400]}`,
     overflow: 'auto',
   },
+  modalBodyContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    minHeight: '500px',
+  },
   buttonsBlock: {
     display: 'flex',
     justifyContent: 'space-between',
