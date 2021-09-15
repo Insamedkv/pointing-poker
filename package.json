@@ -11,8 +11,7 @@
   "prettier": {
     "singleQuote": true,
     "printWidth": 120,
-    "no-console": "warn",
-    "end-of-line": "auto"
+    "no-console": "warn"
   },
   "author": "Kris Casper",
   "devDependencies": {
