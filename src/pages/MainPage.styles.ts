@@ -38,14 +38,11 @@ export const useStyles = makeStyles(({ palette }) => ({
   },
   label: {
     fontSize: '30px',
+    alignSelf: 'flex-start',
   },
   btn: {
     background: `${SiteColors.MAIN_COLOR}`,
     color: palette.common.white,
-  },
-  btnHover: {
-    // background: `${SiteColors.MAIN_COLOR}`,
-    color: 'red',
   },
   connectGame: {
     width: '70%',
@@ -55,11 +52,25 @@ export const useStyles = makeStyles(({ palette }) => ({
     alignItems: 'center',
     flexDirection: 'column',
   },
+  titleToConnect: {
+    cursor: 'default',
+    fontSize: '50px',
+    color: `${SiteColors.THIRD_COLOR}`,
+    fontWeight: 'bold',
+    alignSelf: 'center',
+    width: '50%',
+  },
   wrapSecondBlock: {
     alignSelf: 'start',
     display: 'flex',
     alignItems: 'center',
-    // justifyContent: 'flex-start',
-    // width: '50%',
+  },
+  inputURL: {
+    marginRight: '10px',
+    width: '300px',
+    // borderRadius: '0 0 0 20px',
+    height: '55px',
+    boxShadow: '0px 5px 18px 1px grey',
+    padding: '5px 10px',
   },
 }));

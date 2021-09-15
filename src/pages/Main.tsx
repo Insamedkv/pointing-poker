@@ -9,9 +9,6 @@ export const Main: FC = () => {
         <Route exact path="/">
           <MainPage />
         </Route>
-        <Route exact path="/game">
-          <MainPage />
-        </Route>
       </Switch>
     </Router>
   );

@@ -20,9 +20,12 @@ const MainPage: FC = (): ReactElement => {
         </Box>
       </Box>
       <Box className={classes.connectGame}>
-        <Typography className={classes.title}>OR:</Typography>
+        <Typography className={classes.titleToConnect}>OR:</Typography>
+        <Box component="span" className={classes.label}>
+          Create session:
+        </Box>
         <Box className={classes.wrapSecondBlock}>
-          <Input />
+          <Input className={classes.inputURL} />
           <CustomButton buttonCaption="Connect" />
         </Box>
       </Box>
