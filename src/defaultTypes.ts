@@ -35,6 +35,7 @@ export interface IUserInfo {
   lastName?: string;
   position?: string;
   imgPath?: string;
+  id?: string | number;
 }
 
 export interface ICardItemProps {
