@@ -9,6 +9,7 @@ import { Header } from './Header/index';
 import { Footer } from './Footer/index';
 import { baseTheme } from '../utils/customTheme';
 import DealerPanel from './DealerPanel';
+import PersonPanel from './PersonPanel';
 
 export const App: FC = (): ReactElement => {
   const dispatch = useDispatch();

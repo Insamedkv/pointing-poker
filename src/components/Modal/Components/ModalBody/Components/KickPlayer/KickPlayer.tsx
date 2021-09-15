@@ -8,12 +8,32 @@ import { useKickPlayerStyles } from './KickPlayer.styles';
 const KickPlayer: React.FC = () => {
   const classes = useStyles();
   const kickPlayerclasses = useKickPlayerStyles();
-  const isDealer = false;
+  const isDealer = true;
 
   const player = '4elik';
   const initiator = 'AgroTelka';
-  const dealerMessage = `Are you really want to remove player ${player} from game session?`;
-  const playerMessage = `${initiator} want to kick member ${player}. Do you agree with it? `;
+  const getDealerMessage = () => (
+    <>
+      Are you really want to remove player{' '}
+      <Typography component="span" className={kickPlayerclasses.playerName}>
+        {player}
+      </Typography>{' '}
+      from game session?
+    </>
+  );
+  const getPlayerMessage = () => (
+    <>
+      <Typography component="span" className={kickPlayerclasses.playerName}>
+        {initiator}
+      </Typography>{' '}
+      want to kick member{' '}
+      <Typography component="span" className={kickPlayerclasses.playerName}>
+        {player}
+      </Typography>
+      .
+      <br /> Do you agree with it?
+    </>
+  );
 
   return (
     <>
@@ -23,7 +43,11 @@ const KickPlayer: React.FC = () => {
         </Typography>
       </Container>
 
-      <Typography>{isDealer ? dealerMessage : playerMessage}</Typography>
+      <Container>
+        <Typography variant="body1" className={kickPlayerclasses.bodyMessage}>
+          {isDealer ? getDealerMessage() : getPlayerMessage()}
+        </Typography>
+      </Container>
 
       <Container className={classes.buttonsBlock}>
         <CustomButton className={classes.btn} buttonCaption={buttonTextConstants.YES} />
