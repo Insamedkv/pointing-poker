@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Container, ThemeProvider } from '@material-ui/core';
 import { toggleModal } from 'reduxstore/modalSlice/modalActions';
 import SprintHeader from 'components/SprintHeader';
+import Chat from 'components/Chat';
 import ModalWindow from './Modal';
 import CustomButton from './CustomButton';
 import { Header } from './Header/index';
@@ -16,7 +17,7 @@ export const App: FC = (): ReactElement => {
   return (
     <ThemeProvider theme={baseTheme}>
       {/* <Header /> */}
-      <Container className="wrapper">
+      <Container className="wrapper" style={{ height: '300vh' }}>
         <SprintHeader
           sprintId={'44'}
           issuesList={[
@@ -27,6 +28,7 @@ export const App: FC = (): ReactElement => {
           ]}
         />
         <DealerPanel />
+        <Chat />
         <CustomButton
           buttonCaption="Open modal"
           onClick={() => dispatch(toggleModal({ isOpen: true, modalType: 'connectToLobby' }))}
