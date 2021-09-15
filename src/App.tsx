@@ -5,6 +5,7 @@ import { Footer } from './components/Footer/index';
 import { baseTheme } from './utils/customTheme';
 import { Main } from './pages/Main';
 import { useStyles } from './App.styles';
+import ModalWindow from './components/Modal/index';
 
 export const App: FC = (): ReactElement => {
   const classes = useStyles();
@@ -15,6 +16,7 @@ export const App: FC = (): ReactElement => {
         <Header />
         <Main />
         <Footer />
+        <ModalWindow />
       </Container>
     </ThemeProvider>
   );

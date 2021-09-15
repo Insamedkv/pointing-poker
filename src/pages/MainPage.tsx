@@ -1,12 +1,10 @@
 import { Avatar, Box, Container, Input, Typography } from '@material-ui/core';
 import React, { FC, ReactElement } from 'react';
-import ReactDOM from 'react-dom';
 import { toggleModal } from 'reduxstore/modalSlice/modalActions';
 import { useDispatch } from 'react-redux';
 import { useStyles } from './MainPage.styles';
 import MainImage from '../asset/Main_img.png';
 import CustomButton from '../components/CustomButton';
-import ModalWindow from '../components/Modal/index';
 
 const MainPage: FC = (): ReactElement => {
   const classes = useStyles();
@@ -21,7 +19,11 @@ const MainPage: FC = (): ReactElement => {
           <Box component="span" className={classes.label}>
             Create session:
           </Box>
-          <CustomButton buttonCaption={'Start new game'} className={classes.btn} />
+          <CustomButton
+            buttonCaption={'Start new game'}
+            className={classes.btn}
+            onClick={() => dispatch(toggleModal({ isOpen: true, modalType: 'connectToLobby' }))}
+          />
         </Box>
       </Box>
       <Box className={classes.connectGame}>
