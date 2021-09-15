@@ -22,32 +22,39 @@ type IIssueProps = IPropsForShow | IPropsForCreate;
 
 const IssueCard: React.FC<IIssueProps> = ({ mode, issue }) => {
   const classes = useStyles();
-
-  const issueObj: IIssue = {
-    issueID: 'dafasdf-asdfas-asdf2334f34f-23fsfs',
-    issueName: 'ISSUE 554',
-    issueLink: 'http://jira.../',
-    issuePriority: 'low',
-  };
+  const isCreateMode = mode === 'create';
+  const isInProgress = issue?.issueStatus === 'progress';
 
   const isGameStarted = false;
-  const isDiller = true;
+  const isDealer = true;
 
-  const deleteFunction = () => {};
-  const editFunction = () => {};
+  const deleteFunction = (event: React.MouseEvent) => {
+    event.stopPropagation();
+    console.log(`Delete ${issue?.issueID}`);
+  };
+
+  const editFunction = (event: React.MouseEvent) => {
+    event.stopPropagation();
+    console.log(`Edit ${issue?.issueID}`);
+  };
+
   const createFunction = () => {};
+
+  const setAsCurrent = () => {
+    if (isDealer && !isCreateMode) console.log(`Current:`, issue?.issueID);
+  };
 
   const setControls = (): JSX.Element => {
     if (!isGameStarted) {
       return (
         <>
           <EditOutlinedIcon
-            onClick={() => console.log('Edit!')}
+            onClick={(event: React.MouseEvent) => editFunction(event)}
             fontSize="large"
             classes={{ root: classes.controlElement }}
           />
           <DeleteOutlineIcon
-            onClick={() => console.log('Delete!')}
+            onClick={(event: React.MouseEvent) => deleteFunction(event)}
             fontSize="large"
             color="error"
             classes={{ root: classes.controlElement }}
@@ -59,8 +66,16 @@ const IssueCard: React.FC<IIssueProps> = ({ mode, issue }) => {
   };
 
   return (
-    <Card className={classNames(classes.root, issue?.inProgress && classes.currentIssue)}>
-      {mode === 'create' ? (
+    <Card
+      className={classNames(
+        classes.root,
+        isInProgress && classes.currentIssue,
+        isCreateMode && classes.issueCreator,
+        isDealer && classes.issueCreator
+      )}
+      onClick={setAsCurrent}
+    >
+      {isCreateMode ? (
         <>
           <CardContent className={classes.cardBody}>
             <Typography variant="h5">Create new Issue</Typography>
@@ -74,7 +89,7 @@ const IssueCard: React.FC<IIssueProps> = ({ mode, issue }) => {
             <Typography variant="subtitle2">Priority: {issue?.issuePriority}</Typography>
           </CardContent>
 
-          {isDiller && <Container classes={{ root: classes.actionContainer }}>{setControls()}</Container>}
+          {isDealer && <Container classes={{ root: classes.actionContainer }}>{setControls()}</Container>}
         </>
       )}
     </Card>
