@@ -9,17 +9,33 @@ export interface IButton {
 
 export interface IAvataraInfo {
   firstName: string;
-  lastName: string;
+  lastName?: string;
   size: 'large' | 'medium';
-  src?: string;
+  src?: string | ArrayBuffer;
 }
 
 export interface IIssue {
   issueID: string;
   issueName: string;
   issueLink: string;
-  issuePriority: 'low' | 'medium' | 'hight';
-  inProgress?: boolean;
+  issuePriority: 'low' | 'medium' | 'high';
+  issueStatus: 'opened' | 'closed' | 'progress';
+}
+
+export interface IInput {
+  label: string;
+  type?: 'text' | 'number' | 'file' | 'date';
+  readOnly?: boolean;
+  required?: boolean;
+  value?: string;
+}
+
+export interface IUserInfo {
+  firstName: string;
+  lastName?: string;
+  position?: string;
+  imgPath?: string;
+  id?: string | number;
 }
 
 export interface ICardItemProps {
