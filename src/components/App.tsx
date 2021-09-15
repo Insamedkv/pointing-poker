@@ -30,9 +30,27 @@ export const App: FC = (): ReactElement => {
           sprintId={'44'}
           issuesList={[
             { issueID: '1', issueLink: 'fdssd', issueName: 'ussue 443', issuePriority: 'low', issueStatus: 'opened' },
-            { issueID: '2', issueLink: 'fasdfasdf', issueName: 'ussue 556', issuePriority: 'medium', issueStatus: 'opened' },
-            { issueID: '3', issueLink: 'fdasdfasdfssd', issueName: 'ussue 12', issuePriority: 'low', issueStatus: 'opened' },
-            { issueID: '4', issueLink: 'asdfasdf', issueName: 'ussue 64', issuePriority: 'high', issueStatus: 'opened' },
+            {
+              issueID: '2',
+              issueLink: 'fasdfasdf',
+              issueName: 'ussue 556',
+              issuePriority: 'medium',
+              issueStatus: 'opened',
+            },
+            {
+              issueID: '3',
+              issueLink: 'fdasdfasdfssd',
+              issueName: 'ussue 12',
+              issuePriority: 'low',
+              issueStatus: 'opened',
+            },
+            {
+              issueID: '4',
+              issueLink: 'asdfasdf',
+              issueName: 'ussue 64',
+              issuePriority: 'high',
+              issueStatus: 'opened',
+            },
           ]}
         />
         <DealerPanel />
