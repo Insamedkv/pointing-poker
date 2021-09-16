@@ -8,7 +8,7 @@ import CustomButton from 'components/CustomButton';
 import CustomInput from 'components/CustomInput';
 import FileChooser from 'components/FileChooser';
 import { useDispatch } from 'react-redux';
-import { toggleModal } from 'reduxstore/modalSlice/modalActions';
+import { closeModal } from 'reduxstore/modalSlice/modalSlice';
 
 interface IUserData {
   firstName: string;
@@ -107,7 +107,7 @@ const LobbyContent: React.FC = () => {
           className={classes.btn}
           buttonCaption={buttonTextConstants.CANCEL}
           variant="outlined"
-          onClick={() => dispatch(toggleModal({ isOpen: false }))}
+          onClick={() => dispatch(closeModal())}
         />
       </Container>
     </>
