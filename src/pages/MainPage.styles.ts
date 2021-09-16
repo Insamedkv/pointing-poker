@@ -1,10 +1,10 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { SiteColors } from '../utils/styleConstants';
 
-export const useStyles = makeStyles(() => ({
+export const useStyles = makeStyles(({ shadows }) => ({
   mainContainer: {
     height: 'calc(100vh - 120px)',
-    maxWidth: 'none',
+    maxWidth: '1120px',
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
@@ -12,8 +12,8 @@ export const useStyles = makeStyles(() => ({
     alignItems: 'center',
   },
   image: {
-    width: '555px',
-    height: '150px',
+    width: 'auto',
+    height: 'auto',
     borderRadius: '0px',
   },
   title: {
@@ -23,8 +23,7 @@ export const useStyles = makeStyles(() => ({
     fontWeight: 'bold',
   },
   startNewGame: {
-    width: '70%',
-    height: '22%',
+    alignSelf: 'flex-start',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
@@ -33,18 +32,16 @@ export const useStyles = makeStyles(() => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    width: '50%',
   },
   label: {
     fontSize: '30px',
     alignSelf: 'flex-start',
   },
   btn: {
-    width: '220px',
+    width: 'auto',
   },
   connectGame: {
-    width: '70%',
-    height: '30%',
+    alignSelf: 'flex-start',
     display: 'flex',
     justifyContent: 'flex-start',
     alignItems: 'center',
@@ -68,7 +65,8 @@ export const useStyles = makeStyles(() => ({
     width: '300px',
     borderRadius: '20px 0 0 0',
     height: '55px',
-    boxShadow: '0px 5px 18px 1px grey',
+    border: `1px solid ${SiteColors.SECONDARY_COLOR}`,
+    boxShadow: shadows[7],
     padding: '5px 30px',
   },
 }));
