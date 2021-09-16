@@ -13,6 +13,7 @@ import PersonPanel from './PersonPanel';
 import IssueCreation from './IssueCreation';
 import MembersList from './MembersList';
 import SectionHeader from './SectionHeader';
+import GameSettings from './GameSettings';
 
 export const App: FC = (): ReactElement => {
   const dispatch = useDispatch();
@@ -22,6 +23,9 @@ export const App: FC = (): ReactElement => {
       <Header />
       <Container className="wrapper">
         <IssueCreation />
+
+        <GameSettings />
+
         <CustomButton
           buttonCaption="Open modal"
           onClick={() => dispatch(toggleModal({ isOpen: true, modalType: 'connectToLobby' }))}
