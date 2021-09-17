@@ -2,7 +2,8 @@ import React, { FC, ReactElement } from 'react';
 import { useDispatch } from 'react-redux';
 import { Container, ThemeProvider } from '@material-ui/core';
 import SprintHeader from 'components/SprintHeader';
-import { connectToLobby, kickPlayer } from 'reduxstore/modalSlice/modalActions';
+import { kickOutPlayer } from 'reduxstore/modalSlice/modalActions';
+import { connectToLobby } from 'reduxstore/modalSlice/modalSlice';
 import ModalWindow from './Modal';
 import CustomButton from './CustomButton';
 import { Header } from './Header/index';
@@ -51,8 +52,11 @@ export const App: FC = (): ReactElement => {
           ]}
         />
         <DealerPanel />
-        <CustomButton buttonCaption="Open lobby modal" onClick={() => dispatch(connectToLobby())} />
-        <CustomButton buttonCaption="Open kick modal" onClick={() => dispatch(kickPlayer({ player: '4elik' }))} />
+        <CustomButton
+          buttonCaption="Open lobby modal"
+          onClick={() => dispatch(connectToLobby('https://connectToLobby.com/root/sdfdsfds'))}
+        />
+        <CustomButton buttonCaption="Open kick modal" onClick={() => dispatch(kickOutPlayer('4eliks'))} />
         <SectionHeader header="Members" />
         <MembersList />
       </Container>

@@ -9,6 +9,7 @@ import CustomInput from 'components/CustomInput';
 import FileChooser from 'components/FileChooser';
 import { useDispatch } from 'react-redux';
 import { closeModal } from 'reduxstore/modalSlice/modalSlice';
+import { useTypedSelector } from 'hooks/useTypedSelector';
 
 interface IUserData {
   firstName: string;
@@ -19,6 +20,7 @@ interface IUserData {
 }
 
 const LobbyContent: React.FC = () => {
+  const modalState = useTypedSelector((state) => state.modal);
   const dispatch = useDispatch();
   const userState: IUserData = {
     lastName: '',
