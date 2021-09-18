@@ -1,6 +1,27 @@
-import { createAction } from '@reduxjs/toolkit';
-import { modalActions as actions, IModalPayload } from './modalActionTypes';
+import { createAction, PrepareAction } from '@reduxjs/toolkit';
+import { ModalActions as actions, IKickPlayerPayload } from './modalActionTypes';
 
-const toggleModal = createAction<IModalPayload>(actions.TOGGLE_MODAL);
+// const connectToLobby = createAction<PrepareAction<IModalActionPayloads>>(
+//   actions.CONNECT_TO_LOBBY,
+//   (linkToLobby: string) => {
+//     return {
+//       payload: {
+//         linkToLobby,
+//       },
+//     };
+//   }
+// );
 
-export { toggleModal };
+const kickOutPlayer = createAction<PrepareAction<IKickPlayerPayload>>(
+  actions.KICK_PLAYER,
+  (player: string, initiator: string) => {
+    return {
+      payload: {
+        player,
+        initiator,
+      },
+    };
+  }
+);
+
+export { kickOutPlayer };
