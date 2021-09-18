@@ -2,16 +2,17 @@ import React from 'react';
 import { Container, Typography } from '@material-ui/core';
 import CustomButton from 'components/CustomButton';
 import { buttonTextConstants } from 'utils/buttonTextConstants';
+import { useTypedSelector } from 'hooks/useTypedSelector';
 import { useStyles } from 'components/Modal/ModalWindow.styles';
 import { useKickPlayerStyles } from './KickPlayer.styles';
 
 const KickPlayer: React.FC = () => {
   const classes = useStyles();
+  const { player, initiator } = useTypedSelector((state) => state.modal);
+  console.log(player, initiator);
   const kickPlayerclasses = useKickPlayerStyles();
   const isDealer = true;
 
-  const player = '4elik';
-  const initiator = 'AgroTelka';
   const getDealerMessage = () => (
     <>
       Are you really want to remove player{' '}
