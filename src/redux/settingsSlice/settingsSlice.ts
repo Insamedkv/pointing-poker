@@ -50,10 +50,13 @@ const settingsSlice = createSlice({
       ...state,
       shortScoreType: action.payload,
     }),
-    // time: {
+    setTimer: (state, action: PayloadAction<ITime>) => ({
+      ...state,
+      time: action.payload,
+    }),
   },
 });
 
 export default settingsSlice;
-export const { changeMasterAsPalyer, allowChangeCardInEnd, toggleTimer, setScoreType, setShortScoreType } =
+export const { changeMasterAsPalyer, allowChangeCardInEnd, toggleTimer, setScoreType, setShortScoreType, setTimer } =
   settingsSlice.actions;

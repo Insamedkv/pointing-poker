@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Container, Fade, FormControlLabel, Switch } from '@material-ui/core';
 import CustomInput from 'components/CustomInput';
 import SectionHeader from 'components/SectionHeader';
-import { Timer } from 'components/Timer';
 import { useTypedSelector } from 'hooks/useTypedSelector';
+import SetTimeComponent from 'components/SetTimeComponent';
 import {
   allowChangeCardInEnd,
   changeMasterAsPalyer,
@@ -110,7 +110,7 @@ const GameSettings: React.FC = () => {
         <FormControlLabel
           className={classes.controlSize}
           classes={{ label: classes.label }}
-          control={<Timer />}
+          control={<SetTimeComponent />}
           label="Round time:"
           labelPlacement="start"
         />
