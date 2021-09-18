@@ -1,8 +1,9 @@
 import React, { FC, ReactElement } from 'react';
 import { useDispatch } from 'react-redux';
 import { Container, ThemeProvider } from '@material-ui/core';
-import { toggleModal } from 'reduxstore/modalSlice/modalActions';
 import SprintHeader from 'components/SprintHeader';
+import { kickOutPlayer } from 'reduxstore/modalSlice/modalActions';
+import { connectToLobby } from 'reduxstore/modalSlice/modalSlice';
 import ModalWindow from './Modal';
 import CustomButton from './CustomButton';
 import { Header } from './Header/index';
@@ -22,10 +23,7 @@ export const App: FC = (): ReactElement => {
       <Header />
       <Container className="wrapper">
         <IssueCreation />
-        <CustomButton
-          buttonCaption="Open modal"
-          onClick={() => dispatch(toggleModal({ isOpen: true, modalType: 'connectToLobby' }))}
-        />
+        <CustomButton buttonCaption="Open modal" onClick={() => dispatch(connectToLobby())} />
         <SprintHeader
           sprintId={'44'}
           issuesList={[
@@ -56,12 +54,9 @@ export const App: FC = (): ReactElement => {
         <DealerPanel />
         <CustomButton
           buttonCaption="Open lobby modal"
-          onClick={() => dispatch(toggleModal({ isOpen: true, modalType: 'connectToLobby' }))}
+          onClick={() => dispatch(connectToLobby('https://connectToLobby.com/root/sdfdsfds'))}
         />
-        <CustomButton
-          buttonCaption="Open kick modal"
-          onClick={() => dispatch(toggleModal({ isOpen: true, modalType: 'kickPlayer' }))}
-        />
+        <CustomButton buttonCaption="Open kick modal" onClick={() => dispatch(kickOutPlayer('4eliks'))} />
         <SectionHeader header="Members" />
         <MembersList />
       </Container>

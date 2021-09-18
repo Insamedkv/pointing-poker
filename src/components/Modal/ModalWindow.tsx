@@ -1,8 +1,8 @@
 import React from 'react';
 import { Container, Modal } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
+import { closeModal } from 'reduxstore/modalSlice/modalSlice';
 import { useTypedSelector } from 'hooks/useTypedSelector';
-import { toggleModal } from 'reduxstore/modalSlice/modalActions';
 import { ModalBody } from './Components/ModalBody';
 import { useStyles } from './ModalWindow.styles';
 
@@ -12,7 +12,7 @@ const ModalWindow: React.FC = () => {
   const dispatch = useDispatch();
 
   const closeModalHandler = () => {
-    dispatch(toggleModal({ isOpen: false }));
+    dispatch(closeModal());
   };
 
   return (
