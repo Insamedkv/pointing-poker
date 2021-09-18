@@ -4,9 +4,11 @@ import { BackgrCardColor, AdditionalColors } from '../../utils/styleConstants';
 
 export const useStyles = makeStyles({
   cardStyles: {
-    margin: '80px',
-    width: '250px',
-    height: '350px',
+    margin: '10px',
+    width: '12%',
+    minWidth: '125px',
+    height: '40%',
+    minHeight: '200px',
     boxShadow: `2px 2px 5px 2px ${grey.A200}`,
     boxSizing: 'border-box',
     display: 'flex',
@@ -14,7 +16,7 @@ export const useStyles = makeStyles({
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: '20px',
-    fontSize: '25px',
+    fontSize: '1.2rem',
     borderRadius: '20px',
     fontWeight: 900,
     position: 'relative',
@@ -24,7 +26,7 @@ export const useStyles = makeStyles({
     cursor: 'default',
   },
   cardImage: {
-    width: '130px',
+    width: '80%',
     height: 'auto',
     borderRadius: '0',
   },
