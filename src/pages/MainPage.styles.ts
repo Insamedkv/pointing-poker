@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { SiteColors } from '../utils/styleConstants';
 
-export const useStyles = makeStyles(({ shadows }) => ({
+export const useStyles = makeStyles(({ palette, shadows }) => ({
   mainContainer: {
     height: 'calc(100vh - 120px)',
     maxWidth: '1120px',
@@ -68,5 +68,15 @@ export const useStyles = makeStyles(({ shadows }) => ({
     border: `1px solid ${SiteColors.SECONDARY_COLOR}`,
     boxShadow: shadows[7],
     padding: '5px 30px',
+  },
+  btnConnect: {
+    width: 'auto',
+    height: '50px',
+    background: `${SiteColors.MAIN_COLOR}`,
+    padding: '10px 20px',
+    color: palette.common.white,
+    '&:hover': {
+      background: `${SiteColors.SECONDARY_COLOR}`,
+    },
   },
 }));
