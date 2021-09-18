@@ -1,6 +1,7 @@
 import { Avatar, Box, Container, Input, Typography, Button } from '@material-ui/core';
 import React, { FC, ReactElement, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { connectToLobby } from 'reduxstore/modalSlice/modalSlice';
 import { useStyles } from './MainPage.styles';
 import MainImage from '../asset/Main_img.png';
 import CustomButton from '../components/CustomButton';
@@ -20,7 +21,11 @@ const MainPage: FC = (): ReactElement => {
           <Box component="span" className={classes.label}>
             Create session:
           </Box>
-          <CustomButton buttonCaption={'Start new game'} className={classes.btn} />
+          <CustomButton
+            buttonCaption={'Start new game'}
+            className={classes.btn}
+            onClick={() => dispatch(connectToLobby())}
+          />
         </Box>
       </Box>
       <Box className={classes.connectGame}>
@@ -40,7 +45,7 @@ const MainPage: FC = (): ReactElement => {
               }
             }}
           />
-          <Button className={classes.btnConnect} disabled={disabledBtn} onClick={() => dispatch(cоnnectToLobby(value))}>
+          <Button className={classes.btnConnect} disabled={disabledBtn} onClick={() => dispatch(connectToLobby(value))}>
             Connect
           </Button>
         </Box>
