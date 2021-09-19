@@ -7,6 +7,8 @@ import { useStyles } from './SetTimeComponent.style';
 
 const SECONDS = 'seconds';
 const MINUTES = 'minutes';
+const MAX_MIN = 99;
+const MAX_SEC = 59;
 
 const SetTimeComponent: React.FC = () => {
   const classes = useStyles();
@@ -18,16 +20,23 @@ const SetTimeComponent: React.FC = () => {
     return result;
   };
 
+  const checkValue = (value: number, maxValue: number) => {
+    if (value > maxValue) return maxValue;
+    if (value < 0) return 0;
+    return value;
+  };
+
   const setTimeValue = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     const { value, name } = event.target;
-    const updatedTime = { ...time, [name]: Number(value) };
+    const maxValue = name === SECONDS ? MAX_SEC : MAX_MIN;
+    const updatedTime = { ...time, [name]: checkValue(Number(value), maxValue) };
     dispatch(setTimer(updatedTime));
   };
 
   return (
     <Container className={classes.timerContainer}>
       <Input
-        inputProps={{ max: 99, min: 0 }}
+        inputProps={{ max: MAX_MIN, min: 0 }}
         classes={{ input: classes.inputTime }}
         type="number"
         name={MINUTES}
@@ -38,7 +47,7 @@ const SetTimeComponent: React.FC = () => {
         :
       </Typography>
       <Input
-        inputProps={{ max: 59, min: 0 }}
+        inputProps={{ max: MAX_SEC, min: 0 }}
         classes={{ input: classes.inputTime }}
         type="number"
         name={SECONDS}
