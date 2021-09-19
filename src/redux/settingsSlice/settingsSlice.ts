@@ -30,30 +30,24 @@ const settingsSlice = createSlice({
   name: 'settings',
   initialState,
   reducers: {
-    changeMasterAsPalyer: (state, action: PayloadAction<boolean>) => ({
-      ...state,
-      scrumMasterAsPlayer: action.payload,
-    }),
-    allowChangeCardInEnd: (state, action: PayloadAction<boolean>) => ({
-      ...state,
-      changingCardInEnd: action.payload,
-    }),
-    toggleTimer: (state, action: PayloadAction<boolean>) => ({
-      ...state,
-      isTimerNeeded: action.payload,
-    }),
-    setScoreType: (state, action: PayloadAction<string>) => ({
-      ...state,
-      scoreType: action.payload,
-    }),
-    setShortScoreType: (state, action: PayloadAction<string>) => ({
-      ...state,
-      shortScoreType: action.payload,
-    }),
-    setTimer: (state, action: PayloadAction<ITime>) => ({
-      ...state,
-      time: action.payload,
-    }),
+    changeMasterAsPalyer: (state, action: PayloadAction<boolean>) => {
+      state.scrumMasterAsPlayer = action.payload;
+    },
+    allowChangeCardInEnd: (state, action: PayloadAction<boolean>) => {
+      state.changingCardInEnd = action.payload;
+    },
+    toggleTimer: (state, action: PayloadAction<boolean>) => {
+      state.isTimerNeeded = action.payload;
+    },
+    setScoreType: (state, action: PayloadAction<string>) => {
+      state.scoreType = action.payload;
+    },
+    setShortScoreType: (state, action: PayloadAction<string>) => {
+      state.shortScoreType = action.payload;
+    },
+    setTimer: (state, action: PayloadAction<ITime>) => {
+      state.time = action.payload;
+    },
   },
 });
 
