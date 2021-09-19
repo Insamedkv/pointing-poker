@@ -2,6 +2,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import { baseTheme } from '../../utils/customTheme';
 
 export const useStyles = makeStyles({
+  appBar: {
+    position: 'static',
+  },
   container: {
     width: '100%',
     height: 'auto',

@@ -62,7 +62,7 @@ const CreateIssue: React.FC = () => {
     <>
       <Container>
         <Typography className={classes.modalHeader} variant="h2">
-          Create Issue
+          {currentIssue ? 'Edit Issue' : 'Create Issue'}
         </Typography>
       </Container>
 
