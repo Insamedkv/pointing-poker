@@ -1,0 +1,140 @@
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { Container, Fade, FormControlLabel, Switch } from '@material-ui/core';
+import CustomInput from 'components/CustomInput';
+import SectionHeader from 'components/SectionHeader';
+import { useTypedSelector } from 'hooks/useTypedSelector';
+import SetTimeComponent from 'components/SetTimeComponent';
+import {
+  allowChangeCardInEnd,
+  changeMasterAsPalyer,
+  setScoreType,
+  setShortScoreType,
+  toggleTimer,
+} from 'reduxstore/settingsSlice/settingsSlice';
+import { useStyles } from './GameSettings.styles';
+
+const GameSettings: React.FC = () => {
+  const classes = useStyles();
+  const gameSettings = useTypedSelector((state) => state.settings);
+  const dispatch = useDispatch();
+
+  return (
+    <Container component="section" className={classes.gameSettingsContainer}>
+      <SectionHeader header="Game settings" />
+      <FormControlLabel
+        className={classes.controlSize}
+        classes={{ label: classes.label }}
+        control={
+          <Switch
+            classes={{
+              root: classes.switcherRoot,
+              switchBase: classes.switcherBase,
+              checked: classes.checked,
+              track: classes.track,
+              thumb: classes.thumb,
+            }}
+            name="asObserver"
+            color="primary"
+            checked={gameSettings.scrumMasterAsPlayer}
+            onChange={(event) => {
+              const { checked } = event.target;
+              dispatch(changeMasterAsPalyer(checked));
+            }}
+          />
+        }
+        label="Scrum master as player:"
+        labelPlacement="start"
+      />
+      <FormControlLabel
+        className={classes.controlSize}
+        classes={{ label: classes.label }}
+        checked={gameSettings.changingCardInEnd}
+        control={
+          <Switch
+            classes={{
+              root: classes.switcherRoot,
+              switchBase: classes.switcherBase,
+              checked: classes.checked,
+              track: classes.track,
+              thumb: classes.thumb,
+            }}
+            name="asObserver"
+            color="primary"
+            onChange={(event) => {
+              const { checked } = event.target;
+              dispatch(allowChangeCardInEnd(checked));
+            }}
+          />
+        }
+        label="Changing card in round end:"
+        labelPlacement="start"
+      />
+      <FormControlLabel
+        className={classes.controlSize}
+        classes={{ label: classes.label }}
+        control={
+          <Switch
+            classes={{
+              root: classes.switcherRoot,
+              switchBase: classes.switcherBase,
+              checked: classes.checked,
+              track: classes.track,
+              thumb: classes.thumb,
+            }}
+            name="asObserver"
+            color="primary"
+            checked={gameSettings.isTimerNeeded}
+            onChange={(event) => {
+              const { checked } = event.target;
+              dispatch(toggleTimer(checked));
+            }}
+          />
+        }
+        label="Is timer needed:"
+        labelPlacement="start"
+      />
+      <FormControlLabel
+        className={classes.controlSize}
+        classes={{ label: classes.label }}
+        control={
+          <CustomInput
+            input={{ label: '', value: gameSettings.scoreType }}
+            onChange={(event) => {
+              const { value } = event.target;
+              dispatch(setScoreType(value));
+            }}
+          />
+        }
+        label="Score type:"
+        labelPlacement="start"
+      />
+      <FormControlLabel
+        className={classes.controlSize}
+        classes={{ label: classes.label }}
+        control={
+          <CustomInput
+            input={{ label: '', value: gameSettings.shortScoreType }}
+            onChange={(event) => {
+              const { value } = event.target;
+              dispatch(setShortScoreType(value));
+            }}
+          />
+        }
+        label="Score type(short):"
+        labelPlacement="start"
+      />
+      <Fade in={gameSettings.isTimerNeeded}>
+        <FormControlLabel
+          className={classes.controlSize}
+          classes={{ label: classes.label }}
+          control={<SetTimeComponent />}
+          label="Round time:"
+          labelPlacement="start"
+        />
+      </Fade>
+    </Container>
+  );
+};
+
+export default GameSettings;
