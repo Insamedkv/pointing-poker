@@ -27,7 +27,13 @@ const GameSettings: React.FC = () => {
         classes={{ label: classes.label }}
         control={
           <Switch
-            className={classes.switcherStyles}
+            classes={{
+              root: classes.switcherRoot,
+              switchBase: classes.switcherBase,
+              checked: classes.checked,
+              track: classes.track,
+              thumb: classes.thumb,
+            }}
             name="asObserver"
             color="primary"
             checked={gameSettings.scrumMasterAsPlayer}
@@ -46,7 +52,13 @@ const GameSettings: React.FC = () => {
         checked={gameSettings.changingCardInEnd}
         control={
           <Switch
-            className={classes.switcherStyles}
+            classes={{
+              root: classes.switcherRoot,
+              switchBase: classes.switcherBase,
+              checked: classes.checked,
+              track: classes.track,
+              thumb: classes.thumb,
+            }}
             name="asObserver"
             color="primary"
             onChange={(event) => {
@@ -63,7 +75,13 @@ const GameSettings: React.FC = () => {
         classes={{ label: classes.label }}
         control={
           <Switch
-            className={classes.switcherStyles}
+            classes={{
+              root: classes.switcherRoot,
+              switchBase: classes.switcherBase,
+              checked: classes.checked,
+              track: classes.track,
+              thumb: classes.thumb,
+            }}
             name="asObserver"
             color="primary"
             checked={gameSettings.isTimerNeeded}
