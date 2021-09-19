@@ -18,6 +18,7 @@ export const useStyles = makeStyles({
     borderRadius: '20px',
     fontWeight: 900,
     position: 'relative',
+    zIndex: 12,
   },
   btn: {
     width: '100%',

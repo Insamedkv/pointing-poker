@@ -39,5 +39,8 @@ export interface IUserInfo {
 }
 
 export interface ICardItemProps {
-  name: string;
+  name?: string;
+  onClick?: React.MouseEventHandler;
+  className?: string;
+  value?: string;
 }
