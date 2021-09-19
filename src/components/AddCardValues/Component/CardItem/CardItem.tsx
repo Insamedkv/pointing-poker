@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import { Avatar, Box, Card } from '@material-ui/core';
-import { useStyles } from './Card.styles';
+import { useStyles } from './CardItem.styles';
 import CardIconCoffee from '../../../../asset/CardIconCoffee.png';
 import SPIcon from '../../../../asset/SPIcon.png';
 import ApprovedCardIcon from '../../../../asset/ApprovedCardIcon.png';

@@ -1,23 +1,25 @@
 import React, { FC, useState } from 'react';
 import { Container } from '@material-ui/core';
-import { ICardInstanceProps } from 'defaultTypes';
 import { useStyles } from './AddCardValues.styles';
 import { CardItem } from './Component/CardItem/CardItem';
 import { CardBack } from './Component/CardBack/index';
 import { CardForAdd } from './Component/CardForAdd/CardForAdd';
 
+interface ICardInstanceProps {
+  value: string;
+}
+
 export const AddCardValues: FC = () => {
   const classes = useStyles();
   const [dataCards, setDataCards] = useState(['1', 'Unknown', '13']);
 
-  const CardList: FC<ICardInstanceProps> = ({ val }) => {
+  const CardInstance: FC<ICardInstanceProps> = ({ value }) => {
     const [flip, setFlip] = useState<boolean>(false);
-    const itemVal = val;
 
     return (
       <Container>
         <CardItem
-          name={val}
+          name={value}
           className={flip === true ? classes.cardStylesBack : classes.cardStylesFront}
           onClick={() => {
             setFlip(!flip);
@@ -26,7 +28,6 @@ export const AddCardValues: FC = () => {
         <CardBack
           onClick={() => setFlip(!flip)}
           className={flip === true ? classes.cardStylesFront : classes.cardStylesBack}
-          value={itemVal}
         />
       </Container>
     );
@@ -34,13 +35,9 @@ export const AddCardValues: FC = () => {
 
   return (
     <Container className={classes.cardsContainer}>
-      <CardForAdd
-        onClick={() => {
-          setDataCards([...dataCards, '15']);
-        }}
-      />
-      {dataCards.map((item, index) => (
-        <CardList key={index} val={item} />
+      <CardForAdd onClick={() => setDataCards((prev) => [...prev, '15'])} />
+      {dataCards.map((card, index) => (
+        <CardInstance key={index} value={card} />
       ))}
     </Container>
   );

@@ -44,3 +44,7 @@ export interface ICardItemProps {
   className?: string;
   value?: string;
 }
+
+export interface ICardInstanceProps {
+  val: string;
+}

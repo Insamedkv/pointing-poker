@@ -3,12 +3,12 @@ import { ICardItemProps } from 'defaultTypes';
 import React, { FC } from 'react';
 import { useStyles } from './CardBack.styles';
 
-export const CardBack: FC<ICardItemProps> = ({ onClick, className }) => {
+export const CardBack: FC<ICardItemProps> = ({ onClick, className, value }) => {
   const classes = useStyles();
 
   return (
     <Container className={className}>
-      <Input className={classes.input} />
+      <Input className={classes.input} value={value} />
       <Button className={classes.btn} onClick={onClick}>
         Submit
       </Button>
