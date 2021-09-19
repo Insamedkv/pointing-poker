@@ -15,6 +15,9 @@ const devServer = (isDev) => !isDev ? {} : {
     contentBase: path.join(__dirname, 'public'),
     hot: true,
     compress: true,
+    overlay: true,
+    historyApiFallback: true,
+    contentBase: path.resolve(__dirname, '../', 'public'),
   },
 };
 
@@ -30,6 +33,7 @@ module.exports = ({ development }) => ({
     filename: '[name].[contenthash].js',
     path: path.resolve(__dirname, 'dist'),
     assetModuleFilename: 'assets/[hash][ext]',
+    publicPath: '/',
   },
   module: {
     rules: [
