@@ -3,7 +3,7 @@ import { grey } from '@material-ui/core/colors';
 
 export const useStyles = makeStyles(() => ({
   timerWrap: {
-    margin: '100px auto',
+    margin: 0,
     width: '250px',
     height: '100px',
     display: 'flex',

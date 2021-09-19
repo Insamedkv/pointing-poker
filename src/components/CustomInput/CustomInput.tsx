@@ -18,7 +18,7 @@ const CustomInput: React.FC<IInputProps> = ({ input, button, name, onChange }) =
 
   return (
     <>
-      <InputLabel className={classes.inputLabel}>{input.label}:</InputLabel>
+      {input.label && <InputLabel className={classes.inputLabel}>{input.label}:</InputLabel>}
       <Container className={classes.container}>
         <Input
           fullWidth

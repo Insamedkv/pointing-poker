@@ -23,7 +23,7 @@ export interface IIssue {
 }
 
 export interface IInput {
-  label: string;
+  label?: string;
   type?: 'text' | 'number' | 'file' | 'date';
   readOnly?: boolean;
   required?: boolean;
