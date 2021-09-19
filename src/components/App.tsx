@@ -10,7 +10,6 @@ import { Header } from './Header/index';
 import { Footer } from './Footer/index';
 import { baseTheme } from '../utils/customTheme';
 import DealerPanel from './DealerPanel';
-import PersonPanel from './PersonPanel';
 import IssueCreation from './IssueCreation';
 import MembersList from './MembersList';
 import SectionHeader from './SectionHeader';
@@ -52,10 +51,7 @@ export const App: FC = (): ReactElement => {
           ]}
         />
         <DealerPanel />
-        <CustomButton
-          buttonCaption="Open lobby modal"
-          onClick={() => dispatch(connectToLobby('https://connectToLobby.com/root/sdfdsfds'))}
-        />
+        <CustomButton buttonCaption="Open lobby modal" onClick={() => dispatch(connectToLobby(''))} />
         <CustomButton buttonCaption="Open kick modal" onClick={() => dispatch(kickOutPlayer('4eliks'))} />
         <SectionHeader header="Members" />
         <MembersList />

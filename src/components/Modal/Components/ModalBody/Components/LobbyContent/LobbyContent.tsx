@@ -67,7 +67,7 @@ const LobbyContent: React.FC = () => {
   return (
     <>
       <Container className={classes.modalHeaderContainer}>
-        <Typography className={classes.modalHeader} variant="h2">
+        <Typography className={classes.modalHeaderAlternative} variant="h2">
           Connect to Lobby:
         </Typography>
         <FormControlLabel

@@ -1,16 +1,14 @@
 import { createAction, PrepareAction } from '@reduxjs/toolkit';
-import { ModalActions as actions, IKickPlayerPayload } from './modalActionTypes';
+import { ModalActions as actions, IKickPlayerPayload, ICreateIssueActionPayload } from './modalActionTypes';
 
-// const connectToLobby = createAction<PrepareAction<IModalActionPayloads>>(
-//   actions.CONNECT_TO_LOBBY,
-//   (linkToLobby: string) => {
-//     return {
-//       payload: {
-//         linkToLobby,
-//       },
-//     };
-//   }
-// );
+const createIssue = createAction<PrepareAction<ICreateIssueActionPayload>>(
+  actions.CONNECT_TO_LOBBY,
+  (payload: ICreateIssueActionPayload) => {
+    return {
+      payload,
+    };
+  }
+);
 
 const kickOutPlayer = createAction<PrepareAction<IKickPlayerPayload>>(
   actions.KICK_PLAYER,
@@ -24,4 +22,4 @@ const kickOutPlayer = createAction<PrepareAction<IKickPlayerPayload>>(
   }
 );
 
-export { kickOutPlayer };
+export { kickOutPlayer, createIssue };

@@ -39,7 +39,7 @@ const KickPlayer: React.FC = () => {
   return (
     <>
       <Container>
-        <Typography className={kickPlayerclasses.modalHeader} variant="h2">
+        <Typography className={classes.modalHeader} variant="h2">
           Kick player?
         </Typography>
       </Container>
