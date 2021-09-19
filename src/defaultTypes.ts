@@ -39,7 +39,9 @@ export interface IUserInfo {
 }
 
 export interface ICardItemProps {
+  valueIndex: number;
   name?: string;
+  onSubmit?: (indexValue: number, value: string) => void;
   onClick?: React.MouseEventHandler;
   className?: string;
   value?: string;
