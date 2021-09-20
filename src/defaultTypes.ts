@@ -15,11 +15,12 @@ export interface IAvataraInfo {
 }
 
 export interface IIssue {
-  issueID: string;
   issueName: string;
   issueLink: string;
   issuePriority: 'low' | 'medium' | 'high';
   issueStatus: 'opened' | 'closed' | 'progress';
+  issueID?: string;
+  isCurrent?: boolean;
 }
 
 export interface IInput {

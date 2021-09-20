@@ -1,9 +1,12 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Card, CardContent, Container, Typography } from '@material-ui/core';
+import { dropIssue } from 'reduxstore/issuesSlice';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
 import AddOutlinedIcon from '@material-ui/icons/AddOutlined';
+import { editIssueModal } from 'reduxstore/modalSlice/modalSlice';
 import classNames from 'classnames';
 import { useStyles } from './IssueCard.styles';
 import { IIssue } from '../../defaultTypes';
@@ -21,6 +24,7 @@ interface IPropsForShow {
 type IIssueProps = IPropsForShow | IPropsForCreate;
 
 const IssueCard: React.FC<IIssueProps> = ({ mode, issue }) => {
+  const dispatch = useDispatch();
   const classes = useStyles();
   const isCreateMode = mode === 'create';
   const isInProgress = issue?.issueStatus === 'progress';
@@ -28,17 +32,15 @@ const IssueCard: React.FC<IIssueProps> = ({ mode, issue }) => {
   const isGameStarted = false;
   const isDealer = true;
 
-  const deleteFunction = (event: React.MouseEvent) => {
+  const deleteIssue = (event: React.MouseEvent) => {
     event.stopPropagation();
-    console.log(`Delete ${issue?.issueID}`);
+    if (issue?.issueID) dispatch(dropIssue(issue.issueID));
   };
 
-  const editFunction = (event: React.MouseEvent) => {
+  const editIssue = (event: React.MouseEvent) => {
     event.stopPropagation();
-    console.log(`Edit ${issue?.issueID}`);
+    if (issue?.issueID) dispatch(editIssueModal(issue.issueID));
   };
-
-  const createFunction = () => {};
 
   const setAsCurrent = () => {
     if (isDealer && !isCreateMode) console.log(`Current:`, issue?.issueID);
@@ -49,12 +51,12 @@ const IssueCard: React.FC<IIssueProps> = ({ mode, issue }) => {
       return (
         <>
           <EditOutlinedIcon
-            onClick={(event: React.MouseEvent) => editFunction(event)}
+            onClick={(event: React.MouseEvent) => editIssue(event)}
             fontSize="large"
             classes={{ root: classes.controlElement }}
           />
           <DeleteOutlineIcon
-            onClick={(event: React.MouseEvent) => deleteFunction(event)}
+            onClick={(event: React.MouseEvent) => deleteIssue(event)}
             fontSize="large"
             color="error"
             classes={{ root: classes.controlElement }}

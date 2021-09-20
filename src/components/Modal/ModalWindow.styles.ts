@@ -39,6 +39,12 @@ const useStyles = makeStyles(({ typography, palette }) => ({
     paddingBottom: '20px',
   },
   modalHeader: {
+    fontSize: '64px',
+    fontWeight: typography.fontWeightBold,
+    textAlign: 'center',
+    marginTop: '15px',
+  },
+  modalHeaderAlternative: {
     fontWeight: typography.fontWeightBold,
   },
 }));

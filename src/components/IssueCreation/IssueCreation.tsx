@@ -1,25 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Container, Grid } from '@material-ui/core';
 import IssueCard from 'components/IssueCard';
-import * as data from 'utils/fakeData/fakeIssues.json';
 import IssueList from 'components/IssueList';
-import { IIssue } from 'defaultTypes';
+import { useTypedSelector } from 'hooks/useTypedSelector';
+import { createIssueModal } from 'reduxstore/modalSlice/modalSlice';
 import { useStyles } from './IssueCreation.styles';
 
 const IssueCreation: React.FC = () => {
+  const issues = useTypedSelector((state) => state.issues);
   const classes = useStyles();
-  const [issues, setIssue] = useState(data.issues as Array<IIssue>);
+  const dispatch = useDispatch();
 
   const addIssue = () => {
-    const newIssue: IIssue = {
-      issueID: `${Date.now()}`,
-      issueLink: 'www.kaka9tolinka.re',
-      issueName: `issue ${Math.floor(Math.random() * 1000)}`,
-      issuePriority: 'high',
-      issueStatus: 'opened',
-    };
-
-    setIssue((prev) => [...prev, newIssue]);
+    dispatch(createIssueModal());
   };
 
   return (
@@ -35,16 +29,5 @@ const IssueCreation: React.FC = () => {
     </Container>
   );
 };
-
-/*
-  ISSUE LIST
-  
-  <Grid item sm={6}>
-    {issues.map((issue) => (
-      <IssueCard key={issue.issueID} mode="show" issue={issue} />
-    ))}
-  </Grid>
-
-*/
 
 export default IssueCreation;
