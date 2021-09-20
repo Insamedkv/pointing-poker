@@ -37,6 +37,7 @@ const useStyles = makeStyles(({ palette, typography, shadows }) => ({
     display: 'flex',
     width: '465px',
     margin: 0,
+    padding: '0 0 0 24px',
   },
   inputLabel: {
     color: palette.common.black,

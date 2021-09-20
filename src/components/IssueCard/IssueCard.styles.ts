@@ -2,7 +2,7 @@ import { Theme } from '@material-ui/core';
 import { createStyles, makeStyles } from '@material-ui/styles';
 import { AdditionalColors } from '../../utils/styleConstants';
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(({ shadows, palette }: Theme) =>
   createStyles({
     root: {
       display: 'flex',
@@ -11,17 +11,15 @@ const useStyles = makeStyles((theme: Theme) =>
       width: '250px',
       height: '64px',
       margin: '2px 0 14px 0',
-      boxShadow: theme.shadows[4],
+      boxShadow: shadows[6],
       transition: 'all .2s ease-in-out',
-      '&:hover': {
-        transform: 'scale(1.1)',
-      },
       '&:hover .MuiSvgIcon-root': {
         opacity: '.6',
       },
     },
     currentIssue: {
       background: AdditionalColors.AV10,
+      boxShadow: shadows[10],
     },
     cardBody: {
       width: '100%',
@@ -42,6 +40,15 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       '&:active': {
         transform: 'scale(1)',
+      },
+    },
+    issueCreator: {
+      cursor: 'pointer',
+      '&:hover': {
+        transform: 'scale(1.1)',
+      },
+      '&:active': {
+        background: palette.divider,
       },
     },
   })

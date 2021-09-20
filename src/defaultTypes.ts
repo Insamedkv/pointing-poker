@@ -18,12 +18,12 @@ export interface IIssue {
   issueID: string;
   issueName: string;
   issueLink: string;
-  issuePriority: 'low' | 'medium' | 'hight';
-  inProgress?: boolean;
+  issuePriority: 'low' | 'medium' | 'high';
+  issueStatus: 'opened' | 'closed' | 'progress';
 }
 
 export interface IInput {
-  label: string;
+  label?: string;
   type?: 'text' | 'number' | 'file' | 'date';
   readOnly?: boolean;
   required?: boolean;

@@ -9,7 +9,7 @@ export const useStyles = makeStyles(({ palette }) => ({
     alignItems: 'center',
     justifyContent: 'center',
     padding: '0px',
-    width: '100%',
+    width: '100vw',
   },
   title: {
     display: 'flex',
