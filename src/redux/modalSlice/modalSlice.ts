@@ -16,6 +16,16 @@ const modal = createSlice({
       modalType: ModalTypes.CONNECT_TO_LOBBY,
       linkToLobby: action.payload,
     }),
+    createIssueModal: (): IModalState => ({
+      isOpen: true,
+      modalType: ModalTypes.CREATE_ISSUE,
+    }),
+    editIssueModal: (state, action: PayloadAction<string>) => ({
+      // string = issue ID
+      isOpen: true,
+      modalType: ModalTypes.CREATE_ISSUE,
+      editableIssueID: action.payload,
+    }),
   },
   extraReducers: (builder) => {
     builder.addCase(
@@ -31,4 +41,4 @@ const modal = createSlice({
 });
 
 export default modal;
-export const { closeModal, connectToLobby } = modal.actions;
+export const { closeModal, connectToLobby, createIssueModal, editIssueModal } = modal.actions;

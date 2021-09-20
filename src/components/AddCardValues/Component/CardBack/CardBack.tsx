@@ -3,18 +3,31 @@ import { ICardItemProps } from 'defaultTypes';
 import React, { FC, useState } from 'react';
 import { useStyles } from './CardBack.styles';
 
-export const CardBack: FC<ICardItemProps> = ({ onClick, className, onSubmit, valueIndex }) => {
+export const CardBack: FC<ICardItemProps> = ({ className, onSubmit, valueIndex, value }) => {
   const classes = useStyles();
-  const [value, setValue] = useState('');
+  const [valueChange, setValueChanged] = useState(`${value}`);
+  const [disabledBtn, setDisabledBtn] = useState<boolean>(false);
 
   return (
     <Container className={className}>
-      <Input className={classes.input} onChange={(event) => setValue(event.target.value)} />
+      <Input
+        className={classes.input}
+        onChange={(event) => {
+          setValueChanged(event.target.value);
+          if (valueChange !== '') {
+            setDisabledBtn(false);
+          } else {
+            setDisabledBtn(true);
+          }
+        }}
+        value={valueChange}
+      />
       <Button
         className={classes.btn}
         onClick={() => {
-          if (onSubmit) onSubmit(valueIndex, value);
+          if (onSubmit) onSubmit(valueIndex, valueChange);
         }}
+        disabled={disabledBtn}
       >
         Submit
       </Button>

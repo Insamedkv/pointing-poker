@@ -4,11 +4,11 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import { ICardItemProps } from 'defaultTypes';
 import { useStyles } from './CardForAdd.styles';
 
-export const CardForAdd: FC<ICardItemProps> = ({ onClick }) => {
+export const CardForAdd: FC<ICardItemProps> = ({ onClick, className }) => {
   const classes = useStyles();
 
   return (
-    <Card className={classes.cardStyles} onClick={onClick}>
+    <Card className={className} onClick={onClick}>
       <IconButton className={classes.btn}>
         <AddCircleIcon className={classes.cardIcon} />
       </IconButton>

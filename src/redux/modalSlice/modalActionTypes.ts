@@ -7,6 +7,7 @@ export enum ModalActions {
 export enum ModalTypes {
   CONNECT_TO_LOBBY = 'connectToLobby',
   KICK_PLAYER = 'kickPlayer',
+  CREATE_ISSUE = 'createIssue',
 }
 
 export type IModalState = IGlobalModalState | IStateForConnect | IStateForKick;
@@ -16,10 +17,11 @@ export type IModalActions = IConnectToLobbyAction | IKickPlayerAction;
 //  STATE
 export interface IGlobalModalState {
   isOpen: boolean;
-  modalType?: ModalTypes.CONNECT_TO_LOBBY | ModalTypes.KICK_PLAYER;
+  modalType?: ModalTypes.CONNECT_TO_LOBBY | ModalTypes.KICK_PLAYER | ModalTypes.CREATE_ISSUE;
   linkToLobby?: string;
   player?: string;
   initiator?: string;
+  editableIssueID?: string;
 }
 
 interface IStateForConnect extends IGlobalModalState {
@@ -41,6 +43,12 @@ export interface IConnectToLobbyPayload {
 export interface IKickPlayerPayload {
   player: string; // ID
   initiator: string; // ID
+}
+
+export interface ICreateIssueActionPayload {
+  issueName: string;
+  issuePriority: 'low' | 'medium' | 'high';
+  issueLink?: string;
 }
 
 //  ACTIONS

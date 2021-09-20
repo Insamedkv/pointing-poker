@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { Container } from '@material-ui/core';
 import { ICardInstanceProps } from 'defaultTypes';
 import { useStyles } from './AddCardValues.styles';
@@ -9,6 +9,7 @@ import { CardForAdd } from './Component/CardForAdd/CardForAdd';
 export const AddCardValues: FC = () => {
   const classes = useStyles();
   const [dataCards, setDataCards] = useState(['1', 'Unknown', '13']);
+  const [flipAddCard, setFlipAddCard] = useState<boolean>(false);
 
   const changeValue = (index: number, newValue: string) => {
     setDataCards((prev) => {
@@ -16,11 +17,16 @@ export const AddCardValues: FC = () => {
     });
   };
 
-  useEffect(() => console.log(dataCards), [dataCards]);
+  const createNewCard = (index: number, newValue: string) => {
+    setFlipAddCard(!flipAddCard);
+    setDataCards((prev) => {
+      return [...prev, newValue];
+    });
+  };
 
   const CardInstance: FC<ICardInstanceProps> = ({ val, valueIndex }) => {
     const [flip, setFlip] = useState<boolean>(false);
-    // const itemVal = val;
+    const itemVal = val;
 
     return (
       <Container>
@@ -33,11 +39,11 @@ export const AddCardValues: FC = () => {
           }}
         />
         <CardBack
-          onClick={() => setFlip(!flip)}
+          // onClick={() => setFlip(!flip)}
           onSubmit={changeValue}
           valueIndex={valueIndex}
           className={flip === true ? classes.cardStylesFront : classes.cardStylesBack}
-          // value={itemVal}
+          value={itemVal}
         />
       </Container>
     );
@@ -45,7 +51,18 @@ export const AddCardValues: FC = () => {
 
   return (
     <Container className={classes.cardsContainer}>
-      <CardForAdd valueIndex={99999999} onClick={() => setDataCards((prev) => [...prev, '15'])} />
+      <CardForAdd
+        valueIndex={99999999}
+        className={flipAddCard === true ? classes.cardStylesBack : classes.cardStyles}
+        onClick={() => setFlipAddCard(!flipAddCard)}
+      />
+      <CardBack
+        // onClick={() => setFlipAddCard(!flipAddCard)}
+        onSubmit={createNewCard}
+        value={''}
+        className={flipAddCard === true ? classes.cardStylesFront : classes.cardStylesBack}
+        valueIndex={99999998}
+      />
       {dataCards.map((card, index) => (
         <CardInstance key={index} valueIndex={index} val={card} />
       ))}

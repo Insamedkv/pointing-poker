@@ -29,4 +29,22 @@ export const useStyles = makeStyles({
   cardStylesBack: {
     display: 'none',
   },
+  cardStyles: {
+    margin: '10px',
+    width: '12%',
+    minWidth: '125px',
+    height: '40%',
+    minHeight: '200px',
+    boxShadow: `2px 2px 5px 2px ${grey.A200}`,
+    boxSizing: 'border-box',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '20px',
+    fontSize: '25px',
+    borderRadius: '20px',
+    fontWeight: 900,
+    position: 'relative',
+    zIndex: 12,
+  },
 });
