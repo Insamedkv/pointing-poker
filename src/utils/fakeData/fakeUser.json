@@ -56,5 +56,47 @@
       "imgPath": "",
       "position": ""
     }
+  ],
+  "messages": [
+    {
+      "user": { "lastName": "Za4afran", "firstName": "Zhik" },
+      "message": { "date": "14.09 22:10", "text": "Hello!" }
+    },
+    {
+      "user": { "lastName": "Poduwnik", "firstName": "Olleg" },
+      "message": { "date": "14.09 22:12", "text": "Hi!" }
+    },
+    {
+      "user": { "lastName": "Hramoi", "firstName": "Bill" },
+      "message": { "date": "14.09 22:13", "text": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Harum, optio exercitationem magnam, sint vel deserunt nulla nostrum quo distinctio iste corrupti cupiditate eum minus, inventore cumque repellat veniam possimus officia.!" }
+    },
+    {
+      "user": { "lastName": "Rizii", "firstName": "Kolya" },
+      "message": { "date": "14.09 22:13", "text": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Harum, optio exercitationem magnam, sint vel deserunt nulla nostrum quo distinctio iste corrupti cupiditate eum minus, inventore cumque repellat veniam possimus officia.!" }
+    },
+    {
+      "user": { "lastName": "Lipkii", "firstName": "Gosha", "position": "Worker" },
+      "message": { "date": "14.09 22:14", "text": "Lorem ipsum, dolor sit amet consectetur adipisicing!" }
+    },
+    {
+      "user": { "lastName": "Zhiza", "firstName": "Zdorova" },
+      "message": { "date": "14.09 22:15", "text": "Lorem iplit. Harum, optio exercitationem magnam, sint vel deserunt nulla nostrum quo distinctio iste corrupti cupiditate eum minus, inventore cumque repellat veniam possimus officia.!" }
+    },
+    {
+      "user": { "lastName": "Alka", "firstName": "Chuan" },
+      "message": { "date": "14.09 22:19", "text": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Harum, optio exercitationem magnam, sint vel deserunt nui cupiditate eum minus, inventore cumque repellat veniam possimus officia.!" }
+    },
+    {
+      "user": { "lastName": "Remif", "firstName": "Krinka" },
+      "message": { "date": "14.09 22:22", "text": "Bazarvokzalposoni!" }
+    },
+    {
+      "user": { "lastName": "Vam", "firstName": "Tut" },
+      "message": { "date": "14.09 22:27", "text": "GoodBye!" }
+    },
+    {
+      "user": { "lastName": "Ne", "firstName": "Zdes" },
+      "message": { "date": "14.09 22:27", "text": "GoodBye!" }
+    }
   ]
 }
