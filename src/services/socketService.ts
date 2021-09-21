@@ -1,24 +1,45 @@
 import io, { Socket } from 'socket.io-client';
+import { fromEvent, Observable } from 'rxjs';
+import { IUserInfo } from 'defaultTypes';
 import { Event } from './constants';
-import { Bet, ChatMessage, IssueCreate, IssueUpdate, SocketRules, UserSocket, VoteResult } from './serviceTypes';
+import {
+  Bet,
+  ChatMessage,
+  Issue,
+  IssueCreate,
+  IssueResp,
+  IssueUpdate,
+  SocketRules,
+  UserSocket,
+  VoteResult,
+} from './serviceTypes';
 
 export class SocketService {
   private socket: Socket = {} as Socket;
 
   public init(): SocketService {
-    console.log('Initializing Socket Service');
-    this.socket = io('http://localhost:4000/api');
+    console.log('Initializing Socket Service...');
+    this.socket = io('http://localhost:4000/');
     return this;
   }
 
-  public join(userRoom: UserSocket): void {
-    console.log(`${userRoom.userId} joined ${userRoom.roomId}`);
-    this.socket.emit(Event.JOIN, userRoom);
+  public test(): void {
+    this.socket.on('clientConnected', (id) => console.log('I connected with', id));
   }
 
-  public message(message: ChatMessage): void {
-    console.log(`Sending Message: ${message}`);
-    this.socket.emit(Event.MESSAGE, message);
+  public getUsersInRoom(setUsers: any): void {
+    this.socket.on(Event.ONJOIN, (users) => {
+      console.log('Now in lobby:', users);
+      setUsers(users);
+    });
+  }
+
+  public onJoin(user: string): void {
+    this.socket.emit(Event.JOIN, user); // redux
+  }
+
+  public onMessage(): void {
+    this.socket.on(Event.MESSAGE, (msg) => console.log(msg)); // redux
   }
 
   public bet(bet: Bet): void {
@@ -26,9 +47,16 @@ export class SocketService {
     this.socket.emit(Event.BET, bet);
   }
 
-  public issueCreate(issue: IssueCreate): void {
+  public issueCreate(roomId: string, issue: Issue): void {
     console.log(`Issue: ${issue}`);
-    this.socket.emit(Event.ISSUE_CREATE, issue);
+    this.socket.emit(Event.ISSUE_CREATE, { roomId, issue });
+  }
+
+  public getIssues(setIssues: any): void {
+    this.socket.on(Event.ON_ISSUE_CREATE, (issuesList: Array<IssueResp>) => {
+      console.log(issuesList);
+      setIssues(issuesList);
+    });
   }
 
   public issueUpdate(issue: IssueUpdate): void {

@@ -18,7 +18,7 @@ export type IModalActions = IConnectToLobbyAction | IKickPlayerAction;
 export interface IGlobalModalState {
   isOpen: boolean;
   modalType?: ModalTypes.CONNECT_TO_LOBBY | ModalTypes.KICK_PLAYER | ModalTypes.CREATE_ISSUE;
-  linkToLobby?: string;
+  roomId?: string;
   player?: string;
   initiator?: string;
   editableIssueID?: string;
@@ -26,7 +26,7 @@ export interface IGlobalModalState {
 
 interface IStateForConnect extends IGlobalModalState {
   modalType: ModalTypes.CONNECT_TO_LOBBY;
-  linkToLobby: string;
+  roomId: string;
 }
 
 interface IStateForKick extends IGlobalModalState {
@@ -37,7 +37,7 @@ interface IStateForKick extends IGlobalModalState {
 
 //  PAYLOADS
 export interface IConnectToLobbyPayload {
-  linkToLobby: string;
+  roomId: string;
 }
 
 export interface IKickPlayerPayload {

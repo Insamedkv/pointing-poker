@@ -1,18 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Container, IconButton, Typography } from '@material-ui/core';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import { IIssue } from 'defaultTypes';
+import { useTypedSelector } from 'hooks/useTypedSelector';
 import { useStyles } from './SprintHeader.styles';
 
-interface ISprintHeaderProps {
-  sprintId: string;
-  issuesList: Array<IIssue>;
-}
-
-const SprintHeader: React.FC<ISprintHeaderProps> = ({ sprintId, issuesList }) => {
+const SprintHeader: React.FC = () => {
   const classes = useStyles();
-  const baseTitle = `Sprint ${sprintId} planing, ISSUES: ${issuesList.map((issue) => issue.issueName).join(', ')}.`;
-  const [title, setTitle] = useState(baseTitle);
+  const title = useTypedSelector((state) => state.currentUser.room?.roomTitle);
 
   const editTitle = () => {};
 

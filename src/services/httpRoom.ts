@@ -1,11 +1,13 @@
 /* eslint-disable no-async-promise-executor */
-import axios from 'axios';
+import { IUserData, IUserInfo, Room } from 'defaultTypes';
+import axios from './axios';
 import {
   BaseResponse,
   BetResp,
   Issue,
   IssueResp,
   MessagesResp,
+  RoomCreatorResp,
   Rules,
   SignupData,
   SignupResp,
@@ -13,7 +15,7 @@ import {
   UserResp,
 } from './serviceTypes';
 
-export const signup = async (data: SignupData) => {
+export const signup = async (data: IUserData) => {
   return new Promise<SignupResp>(async (res, rej) => {
     try {
       const response = await axios.post('/signup', data);
@@ -24,10 +26,32 @@ export const signup = async (data: SignupData) => {
   });
 };
 
-export const getRoomUsers = async (roomId: string) => {
-  return new Promise<UserResp[]>(async (res, rej) => {
+export const getRoomCreator = async (roomId: string) => {
+  return new Promise<IUserInfo>(async (res, rej) => {
+    try {
+      const response = await axios.get(`/room/${roomId}/creator`);
+      res(response.data);
+    } catch (err) {
+      rej(err);
+    }
+  });
+};
+
+export const getRoomById = async (roomId: string) => {
+  return new Promise<Room>(async (res, rej) => {
     try {
       const response = await axios.get(`/room/${roomId}`);
+      res(response.data);
+    } catch (err) {
+      rej(err);
+    }
+  });
+};
+
+export const getRoomUsers = async (roomId: string) => {
+  return new Promise<Array<IUserInfo>>(async (res, rej) => {
+    try {
+      const response = await axios.get(`/room/${roomId}/users`);
       res(response.data);
     } catch (err) {
       rej(err);

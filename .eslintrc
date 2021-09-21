@@ -34,7 +34,8 @@
     "import/prefer-default-export": "off",
     "no-param-reassign": ["error", {
       "props": false
-    }]
+    }],
+    "no-underscore-dangle": "off"
   },
   "ignorePatterns": ["*config.js"]
 }

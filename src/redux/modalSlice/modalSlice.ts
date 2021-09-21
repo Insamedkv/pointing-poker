@@ -14,7 +14,7 @@ const modal = createSlice({
     connectToLobby: (state, action: PayloadAction<string | undefined>): IModalState => ({
       isOpen: true,
       modalType: ModalTypes.CONNECT_TO_LOBBY,
-      linkToLobby: action.payload,
+      roomId: action.payload,
     }),
     createIssueModal: (): IModalState => ({
       isOpen: true,

@@ -1,6 +1,7 @@
 export enum Event {
   CONNECT = 'connect',
   JOIN = 'join',
+  ONJOIN = 'onjoin',
   MESSAGE = 'message',
   LEAVE = 'leave',
   BET = 'bet',
@@ -10,6 +11,7 @@ export enum Event {
   TITLE_UPDATE = 'title update',
   ISSUE_UPDATE = 'issue update',
   ISSUE_CREATE = 'issue create',
+  ON_ISSUE_CREATE = 'on issue create',
   VOTE_START = 'vote start',
   VOTE_END = 'vote end',
   VOTE_RESULT = 'vote result',

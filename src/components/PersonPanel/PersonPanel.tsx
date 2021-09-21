@@ -1,13 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Container, Typography } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import BlockIcon from '@material-ui/icons/Block';
+import { useTypedSelector } from 'hooks/useTypedSelector';
 import { useStyles } from './PersonPanel.styles';
 import Avatara from '../Avatara';
 import { IAvataraInfo, IUserInfo } from '../../defaultTypes';
-
-const myId = 2;
 
 interface IPersonPanelProps {
   userInfo: IUserInfo;
@@ -15,16 +14,17 @@ interface IPersonPanelProps {
 
 const PersonPanel: React.FC<IPersonPanelProps> = ({ userInfo }) => {
   const classes = useStyles();
-  const { lastName, firstName, imgPath, position } = userInfo;
+  const { userId, room } = useTypedSelector((state) => state.currentUser);
+  const { lastName, firstName, avatar, position } = userInfo;
 
-  const isDealer = true;
-  const whatAmI = myId === userInfo.id;
+  const isDealer = userId === room?.roomCreator;
+  const whatAmI = userInfo._id === userId;
 
   const getUserInfo = (): IAvataraInfo => {
     const userInfoObj: IAvataraInfo = {
       firstName,
       lastName,
-      src: imgPath,
+      src: avatar,
       size: 'large',
     };
 

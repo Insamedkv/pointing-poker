@@ -1,5 +1,5 @@
 import React, { FC, ReactElement } from 'react';
-import { BrowserRouter as Router, Switch, Route, Link, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { Container, ThemeProvider } from '@material-ui/core';
 import MainPage from './pages/MainPage';
 import { Header } from './components/Header/index';

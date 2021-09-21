@@ -1,10 +1,12 @@
+import { Room } from 'defaultTypes';
+
 // request interface
 export interface SignupData {
   firstName: string;
   lastName?: string;
   position?: string;
-  avatar?: string;
-  role: string;
+  avatar?: string | ArrayBuffer;
+  asObserver: string;
 }
 
 export interface Issue {
@@ -42,8 +44,12 @@ export interface IssueResp {
 
 export interface SignupResp {
   authorization: string;
-  room?: string;
+  room: Room;
   userData: UserResp;
+}
+
+export interface RoomCreatorResp {
+  roomCreator: string;
 }
 
 export interface UserResp {
@@ -73,7 +79,7 @@ export interface BetResp {
 
 // socket interface
 export interface UserSocket {
-  socketId: string;
+  // socketId: string;
   userId: string;
   roomId: string;
 }

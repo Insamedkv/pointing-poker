@@ -83,6 +83,7 @@ module.exports = ({ development }) => ({
       hooks: path.resolve(__dirname, 'src/hooks/'),
       reduxstore: path.resolve(__dirname, 'src/redux/'),
       utils: path.resolve(__dirname, 'src/utils/'),
+      services: path.resolve(__dirname, 'src/services/'),
     }
   },
   ...devServer(development),

@@ -52,6 +52,9 @@ const useStyles = makeStyles(({ typography, palette, transitions }) =>
       transform: 'translateX(16px)',
       color: palette.common.white,
     },
+    disabled: {
+      opacity: '.2',
+    },
     track: {
       borderRadius: 13,
       backgroundColor: palette.divider,
