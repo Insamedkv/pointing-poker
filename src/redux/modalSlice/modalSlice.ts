@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { kickOutPlayer } from './modalActions';
+import { kickOutPlayerModal } from './modalActions';
 import { IModalState, ModalTypes } from './modalActionTypes';
 
 const initialState: IModalState = {
@@ -29,7 +29,7 @@ const modal = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(
-      kickOutPlayer,
+      kickOutPlayerModal,
       (state, action): IModalState => ({
         isOpen: true,
         modalType: ModalTypes.KICK_PLAYER,

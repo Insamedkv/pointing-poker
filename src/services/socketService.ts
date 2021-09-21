@@ -34,6 +34,13 @@ export class SocketService {
     });
   }
 
+  public deleteUserFromRoom(setUsers: any): void {
+    this.socket.on(Event.USER_DELETE, (users) => {
+      console.log('delete user onSocket:', users);
+      setUsers(users);
+    });
+  }
+
   public onJoin(user: string): void {
     this.socket.emit(Event.JOIN, user); // redux
   }
@@ -92,5 +99,9 @@ export class SocketService {
   public disconnect(): void {
     console.log('Disconnecting...');
     this.socket.disconnect();
+  }
+
+  public getSocketId(): string {
+    return this.socket.id;
   }
 }

@@ -1,8 +1,11 @@
 import React, { useEffect } from 'react';
-import { Container, Typography } from '@material-ui/core';
+import { Container, IconButton, Typography } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import BlockIcon from '@material-ui/icons/Block';
+import { useDispatch } from 'react-redux';
+import { getUserById } from 'services/httpUser';
+import { kickOutPlayerModal } from 'reduxstore/modalSlice/modalActions';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import { useStyles } from './PersonPanel.styles';
 import Avatara from '../Avatara';
@@ -14,11 +17,16 @@ interface IPersonPanelProps {
 
 const PersonPanel: React.FC<IPersonPanelProps> = ({ userInfo }) => {
   const classes = useStyles();
-  const { userId, room } = useTypedSelector((state) => state.currentUser);
+  const dispatch = useDispatch();
+  const { userId, room, isDealer } = useTypedSelector((state) => state.currentUser);
   const { lastName, firstName, avatar, position } = userInfo;
 
-  const isDealer = userId === room?.roomCreator;
   const whatAmI = userInfo._id === userId;
+
+  const openKickPlayerModal = async () => {
+    const initiator = await getUserById(userId);
+    dispatch(kickOutPlayerModal(userInfo, initiator));
+  };
 
   const getUserInfo = (): IAvataraInfo => {
     const userInfoObj: IAvataraInfo = {
@@ -49,7 +57,11 @@ const PersonPanel: React.FC<IPersonPanelProps> = ({ userInfo }) => {
             {position && position}
           </Typography>
         </Container>
-        {isDealer && !whatAmI && <BlockIcon className={classes.blockIcon} />}
+        {isDealer && !whatAmI && (
+          <IconButton className={classes.blockIcon} onClick={openKickPlayerModal}>
+            <BlockIcon />
+          </IconButton>
+        )}
       </CardContent>
     </Card>
   );
