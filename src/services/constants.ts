@@ -5,6 +5,7 @@ export enum Event {
   MESSAGE = 'message',
   LEAVE = 'leave',
   BET = 'bet',
+  KICK = 'kick',
   ROOM_DELETE = 'room delete',
   USER_DELETE = 'user delete',
   RULES_UPDATE = 'rules update',

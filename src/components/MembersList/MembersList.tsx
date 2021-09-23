@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux';
 import { Container, Grid } from '@material-ui/core';
 import PersonPanel from 'components/PersonPanel';
 import { updateRoomUsers } from 'reduxstore/userSlice';
-import * as fakeData from 'utils/fakeData/fakeUser.json';
 import { getRoomUsers } from 'services/httpRoom';
 import { IUserInfo } from 'defaultTypes';
 import { useTypedSelector } from 'hooks/useTypedSelector';
@@ -13,10 +12,10 @@ const MembersList: React.FC = () => {
   const { room } = useTypedSelector((state) => state.currentUser);
   const [usersList, setUsersList] = useState<Array<IUserInfo>>([]);
 
-  socket.getUsersInRoom(setUsersList);
-  socket.deleteUserFromRoom(setUsersList);
-
   useEffect(() => {
+    socket.getUsersInRoom(setUsersList);
+    socket.deleteUserFromRoom(setUsersList);
+
     if (room?._id) {
       socket.onJoin(room._id);
       getRoomUsers(room._id).then((data) => setUsersList(data));

@@ -12,7 +12,8 @@ import { useDispatch } from 'react-redux';
 import { closeModal } from 'reduxstore/modalSlice/modalSlice';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import { setUserCredentials } from 'reduxstore/userSlice';
-import { signup } from '../../../../../../services/httpRoom';
+import { signup } from 'services/httpRoom';
+import { socket } from '../../../../../../index';
 
 interface IUserData {
   firstName: string;
@@ -21,6 +22,7 @@ interface IUserData {
   position?: string;
   avatar?: string | ArrayBuffer;
   roomId?: string;
+  socketId?: string;
 }
 
 const userState: IUserData = {
@@ -35,6 +37,7 @@ const LobbyContent: React.FC = () => {
   const modalState = useTypedSelector((state) => state.modal);
   const dispatch = useDispatch();
   const [lobbyLink, setLobbyLink] = useState('');
+  const [socketId, setSocketId] = useState('');
 
   const classes = useStyles();
   const [userData, setUserData] = useState<IUserData>(userState);
@@ -45,6 +48,7 @@ const LobbyContent: React.FC = () => {
       ...userData,
       avatar: blobImage || '',
       roomId: modalState.roomId,
+      socketId,
     };
 
     const response = await signup(player);
@@ -88,6 +92,11 @@ const LobbyContent: React.FC = () => {
   const setImage = (src: ArrayBuffer | string | null) => {
     setBlobImage(src);
   };
+
+  useEffect(() => {
+    const cosketId = socket.getSocketId();
+    setSocketId(cosketId);
+  }, []);
 
   return (
     <>

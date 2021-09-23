@@ -17,9 +17,9 @@ const IssueCreation: React.FC = () => {
   const dispatch = useDispatch();
 
   const [issuesList, setIssuesList] = useState<Array<IssueResp>>([]);
-  socket.getIssues(setIssuesList);
 
   useEffect(() => {
+    socket.getIssues(setIssuesList);
     if (room?._id) getRoomIssues(room._id).then((data) => setIssuesList(data));
   }, [room]);
 

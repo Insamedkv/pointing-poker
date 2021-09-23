@@ -29,8 +29,14 @@ export class SocketService {
 
   public getUsersInRoom(setUsers: any): void {
     this.socket.on(Event.ONJOIN, (users) => {
-      console.log('Now in lobby:', users);
       setUsers(users);
+    });
+  }
+
+  public onDisconnect(): void {
+    this.socket.on(Event.KICK, () => {
+      alert('You were kicked');
+      window.location.href = 'https://google.com/';
     });
   }
 
@@ -61,7 +67,7 @@ export class SocketService {
 
   public getIssues(setIssues: any): void {
     this.socket.on(Event.ON_ISSUE_CREATE, (issuesList: Array<IssueResp>) => {
-      console.log(issuesList);
+      console.log('Get issues', issuesList);
       setIssues(issuesList);
     });
   }

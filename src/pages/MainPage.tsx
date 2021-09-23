@@ -1,11 +1,12 @@
 import { Avatar, Box, Container, Input, Typography, Button, TextField } from '@material-ui/core';
-import React, { FC, ReactElement, useState } from 'react';
+import React, { FC, ReactElement, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { getRoomById } from 'services/httpRoom';
 import { connectToLobby } from 'reduxstore/modalSlice/modalSlice';
 import { useStyles } from './MainPage.styles';
 import MainImage from '../asset/Main_img.png';
 import CustomButton from '../components/CustomButton';
+import { socket } from '../index';
 
 const MainPage: FC = (): ReactElement => {
   const classes = useStyles();
@@ -25,6 +26,11 @@ const MainPage: FC = (): ReactElement => {
     }
   };
 
+  useEffect(() => {
+    socket.init();
+    socket.onDisconnect();
+  }, []);
+
   return (
     <Container className={classes.mainContainer}>
       <Avatar alt="MainImg" src={MainImage} className={classes.image} />
@@ -37,7 +43,9 @@ const MainPage: FC = (): ReactElement => {
           <CustomButton
             buttonCaption={'Start new game'}
             className={classes.btn}
-            onClick={() => dispatch(connectToLobby())}
+            onClick={() => {
+              dispatch(connectToLobby());
+            }}
           />
         </Box>
       </Box>

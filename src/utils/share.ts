@@ -9,7 +9,6 @@ export const getSession = () => {
 
 export const restoreSession = async () => {
   const session = getSession();
-  console.log('session:', session);
   if (!session) return undefined;
   const { userId, roomId } = session;
   const room = await getRoomById(roomId);
