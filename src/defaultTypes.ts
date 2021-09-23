@@ -1,3 +1,5 @@
+import React from 'react';
+
 export interface IButton {
   buttonCaption: string;
   size?: 'small' | 'medium' | 'large';
@@ -44,11 +46,14 @@ export interface ICardItemProps {
   name?: string;
   onSubmit?: (indexValue: number, value: string) => void;
   onClick?: React.MouseEventHandler;
+  handleClick?: React.MouseEventHandler;
   className?: string;
   value?: string;
+  invisBtn?: boolean;
 }
 
 export interface ICardInstanceProps {
-  val: string;
+  className?: string;
+  itemVal: string;
   valueIndex: number;
 }
