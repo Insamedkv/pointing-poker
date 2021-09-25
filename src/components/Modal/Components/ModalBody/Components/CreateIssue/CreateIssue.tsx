@@ -7,7 +7,7 @@ import CustomButton from 'components/CustomButton';
 import { addIssue, editIssue } from 'reduxstore/issuesSlice';
 import { Issue } from 'services/serviceTypes';
 import { IIssue } from 'defaultTypes';
-import { createRoomIssue } from 'services/httpRoom';
+import { createRoomIssue, updateRoomIssue } from 'services/httpRoom';
 import { closeModal } from 'reduxstore/modalSlice/modalSlice';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import { useIssueStyles } from './CreateIssue.styles';
@@ -22,6 +22,7 @@ const CreateIssue: React.FC = () => {
   const dispatch = useDispatch();
 
   const currentIssue = issuesList.find((issue) => issue.issueID === editableIssueID);
+  console.log(editableIssueID);
 
   const [issueState, setIssueState] = useState<IIssue>({
     issueID: currentIssue?.issueID || '',
@@ -53,8 +54,11 @@ const CreateIssue: React.FC = () => {
       link: issueState.issueLink,
     };
 
-    // await createRoomIssue(room!._id, issue);
-    socket.issueCreate(room!._id, issue);
+    if (editableIssueID) {
+      await updateRoomIssue(room!._id, editableIssueID, issue);
+      return;
+    }
+    await createRoomIssue(room!._id, issue);
   };
 
   const SelectPriority = () => {

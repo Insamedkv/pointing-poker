@@ -28,7 +28,7 @@ const MainPage: FC = (): ReactElement => {
 
   useEffect(() => {
     socket.init();
-    socket.onDisconnect();
+    socket.onKick();
   }, []);
 
   return (

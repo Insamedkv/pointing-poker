@@ -17,7 +17,7 @@ const MembersList: React.FC = () => {
     socket.deleteUserFromRoom(setUsersList);
 
     if (room?._id) {
-      socket.onJoin(room._id);
+      // socket.onJoin(room._id);
       getRoomUsers(room._id).then((data) => setUsersList(data));
     }
   }, [room]);

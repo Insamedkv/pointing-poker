@@ -10,6 +10,7 @@ import { editIssueModal } from 'reduxstore/modalSlice/modalSlice';
 import classNames from 'classnames';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import { IssueResp } from 'services/serviceTypes';
+import { deleteRoomIssue } from 'services/httpRoom';
 import { useStyles } from './IssueCard.styles';
 // import { IIssue } from '../../defaultTypes';
 
@@ -58,7 +59,10 @@ const IssueCard: React.FC<IIssueProps> = ({ mode, issue }) => {
             classes={{ root: classes.controlElement }}
           />
           <DeleteOutlineIcon
-            onClick={(event: React.MouseEvent) => deleteIssue(event)}
+            onClick={async (event: React.MouseEvent) => {
+              await deleteRoomIssue(room!._id, issue!._id);
+              deleteIssue(event);
+            }}
             fontSize="large"
             color="error"
             classes={{ root: classes.controlElement }}

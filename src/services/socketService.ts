@@ -33,7 +33,7 @@ export class SocketService {
     });
   }
 
-  public onDisconnect(): void {
+  public onKick(): void {
     this.socket.on(Event.KICK, () => {
       alert('You were kicked');
       window.location.href = 'https://google.com/';
@@ -47,10 +47,6 @@ export class SocketService {
     });
   }
 
-  public onJoin(user: string): void {
-    this.socket.emit(Event.JOIN, user); // redux
-  }
-
   public onMessage(): void {
     this.socket.on(Event.MESSAGE, (msg) => console.log(msg)); // redux
   }
@@ -60,21 +56,11 @@ export class SocketService {
     this.socket.emit(Event.BET, bet);
   }
 
-  public issueCreate(roomId: string, issue: Issue): void {
-    console.log(`Issue: ${issue}`);
-    this.socket.emit(Event.ISSUE_CREATE, { roomId, issue });
-  }
-
   public getIssues(setIssues: any): void {
     this.socket.on(Event.ON_ISSUE_CREATE, (issuesList: Array<IssueResp>) => {
       console.log('Get issues', issuesList);
       setIssues(issuesList);
     });
-  }
-
-  public issueUpdate(issue: IssueUpdate): void {
-    console.log(`Issue: ${issue}`);
-    this.socket.emit(Event.ISSUE_UPDATE, issue);
   }
 
   public titleUpdate(roomTitle: string, roomId: string): void {
