@@ -106,7 +106,18 @@ export const deleteRoomIssue = async (roomId: string, issueId: string) => {
 export const setRoomRules = async (roomId: string, data: Rules) => {
   return new Promise<Rules>(async (res, rej) => {
     try {
-      const response = await axios.post(`/room/${roomId}`, data);
+      const response = await axios.put(`/room/${roomId}/rules`, data);
+      res(response.data);
+    } catch (err) {
+      rej(err);
+    }
+  });
+};
+
+export const setGameStatus = async (roomId: string, isGameStarted: boolean) => {
+  return new Promise<Rules>(async (res, rej) => {
+    try {
+      const response = await axios.put(`/room/${roomId}/gamestatus`, { isGameStarted });
       res(response.data);
     } catch (err) {
       rej(err);

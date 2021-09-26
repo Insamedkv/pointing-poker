@@ -25,7 +25,7 @@ export interface Rules {
   cardType: any[];
   newUsersEnter: boolean;
   autoRotateCardsAfterVote: boolean;
-  changeChoiseAfterCardsRotate: boolean;
+  changingCardInEnd: boolean;
   isTimerNeeded: boolean;
   roundTime: number;
 }

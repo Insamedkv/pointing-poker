@@ -7,7 +7,9 @@ import { useTypedSelector } from 'hooks/useTypedSelector';
 import SetTimeComponent from 'components/SetTimeComponent';
 import {
   allowChangeCardInEnd,
+  allowNewUserEnter,
   changeMasterAsPalyer,
+  setAutoRotate,
   setScoreType,
   setShortScoreType,
   toggleTimer,
@@ -36,7 +38,7 @@ const GameSettings: React.FC = () => {
             }}
             name="asObserver"
             color="primary"
-            checked={gameSettings.scrumMasterAsPlayer}
+            checked={gameSettings.scrumMasterAsAPlayer}
             onChange={(event) => {
               const { checked } = event.target;
               dispatch(changeMasterAsPalyer(checked));
@@ -59,7 +61,6 @@ const GameSettings: React.FC = () => {
               track: classes.track,
               thumb: classes.thumb,
             }}
-            name="asObserver"
             color="primary"
             onChange={(event) => {
               const { checked } = event.target;
@@ -82,7 +83,55 @@ const GameSettings: React.FC = () => {
               track: classes.track,
               thumb: classes.thumb,
             }}
-            name="asObserver"
+            name="newUserEnter"
+            color="primary"
+            checked={gameSettings.newUsersEnter}
+            onChange={(event) => {
+              const { checked } = event.target;
+              dispatch(allowNewUserEnter(checked));
+            }}
+          />
+        }
+        label="Admit all new users:"
+        labelPlacement="start"
+      />
+      <FormControlLabel
+        className={classes.controlSize}
+        classes={{ label: classes.label }}
+        control={
+          <Switch
+            classes={{
+              root: classes.switcherRoot,
+              switchBase: classes.switcherBase,
+              checked: classes.checked,
+              track: classes.track,
+              thumb: classes.thumb,
+            }}
+            name="timer"
+            color="primary"
+            checked={gameSettings.autoRotateCardsAfterVote}
+            onChange={(event) => {
+              const { checked } = event.target;
+              dispatch(setAutoRotate(checked));
+            }}
+          />
+        }
+        label="Auto rotate card after vote:"
+        labelPlacement="start"
+      />
+      <FormControlLabel
+        className={classes.controlSize}
+        classes={{ label: classes.label }}
+        control={
+          <Switch
+            classes={{
+              root: classes.switcherRoot,
+              switchBase: classes.switcherBase,
+              checked: classes.checked,
+              track: classes.track,
+              thumb: classes.thumb,
+            }}
+            name="timer"
             color="primary"
             checked={gameSettings.isTimerNeeded}
             onChange={(event) => {
