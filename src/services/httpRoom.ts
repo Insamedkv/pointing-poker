@@ -114,10 +114,10 @@ export const setRoomRules = async (roomId: string, data: Rules) => {
   });
 };
 
-export const updateRoomTitle = async (roomId: string, title: string) => {
+export const updateRoomTitle = async (roomId: string, roomTitle: string) => {
   return new Promise<Rules>(async (res, rej) => {
     try {
-      const response = await axios.put(`/room/${roomId}`, title);
+      const response = await axios.put(`/room/${roomId}`, { roomTitle });
       res(response.data);
     } catch (err) {
       rej(err);

@@ -5,13 +5,13 @@ import { SignupResp } from 'services/serviceTypes';
 interface IUserDatastate {
   userId: string;
   token: string;
-  room: Room | null;
+  room: Room | undefined;
   isDealer: boolean;
 }
 
 const initialState: IUserDatastate = {
   userId: '',
-  room: null,
+  room: undefined,
   token: '',
   isDealer: false,
 };

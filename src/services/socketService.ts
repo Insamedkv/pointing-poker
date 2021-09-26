@@ -47,6 +47,12 @@ export class SocketService {
     });
   }
 
+  public onTitleUpdate(setNewTitle: any): void {
+    this.socket.on(Event.ON_TITLE_UPDATE, (title) => {
+      setNewTitle(title);
+    });
+  }
+
   public onMessage(): void {
     this.socket.on(Event.MESSAGE, (msg) => console.log(msg)); // redux
   }
@@ -61,11 +67,6 @@ export class SocketService {
       console.log('Get issues', issuesList);
       setIssues(issuesList);
     });
-  }
-
-  public titleUpdate(roomTitle: string, roomId: string): void {
-    console.log(`${roomTitle} title chainged in room ${roomId}`);
-    this.socket.emit(Event.TITLE_UPDATE, { roomTitle, roomId });
   }
 
   public voteStart(roomId: string): void {

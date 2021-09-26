@@ -35,7 +35,8 @@
     "no-param-reassign": ["error", {
       "props": false
     }],
-    "no-underscore-dangle": "off"
+    "no-underscore-dangle": "off",
+    "@typescript-eslint/naming-convention": "off",
   },
   "ignorePatterns": ["*config.js"]
 }
