@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { Container, Fade, FormControlLabel, Switch } from '@material-ui/core';
+import { Container, Fade, FormControlLabel, MenuItem, Select, Switch } from '@material-ui/core';
 import CustomInput from 'components/CustomInput';
 import SectionHeader from 'components/SectionHeader';
 import { useTypedSelector } from 'hooks/useTypedSelector';
@@ -182,6 +182,30 @@ const GameSettings: React.FC = () => {
           labelPlacement="start"
         />
       </Fade>
+      {/* fakestudio */}
+      <FormControlLabel
+        className={classes.controlSize}
+        classes={{ label: classes.label }}
+        control={
+          <Select
+            name="cardType"
+            color="primary"
+            variant="outlined"
+            fullWidth
+            onChange={(event) => {
+              const { value } = event.target;
+              // dispatch(allowNewUserEnter(checked));
+              console.log(value);
+            }}
+          >
+            <MenuItem value="fibonachi">Fibonachi</MenuItem>
+            <MenuItem value="poewr2">Power of two</MenuItem>
+            <MenuItem value="href">Custom</MenuItem>
+          </Select>
+        }
+        label="Admit all new users:"
+        labelPlacement="start"
+      />
     </Container>
   );
 };

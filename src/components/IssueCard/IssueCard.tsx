@@ -1,18 +1,17 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Card, CardContent, Container, Typography } from '@material-ui/core';
-import { dropIssue } from 'reduxstore/issuesSlice';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
 import AddOutlinedIcon from '@material-ui/icons/AddOutlined';
 import { editIssueModal } from 'reduxstore/modalSlice/modalSlice';
 import classNames from 'classnames';
+import { dropIssue } from 'reduxstore/issuesSlice';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import { IssueResp } from 'services/serviceTypes';
 import { deleteRoomIssue } from 'services/httpRoom';
 import { useStyles } from './IssueCard.styles';
-// import { IIssue } from '../../defaultTypes';
 
 interface IPropsForCreate {
   mode: 'create';
@@ -27,11 +26,10 @@ interface IPropsForShow {
 type IIssueProps = IPropsForShow | IPropsForCreate;
 
 const IssueCard: React.FC<IIssueProps> = ({ mode, issue }) => {
-  const { room, userId, isDealer } = useTypedSelector((state) => state.currentUser);
+  const { room, isDealer } = useTypedSelector((state) => state.currentUser);
   const dispatch = useDispatch();
   const classes = useStyles();
   const isCreateMode = mode === 'create';
-  // const isInProgress = issue?.issueStatus === 'progress';
 
   const isGameStarted = false;
 
@@ -43,10 +41,6 @@ const IssueCard: React.FC<IIssueProps> = ({ mode, issue }) => {
   const editIssue = (event: React.MouseEvent) => {
     event.stopPropagation();
     if (issue?._id) dispatch(editIssueModal(issue._id));
-  };
-
-  const setAsCurrent = () => {
-    if (isDealer && !isCreateMode) console.log(`Current:`, issue?._id);
   };
 
   const setControls = (): JSX.Element => {
@@ -81,7 +75,6 @@ const IssueCard: React.FC<IIssueProps> = ({ mode, issue }) => {
         isCreateMode && classes.issueCreator,
         isDealer && classes.issueCreator
       )}
-      onClick={setAsCurrent}
     >
       {isCreateMode ? (
         <>

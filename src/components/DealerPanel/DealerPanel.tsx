@@ -5,13 +5,15 @@ import PersonPanel from 'components/PersonPanel';
 import CustomButton from 'components/CustomButton';
 import { IUserInfo } from 'defaultTypes';
 import { buttonTextConstants } from 'utils/buttonTextConstants';
-import { getRoomCreator } from 'services/httpRoom';
+import { getRoomCreator, setGameStatus, setRoomRules } from 'services/httpRoom';
+import { Rules } from 'services/serviceTypes';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import { useStyles } from './DealerPanel.styles';
 
 const DealerPanel: React.FC = () => {
   const classes = useStyles();
   const { room, isDealer } = useTypedSelector((state) => state.currentUser);
+  const rules = useTypedSelector((state) => state.settings);
   const [userInfo, setUserInfo] = useState<IUserInfo>();
 
   const link = `${room?._id}`;
@@ -24,7 +26,24 @@ const DealerPanel: React.FC = () => {
     }
   }, [room]);
 
-  const startGame = () => {};
+  const startGame = () => {
+    const roundTime = rules.time.minutes * 60 + rules.time.seconds;
+    const laws: Rules = {
+      scrumMasterAsAPlayer: rules.scrumMasterAsAPlayer,
+      newUsersEnter: rules.newUsersEnter,
+      autoRotateCardsAfterVote: rules.autoRotateCardsAfterVote,
+      changingCardInEnd: rules.changingCardInEnd,
+      isTimerNeeded: rules.isTimerNeeded,
+      shortScoreType: rules.shortScoreType,
+      cardType: [],
+      roundTime,
+    };
+
+    if (room) {
+      setRoomRules(room._id, laws);
+      setGameStatus(room._id, true);
+    }
+  };
   const cancelGame = () => {};
 
   return (
@@ -44,6 +63,7 @@ const DealerPanel: React.FC = () => {
                   className={classes.btnPadding}
                   buttonCaption={buttonTextConstants.START_GAME}
                   size="medium"
+                  onClick={startGame}
                 />
                 <CustomButton
                   className={classes.btnPadding}

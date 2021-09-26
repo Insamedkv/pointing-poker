@@ -36,7 +36,7 @@ export class SocketService {
   public onKick(): void {
     this.socket.on(Event.KICK, () => {
       alert('You were kicked');
-      window.location.href = 'https://google.com/';
+      window.location.href = document.location.origin;
     });
   }
 

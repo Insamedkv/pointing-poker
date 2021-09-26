@@ -17,8 +17,7 @@ export interface IAvataraInfo {
 export interface IIssue {
   issueName: string;
   issueLink: string;
-  issuePriority: 'low' | 'medium' | 'high';
-  issueStatus: 'opened' | 'closed' | 'progress';
+  issuePriority: string;
   isCurrent: boolean;
   issueID?: string;
 }

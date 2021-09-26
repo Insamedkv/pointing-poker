@@ -21,8 +21,9 @@ export interface UpdateBet {
 }
 
 export interface Rules {
-  masterAsAPlayer: boolean;
+  scrumMasterAsAPlayer: boolean;
   cardType: any[];
+  shortScoreType: string;
   newUsersEnter: boolean;
   autoRotateCardsAfterVote: boolean;
   changingCardInEnd: boolean;

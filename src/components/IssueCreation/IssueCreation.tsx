@@ -6,12 +6,12 @@ import IssueList from 'components/IssueList';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import { createIssueModal } from 'reduxstore/modalSlice/modalSlice';
 import { IssueResp } from 'services/serviceTypes';
+import { setIssues } from 'reduxstore/issuesSlice';
 import { getRoomIssues } from 'services/httpRoom';
 import { useStyles } from './IssueCreation.styles';
 import { socket } from '../../index';
 
 const IssueCreation: React.FC = () => {
-  const issues = useTypedSelector((state) => state.issues);
   const { room } = useTypedSelector((state) => state.currentUser);
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -20,8 +20,15 @@ const IssueCreation: React.FC = () => {
 
   useEffect(() => {
     socket.getIssues(setIssuesList);
-    if (room?._id) getRoomIssues(room._id).then((data) => setIssuesList(data));
+    if (room?._id)
+      getRoomIssues(room._id).then((data) => {
+        setIssuesList(data);
+      });
   }, [room]);
+
+  useEffect(() => {
+    dispatch(setIssues(issuesList));
+  }, [issuesList]);
 
   const addIssue = () => {
     dispatch(createIssueModal());
