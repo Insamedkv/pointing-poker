@@ -14,6 +14,9 @@ const MembersList: React.FC = () => {
 
   useEffect(() => {
     socket.getUsersInRoom(setUsersList);
+  }, [usersList]);
+
+  useEffect(() => {
     socket.deleteUserFromRoom(setUsersList);
 
     if (room?._id) {

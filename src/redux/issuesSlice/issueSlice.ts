@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IIssue } from 'defaultTypes';
 import { IssueResp } from 'services/serviceTypes';
 
 const initialState: Array<IssueResp> = [];

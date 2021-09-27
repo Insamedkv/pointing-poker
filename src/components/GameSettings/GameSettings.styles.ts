@@ -1,8 +1,25 @@
 import { createStyles, makeStyles } from '@material-ui/core';
 import { AdditionalColors } from 'utils/styleConstants';
 
-const useStyles = makeStyles(({ typography, palette, transitions }) =>
+const useStyles = makeStyles(({ typography, palette, transitions, shadows }) =>
   createStyles({
+    selectField: {
+      display: 'flex',
+      alignItems: 'center',
+      position: 'relative',
+      fontSize: '24px',
+      border: `1px solid ${palette.divider}`,
+      borderBottomLeftRadius: '10px',
+      padding: '2px 10px',
+      height: '47px',
+      boxShadow: `inset ${shadows[4]}, ${shadows[4]}`,
+      transition: 'all .2s ease-in-out',
+      outline: 'none',
+      width: '465px',
+    },
+    selectFieldFocused: {
+      border: `1px solid ${palette.primary.main}`,
+    },
     gameSettingsContainer: {
       display: 'flex',
       flexDirection: 'column',

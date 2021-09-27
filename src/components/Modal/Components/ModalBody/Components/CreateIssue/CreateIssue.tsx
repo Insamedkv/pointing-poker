@@ -44,7 +44,7 @@ const CreateIssue: React.FC = () => {
     setIssueState(issue);
   };
 
-  const fn = async () => {
+  const createEditIssue = async () => {
     const issue: Issue = {
       issueTitle: issueState.issueName,
       priority: issueState.issuePriority,
@@ -126,7 +126,7 @@ const CreateIssue: React.FC = () => {
             // } else {
             //   dispatch(editIssue(issueState));
             // }
-            fn();
+            createEditIssue();
             dispatch(closeModal());
           }}
         >

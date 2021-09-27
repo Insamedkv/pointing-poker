@@ -63,6 +63,7 @@ export const createRoomIssue = async (roomId: string, data: Issue) => {
   return new Promise<IssueResp>(async (res, rej) => {
     try {
       const response = await axios.post(`/room/${roomId}/issue`, data);
+      console.log('CreateRoomIssue!', data);
       res(response.data);
     } catch (err) {
       rej(err);

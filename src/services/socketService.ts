@@ -1,6 +1,7 @@
 import io, { Socket } from 'socket.io-client';
 import { fromEvent, Observable } from 'rxjs';
 import { IUserInfo } from 'defaultTypes';
+import { setIssues } from 'reduxstore/issuesSlice';
 import { Event } from './constants';
 import {
   Bet,
@@ -17,9 +18,13 @@ import {
 export class SocketService {
   private socket: Socket = {} as Socket;
 
+  private token = localStorage.getItem('poker-auth')!;
+
   public init(): SocketService {
     console.log('Initializing Socket Service...');
-    this.socket = io('http://localhost:4000/');
+    this.socket = io('http://localhost:4000/', {
+      query: { token: this.token },
+    });
     return this;
   }
 
@@ -62,10 +67,10 @@ export class SocketService {
     this.socket.emit(Event.BET, bet);
   }
 
-  public getIssues(setIssues: any): void {
+  public getIssues(dispatch: any): void {
     this.socket.on(Event.ON_ISSUE_CREATE, (issuesList: Array<IssueResp>) => {
       console.log('Get issues', issuesList);
-      setIssues(issuesList);
+      dispatch(setIssues(issuesList));
     });
   }
 

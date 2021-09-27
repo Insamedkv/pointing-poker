@@ -1,4 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { ScoreTypes } from 'defaultTypes';
+import { IScoreType } from './settingsActionTypes';
 
 interface ITime {
   minutes: number;
@@ -11,7 +13,7 @@ interface ISettingsState {
   isTimerNeeded: boolean;
   newUsersEnter: boolean;
   autoRotateCardsAfterVote: boolean;
-  scoreType: string;
+  scoreType: IScoreType;
   shortScoreType: string;
   time: ITime;
   cardType?: undefined;
@@ -23,7 +25,7 @@ const initialState: ISettingsState = {
   isTimerNeeded: true,
   newUsersEnter: true,
   autoRotateCardsAfterVote: false,
-  scoreType: 'Story Points',
+  scoreType: ScoreTypes.POWEROFTWO,
   shortScoreType: 'SP',
   time: {
     minutes: 2,
@@ -50,7 +52,7 @@ const settingsSlice = createSlice({
     setAutoRotate: (state, action: PayloadAction<boolean>) => {
       state.autoRotateCardsAfterVote = action.payload;
     },
-    setScoreType: (state, action: PayloadAction<string>) => {
+    setScoreType: (state, action: PayloadAction<IScoreType>) => {
       state.scoreType = action.payload;
     },
     setShortScoreType: (state, action: PayloadAction<string>) => {
@@ -58,6 +60,9 @@ const settingsSlice = createSlice({
     },
     setTimer: (state, action: PayloadAction<ITime>) => {
       state.time = action.payload;
+    },
+    changeScoreType: (state, action: PayloadAction<IScoreType>) => {
+      state.scoreType = action.payload;
     },
   },
 });
@@ -72,4 +77,5 @@ export const {
   setScoreType,
   setShortScoreType,
   setTimer,
+  changeScoreType,
 } = settingsSlice.actions;

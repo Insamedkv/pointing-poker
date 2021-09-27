@@ -12,23 +12,21 @@ import { useStyles } from './IssueCreation.styles';
 import { socket } from '../../index';
 
 const IssueCreation: React.FC = () => {
+  const issues = useTypedSelector((state) => state.issues);
   const { room } = useTypedSelector((state) => state.currentUser);
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const [issuesList, setIssuesList] = useState<Array<IssueResp>>([]);
-
   useEffect(() => {
-    socket.getIssues(setIssuesList);
     if (room?._id)
       getRoomIssues(room._id).then((data) => {
-        setIssuesList(data);
+        dispatch(setIssues(data));
       });
   }, [room]);
 
   useEffect(() => {
-    dispatch(setIssues(issuesList));
-  }, [issuesList]);
+    socket.getIssues(dispatch);
+  }, []);
 
   const addIssue = () => {
     dispatch(createIssueModal());
@@ -37,7 +35,7 @@ const IssueCreation: React.FC = () => {
   return (
     <Container className={classes.root}>
       <Grid container spacing={1}>
-        <IssueList issues={issuesList} />
+        <IssueList issues={issues} />
         <Grid item sm={6}>
           <div onClick={addIssue}>
             <IssueCard mode="create" />

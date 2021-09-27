@@ -15,7 +15,9 @@ const SprintHeader: React.FC = () => {
   const [newTitle, setNewTitle] = useState('');
   const { isDealer } = useTypedSelector((state) => state.currentUser);
 
-  socket.onTitleUpdate(setNewTitle);
+  useEffect(() => {
+    socket.onTitleUpdate(setNewTitle);
+  }, [roomId]);
 
   useEffect(() => {
     if (roomTitle) setNewTitle(roomTitle);

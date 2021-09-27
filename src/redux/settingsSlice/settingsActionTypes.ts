@@ -1,3 +1,5 @@
+import { ScoreTypes } from 'defaultTypes';
+
 export enum SettingsActions {
   ALLOW_MASTER_AS_PLAYER = 'ALLOW_MASTER_AS_PLAYER',
   CHANGE_CARD_IN_END = 'CHANGE_CARD_IN_END',
@@ -11,3 +13,5 @@ export interface ISetTimePayload {
   minutes: number;
   seconds: number;
 }
+
+export type IScoreType = ScoreTypes.CUSTOM | ScoreTypes.FIBONACHI | ScoreTypes.POWEROFTWO;

@@ -26,11 +26,6 @@ const MainPage: FC = (): ReactElement => {
     }
   };
 
-  useEffect(() => {
-    socket.init();
-    socket.onKick();
-  }, []);
-
   return (
     <Container className={classes.mainContainer}>
       <Avatar alt="MainImg" src={MainImage} className={classes.image} />

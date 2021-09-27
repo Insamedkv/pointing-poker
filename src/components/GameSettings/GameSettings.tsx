@@ -9,11 +9,13 @@ import {
   allowChangeCardInEnd,
   allowNewUserEnter,
   changeMasterAsPalyer,
+  changeScoreType,
   setAutoRotate,
-  setScoreType,
   setShortScoreType,
   toggleTimer,
 } from 'reduxstore/settingsSlice/settingsSlice';
+import { IScoreType } from 'reduxstore/settingsSlice/settingsActionTypes';
+import { ScoreTypes } from 'defaultTypes';
 import { useStyles } from './GameSettings.styles';
 
 const GameSettings: React.FC = () => {
@@ -143,7 +145,7 @@ const GameSettings: React.FC = () => {
         label="Is timer needed:"
         labelPlacement="start"
       />
-      <FormControlLabel
+      {/* <FormControlLabel
         className={classes.controlSize}
         classes={{ label: classes.label }}
         control={
@@ -157,7 +159,7 @@ const GameSettings: React.FC = () => {
         }
         label="Score type:"
         labelPlacement="start"
-      />
+      /> */}
       <FormControlLabel
         className={classes.controlSize}
         classes={{ label: classes.label }}
@@ -182,28 +184,29 @@ const GameSettings: React.FC = () => {
           labelPlacement="start"
         />
       </Fade>
-      {/* fakestudio */}
+      {/* Score type: */}
       <FormControlLabel
         className={classes.controlSize}
         classes={{ label: classes.label }}
         control={
           <Select
             name="cardType"
+            classes={{ root: classes.selectField, select: classes.selectFieldFocused }}
             color="primary"
-            variant="outlined"
-            fullWidth
+            value={gameSettings.scoreType}
+            disableUnderline
+            defaultValue={ScoreTypes.FIBONACHI}
             onChange={(event) => {
               const { value } = event.target;
-              // dispatch(allowNewUserEnter(checked));
-              console.log(value);
+              dispatch(changeScoreType(value as IScoreType));
             }}
           >
-            <MenuItem value="fibonachi">Fibonachi</MenuItem>
-            <MenuItem value="poewr2">Power of two</MenuItem>
-            <MenuItem value="href">Custom</MenuItem>
+            <MenuItem value={ScoreTypes.FIBONACHI}>Fibonachi</MenuItem>
+            <MenuItem value={ScoreTypes.POWEROFTWO}>Power of two</MenuItem>
+            <MenuItem value={ScoreTypes.CUSTOM}>Custom</MenuItem>
           </Select>
         }
-        label="Admit all new users:"
+        label="Score type:"
         labelPlacement="start"
       />
     </Container>

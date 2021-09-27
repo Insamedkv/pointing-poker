@@ -82,3 +82,9 @@ export interface Room {
   issues: Array<Issue>;
   roomCreator: string;
 }
+
+export enum ScoreTypes {
+  FIBONACHI = 'fibonachi',
+  POWEROFTWO = 'poweroftwo',
+  CUSTOM = 'custom',
+}
