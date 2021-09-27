@@ -1,5 +1,8 @@
 import React, { FC, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Container, Grid } from '@material-ui/core';
+import { useTypedSelector } from 'hooks/useTypedSelector';
+import { addNewcard, deleteOldCard } from 'reduxstore/settingsSlice/settingsSlice';
 import { ICardInstanceProps } from 'defaultTypes';
 import { useStyles } from './AddCardValues.styles';
 import { CardItem } from './Component/CardItem/CardItem';
@@ -8,28 +11,32 @@ import { CardForAdd } from './Component/CardForAdd/CardForAdd';
 
 export const AddCardValues: FC = () => {
   const classes = useStyles();
-  const [dataCards, setDataCards] = useState(['Unknown']);
+  const dispatch = useDispatch();
+  const cards = useTypedSelector((state) => state.settings.cardTypes);
+  // const [dataCards, setDataCards] = useState(['Unknown']);
   const [flipAddCard, setFlipAddCard] = useState<boolean>(false);
 
   const changeValue = (index: number, newValue: string) => {
-    setDataCards((prev) => {
-      return [...prev.slice(0, index), newValue, ...prev.slice(index + 1)];
-    });
+    // setDataCards((prev) => {
+    //   return [...prev.slice(0, index), newValue, ...prev.slice(index + 1)];
+    // });
   };
 
   const createNewCard = (index: number, newValue: string) => {
     if (newValue !== '') {
       setFlipAddCard(!flipAddCard);
-      setDataCards((prev) => {
-        return [...prev, newValue];
-      });
+      dispatch(addNewcard(newValue));
+      // setDataCards((prev) => {
+      //   return [...prev, newValue];
+      // });
     }
   };
 
   const deleteCard = (index: number) => {
-    setDataCards((prev) => {
-      return [...prev.slice(0, index), ...prev.slice(index + 1)];
-    });
+    dispatch(deleteOldCard(index));
+    // setDataCards((prev) => {
+    //   return [...prev.slice(0, index), ...prev.slice(index + 1)];
+    // });
   };
 
   const CardInstance: FC<ICardInstanceProps> = ({ itemVal, valueIndex, className }) => {
@@ -77,7 +84,7 @@ export const AddCardValues: FC = () => {
         />
       </Grid>
 
-      {dataCards.map((card, index) => (
+      {cards.map((card, index) => (
         <Grid key={index} item xs={4} sm={3} md>
           <CardInstance valueIndex={index} itemVal={card} className={classes.card} />
         </Grid>

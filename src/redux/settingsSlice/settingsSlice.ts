@@ -6,6 +6,7 @@ interface ITime {
 }
 
 interface ISettingsState {
+  cardTypes: Array<string>;
   scrumMasterAsPlayer: boolean;
   changingCardInEnd: boolean;
   isTimerNeeded: boolean;
@@ -16,6 +17,7 @@ interface ISettingsState {
 
 const initialState: ISettingsState = {
   scrumMasterAsPlayer: true,
+  cardTypes: ['1', '2', '4'],
   changingCardInEnd: false,
   isTimerNeeded: true,
   scoreType: 'Story Points',
@@ -48,9 +50,23 @@ const settingsSlice = createSlice({
     setTimer: (state, action: PayloadAction<ITime>) => {
       state.time = action.payload;
     },
+    addNewcard: (state, action: PayloadAction<string>) => {
+      state.cardTypes = [...state.cardTypes, action.payload];
+    },
+    deleteOldCard: (state, action: PayloadAction<number>) => {
+      state.cardTypes = [...state.cardTypes.slice(0, action.payload), ...state.cardTypes.slice(action.payload + 1)];
+    },
   },
 });
 
 export default settingsSlice;
-export const { changeMasterAsPalyer, allowChangeCardInEnd, toggleTimer, setScoreType, setShortScoreType, setTimer } =
-  settingsSlice.actions;
+export const {
+  changeMasterAsPalyer,
+  allowChangeCardInEnd,
+  toggleTimer,
+  setScoreType,
+  setShortScoreType,
+  setTimer,
+  addNewcard,
+  deleteOldCard,
+} = settingsSlice.actions;
