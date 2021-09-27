@@ -56,4 +56,6 @@ export interface ICardInstanceProps {
   className?: string;
   itemVal: string;
   valueIndex: number;
+  onClick: void;
+  onSubmit: void;
 }

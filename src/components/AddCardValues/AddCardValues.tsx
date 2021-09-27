@@ -1,21 +1,14 @@
 import React, { FC, useState } from 'react';
-import { Container, Grid } from '@material-ui/core';
-import { ICardInstanceProps } from 'defaultTypes';
+import { Grid } from '@material-ui/core';
 import { useStyles } from './AddCardValues.styles';
-import { CardItem } from './Component/CardItem/CardItem';
 import { CardBack } from './Component/CardBack/index';
 import { CardForAdd } from './Component/CardForAdd/CardForAdd';
+import { CardInstance } from './Component/CardInstance/CardInstance';
 
 export const AddCardValues: FC = () => {
   const classes = useStyles();
   const [dataCards, setDataCards] = useState(['Unknown']);
-  const [flipAddCard, setFlipAddCard] = useState<boolean>(false);
-
-  const changeValue = (index: number, newValue: string) => {
-    setDataCards((prev) => {
-      return [...prev.slice(0, index), newValue, ...prev.slice(index + 1)];
-    });
-  };
+  const [flipAddCard, setFlipAddCard] = useState(false);
 
   const createNewCard = (index: number, newValue: string) => {
     if (newValue !== '') {
@@ -26,37 +19,16 @@ export const AddCardValues: FC = () => {
     }
   };
 
+  const changeValue = (index: number, newValue: string) => {
+    setDataCards((prev) => {
+      return [...prev.slice(0, index), newValue, ...prev.slice(index + 1)];
+    });
+  };
+
   const deleteCard = (index: number) => {
     setDataCards((prev) => {
       return [...prev.slice(0, index), ...prev.slice(index + 1)];
     });
-  };
-
-  const CardInstance: FC<ICardInstanceProps> = ({ itemVal, valueIndex, className }) => {
-    const [flip, setFlip] = useState<boolean>(false);
-
-    return (
-      <Container className={className}>
-        <CardItem
-          name={itemVal}
-          valueIndex={valueIndex}
-          className={flip === true ? classes.cardStylesBack : classes.cardStylesFront}
-          onClick={() => {
-            setFlip(!flip);
-          }}
-        />
-        <CardBack
-          onClick={() => deleteCard(valueIndex)}
-          handleClick={() => {
-            setFlip(false);
-          }}
-          onSubmit={changeValue}
-          valueIndex={valueIndex}
-          className={flip === true ? classes.cardStylesFront : classes.cardStylesBack}
-          value={itemVal}
-        />
-      </Container>
-    );
   };
 
   return (
@@ -79,7 +51,13 @@ export const AddCardValues: FC = () => {
 
       {dataCards.map((card, index) => (
         <Grid key={index} item xs={4} sm={3} md>
-          <CardInstance valueIndex={index} itemVal={card} className={classes.card} />
+          <CardInstance
+            valueIndex={index}
+            itemVal={card}
+            className={classes.card}
+            onClick={deleteCard}
+            onSubmit={changeValue}
+          />
         </Grid>
       ))}
     </Grid>
