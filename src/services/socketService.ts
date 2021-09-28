@@ -16,17 +16,11 @@ import {
 } from './serviceTypes';
 
 export class SocketService {
-  private socket: Socket = {} as Socket;
-
   private token = localStorage.getItem('poker-auth')!;
 
-  public init(): SocketService {
-    console.log('Initializing Socket Service...');
-    this.socket = io('http://localhost:4000/', {
-      query: { token: this.token },
-    });
-    return this;
-  }
+  private socket: Socket = io('http://localhost:4000/', {
+    query: { token: this.token },
+  });
 
   public test(): void {
     this.socket.on('clientConnected', (id) => console.log('I connected with', id));

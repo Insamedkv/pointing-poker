@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ScoreTypes } from 'defaultTypes';
+import { doubleCardValues, fibonacciCardValues } from 'utils/share';
 import { IScoreType } from './settingsActionTypes';
 
 interface ITime {
@@ -16,7 +17,7 @@ interface ISettingsState {
   scoreType: IScoreType;
   shortScoreType: string;
   time: ITime;
-  cardType?: undefined;
+  cardType: Array<string | number>;
 }
 
 const initialState: ISettingsState = {
@@ -27,6 +28,7 @@ const initialState: ISettingsState = {
   autoRotateCardsAfterVote: false,
   scoreType: ScoreTypes.POWEROFTWO,
   shortScoreType: 'SP',
+  cardType: [2, 4, 8],
   time: {
     minutes: 2,
     seconds: 30,
@@ -62,7 +64,26 @@ const settingsSlice = createSlice({
       state.time = action.payload;
     },
     changeScoreType: (state, action: PayloadAction<IScoreType>) => {
+      let cardValues: Array<string | number> = [...state.cardType];
+
+      if (action.payload === ScoreTypes.POWEROFTWO) {
+        const dd = doubleCardValues();
+        cardValues = [];
+        for (let i = 0; i < 7; i++) {
+          cardValues = [...cardValues, dd.next().value];
+        }
+      }
+
+      if (action.payload === ScoreTypes.FIBONACHI) {
+        const fib = fibonacciCardValues();
+        cardValues = [];
+        for (let i = 0; i < 7; i++) {
+          cardValues = [...cardValues, fib.next().value];
+        }
+      }
+
       state.scoreType = action.payload;
+      state.cardType = cardValues;
     },
   },
 });

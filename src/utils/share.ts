@@ -23,3 +23,24 @@ export const restoreSession = async () => {
 
   return res;
 };
+
+// number generators
+export function* fibonacciCardValues(): Generator<number> {
+  let fn1 = 2;
+  let fn2 = 1;
+  while (true) {
+    const current = fn2;
+    fn2 = fn1;
+    fn1 += current;
+    const reset = yield current;
+    if (reset) {
+      fn1 = 2;
+      fn2 = 1;
+    }
+  }
+}
+
+export function* doubleCardValues(): Generator<number> {
+  let index = 1;
+  while (true) yield (index *= 2);
+}

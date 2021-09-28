@@ -145,6 +145,33 @@ const GameSettings: React.FC = () => {
         label="Is timer needed:"
         labelPlacement="start"
       />
+      {/* Score type: */}
+      <FormControlLabel
+        className={classes.controlSize}
+        classes={{ label: classes.label }}
+        control={
+          <Select
+            fullWidth
+            className={classes.selectSize}
+            name="cardType"
+            classes={{ select: classes.selectField }}
+            color="primary"
+            value={gameSettings.scoreType}
+            disableUnderline
+            defaultValue={ScoreTypes.FIBONACHI}
+            onChange={(event) => {
+              const { value } = event.target;
+              dispatch(changeScoreType(value as IScoreType));
+            }}
+          >
+            <MenuItem value={ScoreTypes.FIBONACHI}>Fibonachi</MenuItem>
+            <MenuItem value={ScoreTypes.POWEROFTWO}>Power of two</MenuItem>
+            <MenuItem value={ScoreTypes.CUSTOM}>Custom</MenuItem>
+          </Select>
+        }
+        label="Score type:"
+        labelPlacement="start"
+      />
       {/* <FormControlLabel
         className={classes.controlSize}
         classes={{ label: classes.label }}
@@ -184,31 +211,6 @@ const GameSettings: React.FC = () => {
           labelPlacement="start"
         />
       </Fade>
-      {/* Score type: */}
-      <FormControlLabel
-        className={classes.controlSize}
-        classes={{ label: classes.label }}
-        control={
-          <Select
-            name="cardType"
-            classes={{ root: classes.selectField, select: classes.selectFieldFocused }}
-            color="primary"
-            value={gameSettings.scoreType}
-            disableUnderline
-            defaultValue={ScoreTypes.FIBONACHI}
-            onChange={(event) => {
-              const { value } = event.target;
-              dispatch(changeScoreType(value as IScoreType));
-            }}
-          >
-            <MenuItem value={ScoreTypes.FIBONACHI}>Fibonachi</MenuItem>
-            <MenuItem value={ScoreTypes.POWEROFTWO}>Power of two</MenuItem>
-            <MenuItem value={ScoreTypes.CUSTOM}>Custom</MenuItem>
-          </Select>
-        }
-        label="Score type:"
-        labelPlacement="start"
-      />
     </Container>
   );
 };

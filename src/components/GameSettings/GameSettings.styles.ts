@@ -3,19 +3,24 @@ import { AdditionalColors } from 'utils/styleConstants';
 
 const useStyles = makeStyles(({ typography, palette, transitions, shadows }) =>
   createStyles({
+    selectSize: {
+      maxWidth: '441px',
+      minWidth: '350px',
+    },
     selectField: {
       display: 'flex',
       alignItems: 'center',
       position: 'relative',
       fontSize: '24px',
-      border: `1px solid ${palette.divider}`,
+      // border: `1px solid ${palette.divider}`,
       borderBottomLeftRadius: '10px',
       padding: '2px 10px',
-      height: '47px',
+      height: '42px',
       boxShadow: `inset ${shadows[4]}, ${shadows[4]}`,
       transition: 'all .2s ease-in-out',
       outline: 'none',
-      width: '465px',
+      // maxWidth: '420px',
+      // minWidth: '350px',
     },
     selectFieldFocused: {
       border: `1px solid ${palette.primary.main}`,

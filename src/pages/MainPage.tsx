@@ -6,7 +6,6 @@ import { connectToLobby } from 'reduxstore/modalSlice/modalSlice';
 import { useStyles } from './MainPage.styles';
 import MainImage from '../asset/Main_img.png';
 import CustomButton from '../components/CustomButton';
-import { socket } from '../index';
 
 const MainPage: FC = (): ReactElement => {
   const classes = useStyles();

@@ -26,12 +26,7 @@ const routes = [
 export const App: FC = (): ReactElement => {
   const classes = useStyles();
 
-  // socket.init();
-  // socket.onKick();
-
   useEffect(() => {
-    console.log('INIT IN APP');
-    socket.init();
     socket.onKick();
   }, []);
 
