@@ -1,6 +1,7 @@
 import { getRoomById } from 'services/httpRoom';
+import { IUserInfo } from 'defaultTypes';
 import { getUserById } from 'services/httpUser';
-import { SignupResp, UserResp } from 'services/serviceTypes';
+import { SignupResp } from 'services/serviceTypes';
 
 export const getSession = () => {
   const session = localStorage.getItem('poker-session');
@@ -22,6 +23,12 @@ export const restoreSession = async () => {
   };
 
   return res;
+};
+
+// modal functions
+export const openKickPlayerModal = async (userId: string, user: IUserInfo) => {
+  const initiator = await getUserById(userId);
+  return { user, initiator };
 };
 
 // number generators

@@ -10,7 +10,8 @@ import { useTypedSelector } from 'hooks/useTypedSelector';
 import { restoreSession } from 'utils/share';
 import { useDispatch } from 'react-redux';
 import { setUserCredentials } from 'reduxstore/userSlice';
-import { SignupResp, UserResp } from 'services/serviceTypes';
+import { SignupResp } from 'services/serviceTypes';
+import Chat from 'components/Chat';
 
 interface ILobbyProps {
   roomId: string;
@@ -28,6 +29,7 @@ const LobbyPage: React.FC<ILobbyProps> = () => {
   return (
     <Container style={{ paddingTop: 70, paddingBottom: 80 }}>
       <SprintHeader />
+      <Chat />
       <DealerPanel />
 
       <SectionHeader header="Members" />

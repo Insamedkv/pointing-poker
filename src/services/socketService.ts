@@ -2,6 +2,7 @@ import io, { Socket } from 'socket.io-client';
 import { fromEvent, Observable } from 'rxjs';
 import { IUserInfo } from 'defaultTypes';
 import { setIssues } from 'reduxstore/issuesSlice';
+import { pushMessage } from 'reduxstore/chatSlice/chatSlice';
 import { Event } from './constants';
 import {
   Bet,
@@ -52,8 +53,8 @@ export class SocketService {
     });
   }
 
-  public onMessage(): void {
-    this.socket.on(Event.MESSAGE, (msg) => console.log(msg)); // redux
+  public onMessage(dispatch: any): void {
+    this.socket.on(Event.MESSAGE, (msg) => dispatch(pushMessage(msg))); // redux
   }
 
   public bet(bet: Bet): void {

@@ -30,7 +30,7 @@ const MembersList: React.FC = () => {
       <Grid container spacing={4}>
         {usersList.map((user: IUserInfo) => (
           <Grid key={user._id} item sm={4}>
-            <PersonPanel userInfo={user} />
+            <PersonPanel userInfo={user} avaSize="medium" />
           </Grid>
         ))}
       </Grid>

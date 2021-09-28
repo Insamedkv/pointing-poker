@@ -13,9 +13,10 @@ import { IAvataraInfo, IUserInfo } from '../../defaultTypes';
 
 interface IPersonPanelProps {
   userInfo: IUserInfo;
+  avaSize: 'small' | 'medium' | 'large';
 }
 
-const PersonPanel: React.FC<IPersonPanelProps> = ({ userInfo }) => {
+const PersonPanel: React.FC<IPersonPanelProps> = ({ userInfo, avaSize }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { userId, room, isDealer } = useTypedSelector((state) => state.currentUser);
@@ -33,7 +34,7 @@ const PersonPanel: React.FC<IPersonPanelProps> = ({ userInfo }) => {
       firstName,
       lastName,
       src: avatar,
-      size: 'large',
+      size: avaSize,
     };
 
     return userInfoObj;

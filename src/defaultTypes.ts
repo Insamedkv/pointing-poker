@@ -10,7 +10,7 @@ export interface IButton {
 export interface IAvataraInfo {
   firstName: string;
   lastName?: string;
-  size: 'large' | 'medium';
+  size: 'large' | 'medium' | 'small';
   src?: string | ArrayBuffer;
 }
 

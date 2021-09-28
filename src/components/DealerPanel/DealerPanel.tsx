@@ -52,7 +52,7 @@ const DealerPanel: React.FC = () => {
         <Grid item md={6} sm={12}>
           <Container>
             <Typography variant="subtitle1">Scrum master:</Typography>
-            {userInfo && <PersonPanel userInfo={userInfo} />}
+            {userInfo && <PersonPanel userInfo={userInfo} avaSize="large" />}
           </Container>
         </Grid>
         <Grid item md={6} sm={12}>

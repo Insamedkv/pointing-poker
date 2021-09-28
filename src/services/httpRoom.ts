@@ -160,7 +160,7 @@ export const leaveRoom = async (roomId: string) => {
 };
 
 export const getMessages = async () => {
-  return new Promise<MessagesResp>(async (res, rej) => {
+  return new Promise<Array<MessagesResp>>(async (res, rej) => {
     try {
       const response = await axios.get('/messages');
       res(response.data);

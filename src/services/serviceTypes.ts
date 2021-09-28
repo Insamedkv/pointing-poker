@@ -66,7 +66,8 @@ export interface UserResp {
 export interface MessagesResp {
   _id: string;
   content: string;
-  userId: string;
+  createdAt: Date;
+  user: UserResp;
   roomId: string;
 }
 

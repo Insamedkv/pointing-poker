@@ -2,29 +2,29 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Container, IconButton, Slide, TextField } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
-import { IUserInfo } from 'defaultTypes';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import { getMessages, sendMessage } from 'services/httpRoom';
+import { setMessages } from 'reduxstore/chatSlice/chatSlice';
 import { useStyles } from './Chat.styles';
 import MessageBlock from './Components/MessageBlock';
 import { socket } from '../../index';
 // import * as list from 'utils/fakeData/fakeUser.json';
 
-interface IMessages {
-  user: IUserInfo;
-  message: { date: string; text: string };
-}
+// interface IMessages {
+//   user: IUserInfo;
+//   message: { date: string; text: string };
+// }
 
 const Chat: React.FC = () => {
   const classes = useStyles();
-  const isChatOpen = useTypedSelector((state) => state.chat);
+  const isChatOpen = useTypedSelector((state) => state.chat.isOpen);
+  const messagesList = useTypedSelector((state) => state.chat.chat);
   const dispatch = useDispatch();
   const [message, setMessage] = useState('');
 
-  const messagesList: Array<IMessages> = [];
-
   useEffect(() => {
-    socket.onMessage();
+    getMessages().then((msgs) => dispatch(setMessages(msgs)));
+    socket.onMessage(dispatch);
   }, []);
 
   return (
@@ -50,8 +50,6 @@ const Chat: React.FC = () => {
               ></TextField>
               <IconButton
                 onClick={() => {
-                  console.log(message);
-                  getMessages().then((msgs) => console.log('messages:>', msgs));
                   sendMessage(message);
                 }}
               >
@@ -59,7 +57,7 @@ const Chat: React.FC = () => {
               </IconButton>
             </Container>
             {messagesList.map((msg, index) => (
-              <MessageBlock key={index} user={msg.user} message={msg.message} />
+              <MessageBlock key={index} user={msg.user} message={{ text: msg.content, date: msg.createdAt }} />
             ))}
           </Container>
         </Container>

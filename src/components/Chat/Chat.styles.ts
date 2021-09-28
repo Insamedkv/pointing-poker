@@ -24,6 +24,7 @@ const useStyles = makeStyles(({ palette, typography, shadows }) =>
     },
     chatContainer: {
       padding: '10px 0',
+      position: 'relative',
     },
     messageField: {
       display: 'flex',
@@ -44,11 +45,29 @@ const useStyles = makeStyles(({ palette, typography, shadows }) =>
       fontSize: 'inherit',
       boxShadow: shadows[4],
     },
+    usernameContainer: {
+      display: 'flex',
+      padding: '5px 0',
+      alignItems: 'center',
+    },
     dateSection: {
+      fontWeight: typography.fontWeightBold,
+      fontSize: '11px',
+      fontStyle: 'italic',
+      padding: '5px 10px',
+      textAlign: 'right',
+    },
+    nameSection: {
       fontWeight: typography.fontWeightBold,
       fontStyle: 'italic',
       padding: '5px 10px',
       textAlign: 'right',
+      fontSize: '16px',
+    },
+    kickPlayer: {
+      position: 'absolute',
+      right: 0,
+      top: 0,
     },
   })
 );
