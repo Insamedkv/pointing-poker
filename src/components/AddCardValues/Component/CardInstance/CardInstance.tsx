@@ -1,25 +1,20 @@
 import { Container } from '@material-ui/core';
 import { ICardInstanceProps } from 'defaultTypes';
 import React, { FC, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { deleteOldCard } from 'reduxstore/settingsSlice/settingsSlice';
 import { CardBack } from '../CardBack';
 import { CardItem } from '../CardItem';
 import { useStyles } from './CardInstance.styles';
 
-export const CardInstance: FC<ICardInstanceProps> = ({ itemVal, valueIndex, className, onClick, onSubmit }) => {
+export const CardInstance: FC<ICardInstanceProps> = ({ itemVal, valueIndex, className }) => {
   const classes = useStyles();
   const [flip, setFlip] = useState(false);
+  const dispatch = useDispatch();
 
-  // const changeValue = (index: number, newValue: string) => {
-  //   setDataCards((prev) => {
-  //     return [...prev.slice(0, index), newValue, ...prev.slice(index + 1)];
-  //   });
-  // };
-
-  // const deleteCard = (index: number) => {
-  //   setDataCards((prev) => {
-  //     return [...prev.slice(0, index), ...prev.slice(index + 1)];
-  //   });
-  // };
+  const deleteCard = (index: number) => {
+    dispatch(deleteOldCard(index));
+  };
 
   return (
     <Container className={className}>
@@ -32,14 +27,11 @@ export const CardInstance: FC<ICardInstanceProps> = ({ itemVal, valueIndex, clas
         }}
       />
       <CardBack
-        onClick={() => onClick}
-        handleClick={() => {
-          setFlip(false);
-        }}
-        onSubmit={() => onSubmit}
+        onClick={() => deleteCard(valueIndex)}
+        handleClick={setFlip}
         valueIndex={valueIndex}
         className={flip === true ? classes.cardStylesFront : classes.cardStylesBack}
-        value={itemVal}
+        value={''}
       />
     </Container>
   );

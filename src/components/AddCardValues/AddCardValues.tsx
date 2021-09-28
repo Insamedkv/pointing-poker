@@ -1,5 +1,8 @@
 import React, { FC, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Grid } from '@material-ui/core';
+import { useTypedSelector } from 'hooks/useTypedSelector';
+import { addNewCard } from 'reduxstore/settingsSlice/settingsSlice';
 import { useStyles } from './AddCardValues.styles';
 import { CardBack } from './Component/CardBack/index';
 import { CardForAdd } from './Component/CardForAdd/CardForAdd';
@@ -7,28 +10,12 @@ import { CardInstance } from './Component/CardInstance/CardInstance';
 
 export const AddCardValues: FC = () => {
   const classes = useStyles();
-  const [dataCards, setDataCards] = useState(['Unknown']);
-  const [flipAddCard, setFlipAddCard] = useState(false);
+  const dispatch = useDispatch();
+  const cards = useTypedSelector((state) => state.settings.cardTypes);
+  const [flipAddCard, setFlipAddCard] = useState<boolean>(false);
 
   const createNewCard = (index: number, newValue: string) => {
-    if (newValue !== '') {
-      setFlipAddCard(!flipAddCard);
-      setDataCards((prev) => {
-        return [...prev, newValue];
-      });
-    }
-  };
-
-  const changeValue = (index: number, newValue: string) => {
-    setDataCards((prev) => {
-      return [...prev.slice(0, index), newValue, ...prev.slice(index + 1)];
-    });
-  };
-
-  const deleteCard = (index: number) => {
-    setDataCards((prev) => {
-      return [...prev.slice(0, index), ...prev.slice(index + 1)];
-    });
+    dispatch(addNewCard(newValue));
   };
 
   return (
@@ -40,7 +27,6 @@ export const AddCardValues: FC = () => {
           onClick={() => setFlipAddCard(!flipAddCard)}
         />
         <CardBack
-          onClick={() => setFlipAddCard(false)}
           onSubmit={createNewCard}
           value={''}
           invisBtn={true}
@@ -49,15 +35,9 @@ export const AddCardValues: FC = () => {
         />
       </Grid>
 
-      {dataCards.map((card, index) => (
+      {cards.map((card, index) => (
         <Grid key={index} item xs={4} sm={3} md>
-          <CardInstance
-            valueIndex={index}
-            itemVal={card}
-            className={classes.card}
-            onClick={deleteCard}
-            onSubmit={changeValue}
-          />
+          <CardInstance valueIndex={index} itemVal={card} className={classes.card} />
         </Grid>
       ))}
     </Grid>

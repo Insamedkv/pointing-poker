@@ -46,16 +46,17 @@ export interface ICardItemProps {
   name?: string;
   onSubmit?: (indexValue: number, value: string) => void;
   onClick?: React.MouseEventHandler;
-  handleClick?: React.MouseEventHandler;
+  handleClick?: (value: boolean) => void;
   className?: string;
   value?: string;
   invisBtn?: boolean;
+  foo?: void;
 }
 
 export interface ICardInstanceProps {
   className?: string;
   itemVal: string;
   valueIndex: number;
-  onClick: void;
-  onSubmit: void;
+  onClick?: (indexValue: number, value: string) => void;
+  onSubmit?: void;
 }
