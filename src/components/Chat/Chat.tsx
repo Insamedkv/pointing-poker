@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
-import { Button, Container, Fade, Grid, Slide, Zoom } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Container, IconButton, Slide, TextField } from '@material-ui/core';
+import SendIcon from '@material-ui/icons/Send';
 import { IUserInfo } from 'defaultTypes';
-import * as list from 'utils/fakeData/fakeUser.json';
+import { useTypedSelector } from 'hooks/useTypedSelector';
+import { getMessages, sendMessage } from 'services/httpRoom';
 import { useStyles } from './Chat.styles';
 import MessageBlock from './Components/MessageBlock';
+import { socket } from '../../index';
+// import * as list from 'utils/fakeData/fakeUser.json';
 
 interface IMessages {
   user: IUserInfo;
@@ -11,20 +16,48 @@ interface IMessages {
 }
 
 const Chat: React.FC = () => {
-  const messagesList: Array<IMessages> = list.messages;
   const classes = useStyles();
-  const [isOpenChat, setChatOpen] = useState(false);
+  const isChatOpen = useTypedSelector((state) => state.chat);
+  const dispatch = useDispatch();
+  const [message, setMessage] = useState('');
 
-  const toggleChat = () => {
-    setChatOpen((prev) => !prev);
-  };
+  const messagesList: Array<IMessages> = [];
+
+  useEffect(() => {
+    socket.onMessage();
+  }, []);
 
   return (
     <>
-      <Button onClick={toggleChat}>{isOpenChat.toString()}</Button>
-      <Slide in={!isOpenChat} timeout={300}>
+      {/* <Button onClick={() => dispatch(toggleChat())}>{isChatOpen.toString()}</Button> */}
+      <Slide in={!isChatOpen} timeout={300}>
         <Container className={classes.chatMainContainer}>
           <Container className={classes.chatWorkflow}>
+            <Container
+              style={{
+                padding: '0px',
+                position: 'sticky',
+                display: 'flex',
+                justifyContent: 'space-between',
+                background: '#4ef',
+              }}
+            >
+              <TextField
+                fullWidth
+                variant="outlined"
+                value={message}
+                onChange={(event) => setMessage(event.target.value)}
+              ></TextField>
+              <IconButton
+                onClick={() => {
+                  console.log(message);
+                  getMessages().then((msgs) => console.log('messages:>', msgs));
+                  sendMessage(message);
+                }}
+              >
+                <SendIcon></SendIcon>
+              </IconButton>
+            </Container>
             {messagesList.map((msg, index) => (
               <MessageBlock key={index} user={msg.user} message={msg.message} />
             ))}

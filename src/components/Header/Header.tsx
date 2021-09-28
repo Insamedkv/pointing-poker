@@ -1,10 +1,13 @@
-import { AppBar, Avatar, Box, Container, IconButton } from '@material-ui/core';
 import React, { FC, ReactElement } from 'react';
+import { useDispatch } from 'react-redux';
+import { AppBar, Avatar, Box, Container, IconButton } from '@material-ui/core';
+import { toggleChat } from 'reduxstore/chatSlice/chatSlice';
 import { Chat } from '@material-ui/icons';
 import { useStyles } from './Header.styles';
 import Logo from '../../asset/logo.png';
 
 export const Header: FC = (): ReactElement => {
+  const dispatch = useDispatch();
   const classes = useStyles();
 
   return (
@@ -13,7 +16,7 @@ export const Header: FC = (): ReactElement => {
         <Box className={classes.containerHigh} bgcolor="primary.main"></Box>
         <Box className={classes.containerLow} bgcolor="secondary.main"></Box>
         <Avatar alt="Logo" src={Logo} className={classes.containerLogo} />
-        <IconButton className={classes.containerIcon}>
+        <IconButton className={classes.containerIcon} onClick={() => dispatch(toggleChat())}>
           <Chat />
         </IconButton>
       </Container>

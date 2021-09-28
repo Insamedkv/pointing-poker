@@ -159,10 +159,21 @@ export const leaveRoom = async (roomId: string) => {
   });
 };
 
-export const getMessages = async (roomId: string) => {
+export const getMessages = async () => {
   return new Promise<MessagesResp>(async (res, rej) => {
     try {
-      const response = await axios.post('/messages', roomId);
+      const response = await axios.get('/messages');
+      res(response.data);
+    } catch (error) {
+      rej(error);
+    }
+  });
+};
+
+export const sendMessage = async (message: string) => {
+  return new Promise<MessagesResp>(async (res, rej) => {
+    try {
+      const response = await axios.post('/messages', { message });
       res(response.data);
     } catch (error) {
       rej(error);
