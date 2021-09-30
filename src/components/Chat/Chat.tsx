@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Button, Container, IconButton, Slide, TextField } from '@material-ui/core';
+import { Button, Container, Slide, TextField } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import { getMessages, sendMessage } from 'services/httpRoom';
@@ -8,12 +8,6 @@ import { setMessages } from 'reduxstore/chatSlice/chatSlice';
 import { useStyles } from './Chat.styles';
 import MessageBlock from './Components/MessageBlock';
 import { socket } from '../../index';
-// import * as list from 'utils/fakeData/fakeUser.json';
-
-// interface IMessages {
-//   user: IUserInfo;
-//   message: { date: string; text: string };
-// }
 
 const Chat: React.FC = () => {
   const classes = useStyles();
@@ -29,7 +23,6 @@ const Chat: React.FC = () => {
 
   return (
     <>
-      {/* <Button onClick={() => dispatch(toggleChat())}>{isChatOpen.toString()}</Button> */}
       <Slide in={!isChatOpen} timeout={300}>
         <Container className={classes.chatMainContainer}>
           <Container className={classes.chatWorkflow}>
@@ -41,8 +34,8 @@ const Chat: React.FC = () => {
             <Container className={classes.enterTextArea}>
               <TextField
                 multiline
-                classes={{ root: '{padding: 0;}' }}
-                rows={2}
+                className={classes.inputMessageField}
+                rows={3}
                 fullWidth
                 variant="outlined"
                 value={message}

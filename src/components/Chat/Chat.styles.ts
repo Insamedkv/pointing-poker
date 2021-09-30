@@ -23,19 +23,18 @@ const useStyles = makeStyles(({ palette, typography, shadows }) =>
       overflow: 'auto',
     },
     messagesArea: {
-      height: '80vh',
+      height: '85vh',
       padding: '0px',
       overflowX: 'hidden',
       overflowY: 'scroll',
     },
     enterTextArea: {
-      height: '10vh',
+      height: '12vh',
       padding: '0px',
       marginTop: '10px',
       position: 'sticky',
       display: 'flex',
       justifyContent: 'space-between',
-      background: '#4ef',
     },
     chatContainer: {
       padding: '10px 0',
@@ -44,12 +43,17 @@ const useStyles = makeStyles(({ palette, typography, shadows }) =>
     messageField: {
       display: 'flex',
       height: '100%',
+      width: '99%',
       flexDirection: 'column',
       justifyContent: 'space-between',
       background: 'aliceblue',
       borderRadius: '4px',
       padding: '7px 10px',
       fontSize: '18px',
+    },
+    inputMessageField: {
+      background: 'azure',
+      borderRadius: '4px',
     },
     textSection: {
       overflowWrap: 'anywhere',
