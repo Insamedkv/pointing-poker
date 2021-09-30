@@ -102,6 +102,18 @@ const settingsSlice = createSlice({
       const newCard: ICardItem = { id, value: action.payload };
       state.cardTypes = [...state.cardTypes, newCard];
     },
+    generateNextValue: (state, action: PayloadAction) => {
+      if (state.scoreType === ScoreTypes.POWEROFTWO) {
+        const dd = doubleCardValues();
+        state.cardTypes = state.cardTypes.map((card) => ({ id: card.id, value: dd.next().value }));
+        state.cardTypes = [...state.cardTypes, { id: generateId(), value: dd.next().value }];
+      }
+      if (state.scoreType === ScoreTypes.FIBONACHI) {
+        const fib = fibonacciCardValues();
+        state.cardTypes = state.cardTypes.map((card) => ({ id: card.id, value: fib.next().value }));
+        state.cardTypes = [...state.cardTypes, { id: generateId(), value: fib.next().value }];
+      }
+    },
     changeCardValues: (state, action: PayloadAction<ICardItem>) => {
       state.cardTypes = state.cardTypes.map((card) => {
         if (card.id === action.payload.id) {
@@ -134,4 +146,5 @@ export const {
   addNewCard,
   changeCardValues,
   deleteOldCard,
+  generateNextValue,
 } = settingsSlice.actions;
