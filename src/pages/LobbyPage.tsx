@@ -47,4 +47,4 @@ const LobbyPage: React.FC<ILobbyProps> = () => {
   );
 };
 
-export default LobbyPage;
+export { LobbyPage };

@@ -8,7 +8,7 @@ import { Footer } from './components/Footer/index';
 import { baseTheme } from './utils/customTheme';
 import { useStyles } from './App.styles';
 import ModalWindow from './components/Modal/index';
-import LobbyPage from './pages/LobbyPage';
+import { GamePage, LobbyPage } from './pages';
 import { socket } from './index';
 
 const routes = [
@@ -21,6 +21,10 @@ const routes = [
     path: '/lobby/:roomId/',
     component: LobbyPage,
   },
+  {
+    path: '/game/:roomId/',
+    component: GamePage,
+  },
 ];
 
 export const App: FC = (): ReactElement => {
@@ -28,6 +32,7 @@ export const App: FC = (): ReactElement => {
 
   useEffect(() => {
     socket.onKick();
+    socket.onDeleteRoom();
   }, []);
 
   return (

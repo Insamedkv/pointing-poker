@@ -22,6 +22,21 @@ const useStyles = makeStyles(({ palette, typography, shadows }) =>
       border: `1px dotted ${palette.divider}`,
       overflow: 'auto',
     },
+    messagesArea: {
+      height: '80vh',
+      padding: '0px',
+      overflowX: 'hidden',
+      overflowY: 'scroll',
+    },
+    enterTextArea: {
+      height: '10vh',
+      padding: '0px',
+      marginTop: '10px',
+      position: 'sticky',
+      display: 'flex',
+      justifyContent: 'space-between',
+      background: '#4ef',
+    },
     chatContainer: {
       padding: '10px 0',
       position: 'relative',

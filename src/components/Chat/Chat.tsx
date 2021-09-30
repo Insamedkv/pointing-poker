@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Container, IconButton, Slide, TextField } from '@material-ui/core';
+import { Button, Container, IconButton, Slide, TextField } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import { getMessages, sendMessage } from 'services/httpRoom';
@@ -33,32 +33,33 @@ const Chat: React.FC = () => {
       <Slide in={!isChatOpen} timeout={300}>
         <Container className={classes.chatMainContainer}>
           <Container className={classes.chatWorkflow}>
-            <Container
-              style={{
-                padding: '0px',
-                position: 'sticky',
-                display: 'flex',
-                justifyContent: 'space-between',
-                background: '#4ef',
-              }}
-            >
+            <Container className={classes.messagesArea}>
+              {messagesList.map((msg, index) => (
+                <MessageBlock key={index} user={msg.user} message={{ text: msg.content, date: msg.createdAt }} />
+              ))}
+            </Container>
+            <Container className={classes.enterTextArea}>
               <TextField
+                multiline
+                classes={{ root: '{padding: 0;}' }}
+                rows={2}
                 fullWidth
                 variant="outlined"
                 value={message}
                 onChange={(event) => setMessage(event.target.value)}
               ></TextField>
-              <IconButton
+              <Button
+                variant="contained"
+                disabled={message === ''}
+                color="primary"
                 onClick={() => {
                   sendMessage(message);
+                  setMessage('');
                 }}
               >
                 <SendIcon></SendIcon>
-              </IconButton>
+              </Button>
             </Container>
-            {messagesList.map((msg, index) => (
-              <MessageBlock key={index} user={msg.user} message={{ text: msg.content, date: msg.createdAt }} />
-            ))}
           </Container>
         </Container>
       </Slide>

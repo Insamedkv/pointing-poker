@@ -40,6 +40,13 @@ export class SocketService {
     });
   }
 
+  public onDeleteRoom(): void {
+    this.socket.on(Event.ROOM_DELETE, () => {
+      alert('Room has been deleted!');
+      window.location.href = document.location.origin;
+    });
+  }
+
   public deleteUserFromRoom(setUsers: any): void {
     this.socket.on(Event.USER_DELETE, (users) => {
       console.log('delete user onSocket:', users);

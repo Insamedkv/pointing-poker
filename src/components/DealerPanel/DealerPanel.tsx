@@ -5,7 +5,7 @@ import PersonPanel from 'components/PersonPanel';
 import CustomButton from 'components/CustomButton';
 import { IUserInfo } from 'defaultTypes';
 import { buttonTextConstants } from 'utils/buttonTextConstants';
-import { getRoomCreator, setGameStatus, setRoomRules } from 'services/httpRoom';
+import { deleteRoom, getRoomCreator, leaveRoom, setGameStatus, setRoomRules } from 'services/httpRoom';
 import { Rules } from 'services/serviceTypes';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import { useStyles } from './DealerPanel.styles';
@@ -17,6 +17,17 @@ const DealerPanel: React.FC = () => {
   const [userInfo, setUserInfo] = useState<IUserInfo>();
 
   const link = `${room?._id}`;
+
+  const cancelGame = () => {
+    if (room?._id) deleteRoom(room._id);
+  };
+
+  const exitGame = async () => {
+    if (room?._id)
+      leaveRoom(room._id).then(() => {
+        window.location.href = window.location.origin;
+      });
+  };
 
   useEffect(() => {
     if (room?._id) {
@@ -44,7 +55,6 @@ const DealerPanel: React.FC = () => {
       setGameStatus(room._id, true);
     }
   };
-  const cancelGame = () => {};
 
   return (
     <div className={classes.dealerPanel}>
@@ -71,6 +81,7 @@ const DealerPanel: React.FC = () => {
                   color="secondary"
                   variant="outlined"
                   size="medium"
+                  onClick={cancelGame}
                 />
               </>
             ) : (
@@ -80,6 +91,7 @@ const DealerPanel: React.FC = () => {
                 color="secondary"
                 variant="outlined"
                 size="medium"
+                onClick={exitGame}
               />
             )}
           </Container>
