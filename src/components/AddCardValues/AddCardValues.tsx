@@ -13,7 +13,7 @@ export const AddCardValues: FC = () => {
 
   return (
     <Grid container spacing={3} className={classes.cards}>
-      <Grid xs={3}>
+      <Grid item xs={3}>
         <CardForAdd
           className={flipAddCard === true ? classes.cardStylesBack : classes.cardStyles}
           onClick={() => setFlipAddCard(!flipAddCard)}
@@ -25,7 +25,7 @@ export const AddCardValues: FC = () => {
         />
       </Grid>
       {cards.map((card) => (
-        <Grid key={card.id} xs={3}>
+        <Grid item key={card.id} xs={3}>
           <CardInstance valueIndex={card.id} itemVal={card.value} className={classes.cards} />
         </Grid>
       ))}
