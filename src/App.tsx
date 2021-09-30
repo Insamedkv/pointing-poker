@@ -1,7 +1,6 @@
 import React, { FC, ReactElement, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { Container, ThemeProvider } from '@material-ui/core';
-import Chat from 'components/Chat';
 import MainPage from './pages/MainPage';
 import { Header } from './components/Header/index';
 import { Footer } from './components/Footer/index';

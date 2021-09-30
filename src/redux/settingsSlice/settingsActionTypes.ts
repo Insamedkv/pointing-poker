@@ -15,3 +15,8 @@ export interface ISetTimePayload {
 }
 
 export type IScoreType = ScoreTypes.CUSTOM | ScoreTypes.FIBONACHI | ScoreTypes.POWEROFTWO;
+
+export interface ICardItem {
+  id: string;
+  value: string;
+}

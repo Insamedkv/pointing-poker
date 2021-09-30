@@ -1,6 +1,15 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { Container, Fade, FormControlLabel, MenuItem, Select, Switch } from '@material-ui/core';
+import {
+  Container,
+  Fade,
+  FormControl,
+  FormControlLabel,
+  InputLabel,
+  MenuItem,
+  Select,
+  Switch,
+} from '@material-ui/core';
 import CustomInput from 'components/CustomInput';
 import SectionHeader from 'components/SectionHeader';
 import { useTypedSelector } from 'hooks/useTypedSelector';
@@ -15,6 +24,7 @@ import {
   toggleTimer,
 } from 'reduxstore/settingsSlice/settingsSlice';
 import { IScoreType } from 'reduxstore/settingsSlice/settingsActionTypes';
+import { AddCardValues } from 'components/AddCardValues';
 import { ScoreTypes } from 'defaultTypes';
 import { useStyles } from './GameSettings.styles';
 
@@ -211,6 +221,11 @@ const GameSettings: React.FC = () => {
           labelPlacement="start"
         />
       </Fade>
+
+      <InputLabel className={classes.formControl} htmlFor="my-input">
+        Add card values:
+      </InputLabel>
+      <AddCardValues />
     </Container>
   );
 };

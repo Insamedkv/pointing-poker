@@ -31,6 +31,16 @@ const useStyles = makeStyles(({ typography, palette, transitions, shadows }) =>
     },
     label: {
       fontFamily: ['Ruda', 'serif'].join(','),
+      color: palette.common.black,
+      fontSize: '24px',
+      fontWeight: typography.fontWeightBold,
+      lineHeight: '30px',
+      textAlign: 'left',
+    },
+    formControl: {
+      margin: '0 0 0 16px',
+      fontFamily: ['Ruda', 'serif'].join(','),
+      color: palette.common.black,
       fontSize: '24px',
       fontWeight: typography.fontWeightBold,
       lineHeight: '30px',
