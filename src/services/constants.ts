@@ -18,6 +18,7 @@ export enum Event {
   VOTE_RESULT = 'vote result',
   SET_RULES = 'set rules',
   PLAY = 'play',
+  ON_PLAY = 'on play',
 }
 
 export const ERROR_MESSAGES = {

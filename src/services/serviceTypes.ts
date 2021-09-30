@@ -1,4 +1,5 @@
 import { Room } from 'defaultTypes';
+import { ICardItem } from 'reduxstore/settingsSlice/settingsActionTypes';
 
 // request interface
 export interface SignupData {
@@ -22,7 +23,7 @@ export interface UpdateBet {
 
 export interface Rules {
   scrumMasterAsAPlayer: boolean;
-  cardType: any[];
+  cardType: Array<string>;
   shortScoreType: string;
   newUsersEnter: boolean;
   autoRotateCardsAfterVote: boolean;

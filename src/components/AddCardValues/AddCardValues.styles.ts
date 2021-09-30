@@ -2,9 +2,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { grey } from '@material-ui/core/colors';
 
 export const useStyles = makeStyles({
-  cards: {
-    marginLeft: '10px',
-  },
   cardStylesBack: {
     display: 'none',
   },

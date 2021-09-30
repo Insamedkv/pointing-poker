@@ -96,6 +96,18 @@ export class SocketService {
     this.socket.emit(Event.JOIN, rules);
   }
 
+  public play(roomId: string): void {
+    console.log(`play: ${roomId}`);
+    this.socket.emit(Event.PLAY, roomId);
+  }
+
+  public onPlay(setGame: any): void {
+    this.socket.on(Event.ON_PLAY, (game: { isGameStarted: boolean; roomId: string }) => {
+      setGame(game.isGameStarted);
+      console.log('YOU HAVE BEEN TRANSFERED!');
+    });
+  }
+
   public disconnect(): void {
     console.log('Disconnecting...');
     this.socket.disconnect();

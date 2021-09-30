@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import { Container, Grid, Typography } from '@material-ui/core';
 import LinkToLobby from 'components/LinkToLobby';
 import PersonPanel from 'components/PersonPanel';
@@ -9,12 +10,15 @@ import { deleteRoom, getRoomCreator, leaveRoom, setGameStatus, setRoomRules } fr
 import { Rules } from 'services/serviceTypes';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import { useStyles } from './DealerPanel.styles';
+import { socket } from '../../index';
 
 const DealerPanel: React.FC = () => {
   const classes = useStyles();
   const { room, isDealer } = useTypedSelector((state) => state.currentUser);
+  const { cardTypes } = useTypedSelector((state) => state.settings);
   const rules = useTypedSelector((state) => state.settings);
   const [userInfo, setUserInfo] = useState<IUserInfo>();
+  const [isGameStarted, setGameStarted] = useState(false);
 
   const link = `${room?._id}`;
 
@@ -30,6 +34,10 @@ const DealerPanel: React.FC = () => {
   };
 
   useEffect(() => {
+    socket.onPlay(setGameStarted);
+  }, []);
+
+  useEffect(() => {
     if (room?._id) {
       getRoomCreator(room._id).then((creator) => {
         setUserInfo(creator);
@@ -39,6 +47,7 @@ const DealerPanel: React.FC = () => {
 
   const startGame = () => {
     const roundTime = rules.time.minutes * 60 + rules.time.seconds;
+    const arrayOfValues = cardTypes.map((card) => card.value);
     const laws: Rules = {
       scrumMasterAsAPlayer: rules.scrumMasterAsAPlayer,
       newUsersEnter: rules.newUsersEnter,
@@ -46,26 +55,27 @@ const DealerPanel: React.FC = () => {
       changingCardInEnd: rules.changingCardInEnd,
       isTimerNeeded: rules.isTimerNeeded,
       shortScoreType: rules.shortScoreType,
-      cardType: [],
+      cardType: arrayOfValues,
       roundTime,
     };
 
     if (room) {
       setRoomRules(room._id, laws);
       setGameStatus(room._id, true);
+      socket.play(room._id);
     }
   };
 
   return (
     <div className={classes.dealerPanel}>
       <Grid container alignItems="center" justifyContent="space-between" spacing={4}>
-        <Grid item md={6} sm={12}>
+        <Grid item md={6} sm={12} xs={12}>
           <Container>
             <Typography variant="subtitle1">Scrum master:</Typography>
             {userInfo && <PersonPanel userInfo={userInfo} avaSize="large" />}
           </Container>
         </Grid>
-        <Grid item md={6} sm={12}>
+        <Grid item md={6} sm={12} xs={12}>
           <Container className={classes.btnContainer}>
             {isDealer ? (
               <>
@@ -100,6 +110,7 @@ const DealerPanel: React.FC = () => {
           <LinkToLobby link={link} />
         </Grid>
       </Grid>
+      {link && isGameStarted && <Redirect to={`/game/${link}`} />}
     </div>
   );
 };
