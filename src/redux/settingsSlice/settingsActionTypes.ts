@@ -11,3 +11,8 @@ export interface ISetTimePayload {
   minutes: number;
   seconds: number;
 }
+
+export interface ICardItem {
+  id: string;
+  value: string;
+}

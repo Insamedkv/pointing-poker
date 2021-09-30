@@ -1,32 +1,21 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { grey } from '@material-ui/core/colors';
-import { BackgrCardColor, AdditionalColors } from '../../utils/styleConstants';
+import { BackgrCardColor, AdditionalColors } from '../../../../utils/styleConstants';
 
-export const useStyles = makeStyles({
-  cardStyles: {
-    margin: '80px',
-    width: '250px',
-    height: '350px',
-    boxShadow: `2px 2px 5px 2px ${grey.A200}`,
-    boxSizing: 'border-box',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: '20px',
-    fontSize: '25px',
-    borderRadius: '20px',
-    fontWeight: 900,
-    position: 'relative',
-  },
+export const useStyles = makeStyles(({ shadows }) => ({
   cardItem: {
     alignSelf: 'flex-start',
     cursor: 'default',
   },
   cardImage: {
-    width: '130px',
+    width: '80%',
     height: 'auto',
     borderRadius: '0',
+  },
+  cardIcon: {
+    fontSize: '64px',
+    fontWeight: 800,
+    textShadow: '2px 2px 4px rgb(0, 0, 0, .4)',
+    userSelect: 'none',
   },
   cardImageReverse: {
     transform: 'rotate(180deg)',
@@ -62,4 +51,4 @@ export const useStyles = makeStyles({
     padding: '15px',
     boxSizing: 'border-box',
   },
-});
+}));

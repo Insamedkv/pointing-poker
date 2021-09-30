@@ -1,5 +1,6 @@
 import React, { FC, ReactElement } from 'react';
 import { Container, ThemeProvider } from '@material-ui/core';
+import { AddCardValues } from 'components/AddCardValues';
 import { Header } from './components/Header/index';
 import { Footer } from './components/Footer/index';
 import { baseTheme } from './utils/customTheme';
@@ -14,7 +15,8 @@ export const App: FC = (): ReactElement => {
     <ThemeProvider theme={baseTheme}>
       <Container className={classes.wrapper}>
         <Header />
-        <Main />
+        {/* <Main /> */}
+        <AddCardValues />
         <Footer />
         <ModalWindow />
       </Container>
