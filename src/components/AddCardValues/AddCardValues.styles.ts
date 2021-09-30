@@ -4,7 +4,7 @@ import { grey } from '@material-ui/core/colors';
 export const useStyles = makeStyles({
   cardsContainer: {
     display: 'flex',
-    flexDirection: 'row-reverse',
+    // flexDirection: 'row-reverse',
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',

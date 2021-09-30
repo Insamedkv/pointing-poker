@@ -42,21 +42,13 @@ export interface IUserInfo {
 }
 
 export interface ICardItemProps {
-  valueIndex: number;
+  valueIndex?: string;
   name?: string;
-  onSubmit?: (indexValue: number, value: string) => void;
+  onSubmit?: (value: string) => void;
   onClick?: React.MouseEventHandler;
   handleClick?: (value: boolean) => void;
   className?: string;
   value?: string;
   invisBtn?: boolean;
   foo?: void;
-}
-
-export interface ICardInstanceProps {
-  className?: string;
-  itemVal: string;
-  valueIndex: number;
-  onClick?: (indexValue: number, value: string) => void;
-  onSubmit?: void;
 }

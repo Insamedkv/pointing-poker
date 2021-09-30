@@ -6,6 +6,9 @@ export const useStyles = makeStyles(({ palette }) => ({
     width: 'auto',
     height: '40px',
   },
+  centerateText: {
+    textAlign: 'center',
+  },
   wrapForBtn: {
     width: '100%',
     paddingTop: '15px',
@@ -21,29 +24,12 @@ export const useStyles = makeStyles(({ palette }) => ({
       transform: 'scale(1.4)',
     },
   },
-  btnSubmit: {
+  btnStyle: {
     width: '100%',
     minWidth: '55px',
     fontSize: 'Medium',
     padding: '4px 6px',
     height: 'auto',
-    background: `${SiteColors.MAIN_COLOR}`,
-    color: palette.common.white,
-    '&:hover': {
-      background: `${SiteColors.SECONDARY_COLOR}`,
-    },
-  },
-  btnCancel: {
-    width: 'auto',
-    minWidth: '55px',
-    fontSize: 'Medium',
-    padding: '4px 6px',
-    height: 'auto',
-    background: `${SiteColors.MAIN_COLOR}`,
-    color: palette.common.white,
-    '&:hover': {
-      background: `${SiteColors.SECONDARY_COLOR}`,
-    },
   },
   invisibleBTN: {
     display: 'none',

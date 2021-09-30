@@ -1,14 +1,23 @@
 import React, { FC, useState } from 'react';
-import { Avatar, Box, Card } from '@material-ui/core';
+import { Avatar, Box, Card, Typography } from '@material-ui/core';
+import { ICardItemProps } from 'defaultTypes';
+import { useTypedSelector } from 'hooks/useTypedSelector';
 import { useStyles } from './CardItem.styles';
 import CardIconCoffee from '../../../../asset/CardIconCoffee.png';
-import SPIcon from '../../../../asset/SPIcon.png';
+// import SPIcon from '../../../../asset/SPIcon.png';
 import ApprovedCardIcon from '../../../../asset/ApprovedCardIcon.png';
-import { ICardItemProps } from '../../../../defaultTypes';
 
 export const CardItem: FC<ICardItemProps> = ({ name, onClick, className }) => {
   const classes = useStyles();
-  const result = name === 'Unknown' ? CardIconCoffee : SPIcon;
+  const { shortScoreType } = useTypedSelector((state) => state.settings);
+  const cardIcon =
+    name === 'Unknown' ? (
+      <Avatar className={classes.cardImage} alt="IconImage" src={CardIconCoffee} />
+    ) : (
+      <Typography className={classes.cardIcon} component="span">
+        {shortScoreType}
+      </Typography>
+    );
   const [active, setActive] = useState<boolean>(false);
 
   return (
@@ -23,7 +32,7 @@ export const CardItem: FC<ICardItemProps> = ({ name, onClick, className }) => {
         </Box>
       </Box>
       <Box className={classes.cardItem}>{name}</Box>
-      <Avatar className={classes.cardImage} alt="IconImage" src={result} />
+      {cardIcon}
       <Box className={classes.cardImageReverse}>{name}</Box>
     </Card>
   );

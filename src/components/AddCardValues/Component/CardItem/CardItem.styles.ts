@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { BackgrCardColor, AdditionalColors } from '../../../../utils/styleConstants';
 
-export const useStyles = makeStyles({
+export const useStyles = makeStyles(({ shadows }) => ({
   cardItem: {
     alignSelf: 'flex-start',
     cursor: 'default',
@@ -10,6 +10,12 @@ export const useStyles = makeStyles({
     width: '80%',
     height: 'auto',
     borderRadius: '0',
+  },
+  cardIcon: {
+    fontSize: '64px',
+    fontWeight: 800,
+    textShadow: '2px 2px 4px rgb(0, 0, 0, .4)',
+    userSelect: 'none',
   },
   cardImageReverse: {
     transform: 'rotate(180deg)',
@@ -45,4 +51,4 @@ export const useStyles = makeStyles({
     padding: '15px',
     boxSizing: 'border-box',
   },
-});
+}));

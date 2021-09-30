@@ -1,4 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import crypto from 'crypto';
+import { ICardItem } from './settingsActionTypes';
 
 interface ITime {
   minutes: number;
@@ -6,7 +8,7 @@ interface ITime {
 }
 
 interface ISettingsState {
-  cardTypes: Array<string>;
+  cardTypes: Array<ICardItem>;
   scrumMasterAsPlayer: boolean;
   changingCardInEnd: boolean;
   isTimerNeeded: boolean;
@@ -22,7 +24,7 @@ export interface NewCard {
 
 const initialState: ISettingsState = {
   scrumMasterAsPlayer: true,
-  cardTypes: ['Unknown'],
+  cardTypes: [],
   changingCardInEnd: false,
   isTimerNeeded: true,
   scoreType: 'Story Points',
@@ -56,17 +58,24 @@ const settingsSlice = createSlice({
       state.time = action.payload;
     },
     addNewCard: (state, action: PayloadAction<string>) => {
-      state.cardTypes = [...state.cardTypes, action.payload];
+      const id = crypto.randomBytes(16).toString('hex');
+      const newCard: ICardItem = { id, value: action.payload };
+      state.cardTypes = [...state.cardTypes, newCard];
     },
-    changeCardValues: (state, action: PayloadAction<NewCard>) => {
-      state.cardTypes = [
-        ...state.cardTypes.slice(0, action.payload.index),
-        action.payload.value,
-        ...state.cardTypes.slice(action.payload.index + 1),
-      ];
+    changeCardValues: (state, action: PayloadAction<ICardItem>) => {
+      state.cardTypes = state.cardTypes.map((card) => {
+        if (card.id === action.payload.id) {
+          const updatedCard: ICardItem = {
+            id: action.payload.id,
+            value: action.payload.value,
+          };
+          return updatedCard;
+        }
+        return card;
+      });
     },
-    deleteOldCard: (state, action: PayloadAction<number>) => {
-      state.cardTypes = [...state.cardTypes.slice(0, action.payload), ...state.cardTypes.slice(action.payload + 1)];
+    deleteOldCard: (state, action: PayloadAction<string>) => {
+      state.cardTypes = state.cardTypes.filter((card) => card.id !== action.payload);
     },
   },
 });

@@ -3,7 +3,7 @@ import { DeleteForeverOutlined } from '@material-ui/icons';
 import { useDispatch } from 'react-redux';
 import { ICardItemProps } from 'defaultTypes';
 import React, { FC, useState } from 'react';
-import { changeCardValues } from 'reduxstore/settingsSlice/settingsSlice';
+import { addNewCard, changeCardValues } from 'reduxstore/settingsSlice/settingsSlice';
 import { useStyles } from './CardBack.styles';
 
 export const CardBack: FC<ICardItemProps> = ({
@@ -15,36 +15,49 @@ export const CardBack: FC<ICardItemProps> = ({
   invisBtn = false,
 }) => {
   const classes = useStyles();
-  const [valueChange, setValueChanged] = useState(`${value}`);
-  const [disabledBtn, setDisabledBtn] = useState(true);
+  const [valueChange, setValueChanged] = useState<string>(value || '');
   const dispatch = useDispatch();
 
   const changeValue = () => {
-    if (handleClick) {
-      handleClick(false);
+    if (handleClick) handleClick(false);
+
+    if (!valueIndex) {
+      dispatch(addNewCard(valueChange));
+      setValueChanged('');
+      return;
     }
-    dispatch(changeCardValues({ value: valueChange, index: valueIndex }));
+
+    dispatch(changeCardValues({ value: valueChange, id: valueIndex as string }));
   };
 
   return (
     <Container className={className}>
       <Input
         className={classes.input}
+        classes={{ input: classes.centerateText }}
         onChange={(event) => {
-          setDisabledBtn(event.target.value === '');
           setValueChanged(event.target.value);
         }}
         value={valueChange}
       />
 
       <Box className={classes.wrapForBtn}>
-        <Button className={classes.btnSubmit} onClick={changeValue} disabled={disabledBtn}>
+        <Button
+          className={classes.btnStyle}
+          variant="contained"
+          color="primary"
+          onClick={changeValue}
+          disabled={valueChange === ''}
+        >
           Submit
         </Button>
         <Button
-          className={classes.btnCancel}
+          className={classes.btnStyle}
+          color="primary"
+          variant="outlined"
           onClick={() => {
             if (handleClick) handleClick(false);
+            if (!valueIndex) setValueChanged('');
           }}
         >
           Cancel
