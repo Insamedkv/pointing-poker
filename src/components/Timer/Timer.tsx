@@ -2,7 +2,6 @@ import { Box, Container } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import React, { FC, useEffect, useState } from 'react';
 import { useTypedSelector } from 'hooks/useTypedSelector';
-import { stopRoundInRoom } from 'reduxstore/gameSlice';
 import { useStyles } from './Timer.style';
 import { socket } from '../../index';
 
@@ -24,17 +23,18 @@ export const Timer: FC = () => {
   // }, [isRoundstarted, seconds]);
 
   useEffect(() => {
-    if (isRoundstarted && room) {
-      setSeconds(room.rules[0].roundTime);
-      const timer = setInterval(() => {
-        if ((!isRoundstarted || seconds <= 0) && room?._id) {
-          socket.stopRound(room._id);
-          clearInterval(timer);
-        }
-        if (seconds > 0 && isRoundstarted) setSeconds((prev) => prev - 1);
+    if (isRoundstarted && room && seconds > 0) {
+      setTimeout(() => {
+        setSeconds(seconds - 1);
       }, 1000);
     }
-  }, [isRoundstarted]);
+    if (!isRoundstarted || seconds <= 0) {
+      if (room?._id) {
+        socket.stopRound(room._id);
+        setSeconds(room.rules[0].roundTime);
+      }
+    }
+  });
 
   useEffect(() => {
     if (room?.rules[0]) setSeconds(room.rules[0].roundTime);
