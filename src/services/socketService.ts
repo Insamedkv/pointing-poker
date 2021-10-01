@@ -1,8 +1,9 @@
 import io, { Socket } from 'socket.io-client';
 import { fromEvent, Observable } from 'rxjs';
-import { IUserInfo } from 'defaultTypes';
 import { setIssues } from 'reduxstore/issuesSlice';
+import { toggleGameInRoom } from 'reduxstore/userSlice';
 import { pushMessage } from 'reduxstore/chatSlice/chatSlice';
+import { setCurrentIssue, stopRoundInRoom, toggleRoundInRoom } from 'reduxstore/gameSlice';
 import { Event } from './constants';
 import {
   Bet,
@@ -102,9 +103,45 @@ export class SocketService {
   }
 
   public onPlay(setGame: any): void {
-    this.socket.on(Event.ON_PLAY, (game: { isGameStarted: boolean; roomId: string }) => {
-      setGame(game.isGameStarted);
+    this.socket.on(Event.ON_PLAY, (game: { roomId: string; isGameStarted: boolean }) => {
+      setGame(toggleGameInRoom(game.isGameStarted));
       console.log('YOU HAVE BEEN TRANSFERED!');
+    });
+  }
+
+  public runRound(roomId: string): void {
+    console.log('Round...');
+    this.socket.emit(Event.RUN_ROUND, roomId);
+  }
+
+  public onRunRound(dispatch: any): void {
+    console.log('Round...');
+    this.socket.on(Event.ON_RUN_ROUND, ({ isRoundStarted }) => {
+      dispatch(toggleRoundInRoom(isRoundStarted));
+    });
+  }
+
+  public stopRound(roomId: string): void {
+    console.log('Round stopped...');
+    this.socket.emit(Event.STOP_ROUND, roomId);
+  }
+
+  public onStopRound(dispatch: any): void {
+    console.log('ON => Round stopped...');
+    this.socket.on(Event.ON_STOP_ROUND, () => {
+      dispatch(stopRoundInRoom());
+    });
+  }
+
+  public setActiveIssue(roomId: string, issueId: string): void {
+    console.log('Issue: ', issueId);
+    this.socket.emit(Event.SET_ACTIVE_ISSUE, { roomId, issueId });
+  }
+
+  public onSetActiveIssue(dispatch: any): void {
+    console.log('Set active!');
+    this.socket.on(Event.ON_SET_ACTIVE_ISSUE, (issueId: string) => {
+      dispatch(setCurrentIssue(issueId));
     });
   }
 

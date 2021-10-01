@@ -30,8 +30,11 @@ const userSlice = createSlice({
       ...state,
       room: action.payload,
     }),
+    toggleGameInRoom: (state, action: PayloadAction<boolean>) => {
+      if (state.room) state.room.isGameStarted = action.payload;
+    },
   },
 });
 
 export default userSlice;
-export const { setUserCredentials, updateRoomUsers } = userSlice.actions;
+export const { setUserCredentials, updateRoomUsers, toggleGameInRoom } = userSlice.actions;

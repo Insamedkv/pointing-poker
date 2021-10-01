@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Container, IconButton, InputLabel, TextField, Typography } from '@material-ui/core';
-import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import CheckIcon from '@material-ui/icons/Check';
-import { IIssue, Room } from 'defaultTypes';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import { updateRoomTitle } from 'services/httpRoom';
 import { useStyles } from './SprintHeader.styles';
@@ -12,6 +10,7 @@ const SprintHeader: React.FC = () => {
   const classes = useStyles();
   const roomTitle = useTypedSelector((state) => state.currentUser.room?.roomTitle);
   const roomId = useTypedSelector((state) => state.currentUser.room?._id);
+  const isGameStarted = useTypedSelector((state) => state.currentUser.room?.isGameStarted);
   const [newTitle, setNewTitle] = useState('');
   const { isDealer } = useTypedSelector((state) => state.currentUser);
 
@@ -30,7 +29,7 @@ const SprintHeader: React.FC = () => {
   return (
     <>
       <Container className={classes.container}>
-        {isDealer ? (
+        {isDealer && !isGameStarted ? (
           <>
             <Typography variant="h3" className={classes.root}>
               <InputLabel className={classes.inputLabel}>

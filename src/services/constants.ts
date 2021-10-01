@@ -19,6 +19,12 @@ export enum Event {
   SET_RULES = 'set rules',
   PLAY = 'play',
   ON_PLAY = 'on play',
+  RUN_ROUND = 'run round',
+  ON_RUN_ROUND = 'on run round',
+  SET_ACTIVE_ISSUE = 'set active issue',
+  ON_SET_ACTIVE_ISSUE = 'on set active issue',
+  STOP_ROUND = 'stop round',
+  ON_STOP_ROUND = 'on stop round',
 }
 
 export const ERROR_MESSAGES = {

@@ -12,6 +12,7 @@ import { useTypedSelector } from 'hooks/useTypedSelector';
 import { IssueResp } from 'services/serviceTypes';
 import { deleteRoomIssue } from 'services/httpRoom';
 import { useStyles } from './IssueCard.styles';
+import { socket } from '../../index';
 
 interface IPropsForCreate {
   mode: 'create';
@@ -27,11 +28,16 @@ type IIssueProps = IPropsForShow | IPropsForCreate;
 
 const IssueCard: React.FC<IIssueProps> = ({ mode, issue }) => {
   const { room, isDealer } = useTypedSelector((state) => state.currentUser);
+  const isCurrentIssue = issue?._id === useTypedSelector((state) => state.game.currentIssue);
+  const isRoundstarted = useTypedSelector((state) => state.game.isRoundstarted);
+  const isGameStarted = room?.isGameStarted;
   const dispatch = useDispatch();
   const classes = useStyles();
   const isCreateMode = mode === 'create';
 
-  const isGameStarted = false;
+  const setAsCurrent = () => {
+    if (!isRoundstarted && isDealer && issue?._id && room?._id) socket.setActiveIssue(room._id, issue._id);
+  };
 
   const deleteIssue = (event: React.MouseEvent) => {
     event.stopPropagation();
@@ -71,10 +77,11 @@ const IssueCard: React.FC<IIssueProps> = ({ mode, issue }) => {
     <Card
       className={classNames(
         classes.root,
-        // isInProgress && classes.currentIssue,
+        isCurrentIssue && classes.currentIssue,
         isCreateMode && classes.issueCreator,
         isDealer && classes.issueCreator
       )}
+      onClick={setAsCurrent}
     >
       {isCreateMode ? (
         <>

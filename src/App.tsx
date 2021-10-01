@@ -1,7 +1,7 @@
-import React, { FC, ReactElement, useEffect, useState } from 'react';
+import React, { FC, ReactElement, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { Container, ThemeProvider } from '@material-ui/core';
-import { useTypedSelector } from 'hooks/useTypedSelector';
 import MainPage from './pages/MainPage';
 import { Header } from './components/Header/index';
 import { Footer } from './components/Footer/index';
@@ -29,10 +29,12 @@ const routes = [
 
 export const App: FC = (): ReactElement => {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     socket.onKick();
     socket.onDeleteRoom();
+    socket.getIssues(dispatch);
   }, []);
 
   return (

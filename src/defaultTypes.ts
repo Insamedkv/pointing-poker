@@ -91,6 +91,7 @@ export interface Room {
   users: Array<RoomUser>;
   issues: Array<Issue>;
   roomCreator: string;
+  isGameStarted: boolean;
 }
 
 export enum ScoreTypes {

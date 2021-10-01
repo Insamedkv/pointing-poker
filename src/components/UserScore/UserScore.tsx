@@ -1,31 +1,27 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Container, Grid, IconButton, Typography } from '@material-ui/core';
 import BlockIcon from '@material-ui/icons/Block';
-import PersonPanel from 'components/PersonPanel';
-import { IAvataraInfo, IUserInfo } from 'defaultTypes';
-import { useStyles } from 'components/Chat/Chat.styles';
 import Avatara from 'components/Avatara';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import { getUserById } from 'services/httpUser';
-import { useDispatch } from 'react-redux';
 import { kickOutPlayerModal } from 'reduxstore/modalSlice/modalActions';
+import { IAvataraInfo, IUserInfo } from 'defaultTypes';
+import { useStyles } from './UseScore.styles';
 
-interface IMessageProps {
+interface IUserScoreProps {
   user: IUserInfo;
-  message: { date: Date; text: string };
+  bet?: string;
 }
 
-const MessageBlock: React.FC<IMessageProps> = ({ user, message }) => {
+const UserScore: React.FC<IUserScoreProps> = ({ user, bet = 'inProgress' }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { userId, isDealer } = useTypedSelector((state) => state.currentUser);
-  const date = new Date(message.date);
-  const options: Intl.DateTimeFormatOptions = {
-    month: 'long',
-    day: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
-    second: '2-digit',
+
+  const openKickPlayerModal = async () => {
+    const initiator = await getUserById(userId);
+    dispatch(kickOutPlayerModal(user, initiator));
   };
 
   const userInfoObj: IAvataraInfo = {
@@ -33,11 +29,6 @@ const MessageBlock: React.FC<IMessageProps> = ({ user, message }) => {
     lastName: user.lastName,
     src: user.avatar,
     size: 'small',
-  };
-
-  const openKickPlayerModal = async () => {
-    const initiator = await getUserById(userId);
-    dispatch(kickOutPlayerModal(user, initiator));
   };
 
   return (
@@ -56,10 +47,7 @@ const MessageBlock: React.FC<IMessageProps> = ({ user, message }) => {
             </Typography>
           </Container>
           <Typography component="span" className={classes.textSection}>
-            {message.text}
-          </Typography>
-          <Typography component="span" className={classes.dateSection}>
-            {date.toLocaleDateString('en-GB', options)}
+            {bet}
           </Typography>
         </Container>
       </Grid>
@@ -67,4 +55,4 @@ const MessageBlock: React.FC<IMessageProps> = ({ user, message }) => {
   );
 };
 
-export default MessageBlock;
+export default UserScore;

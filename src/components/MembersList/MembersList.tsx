@@ -14,15 +14,21 @@ const MembersList: React.FC = () => {
 
   useEffect(() => {
     socket.getUsersInRoom(setUsersList);
-  }, [usersList]);
+  }, []);
 
   useEffect(() => {
+    let isMounted = true;
     socket.deleteUserFromRoom(setUsersList);
 
     if (room?._id) {
       // socket.onJoin(room._id);
-      getRoomUsers(room._id).then((data) => setUsersList(data));
+      getRoomUsers(room._id).then((data) => {
+        if (isMounted) setUsersList(data);
+      });
     }
+    return () => {
+      isMounted = false;
+    };
   }, [room]);
 
   return (
