@@ -26,18 +26,12 @@ const IssueCreation: React.FC = () => {
     socket.getIssues(dispatch);
   }, []);
 
-  const addIssue = () => {
-    dispatch(createIssueModal());
-  };
-
   return (
     <Container className={classes.root}>
       <Grid container spacing={1}>
         <IssueList />
         <Grid item sm={6}>
-          <div onClick={addIssue}>
-            <IssueCard mode="create" />
-          </div>
+          <IssueCard mode="create" />
         </Grid>
       </Grid>
     </Container>

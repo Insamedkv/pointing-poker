@@ -3,7 +3,7 @@ import { fromEvent, Observable } from 'rxjs';
 import { setIssues } from 'reduxstore/issuesSlice';
 import { toggleGameInRoom } from 'reduxstore/userSlice';
 import { pushMessage } from 'reduxstore/chatSlice/chatSlice';
-import { setCurrentIssue, stopRoundInRoom, toggleRoundInRoom } from 'reduxstore/gameSlice';
+import { setCurrentIssue, setUsersBets, stopRoundInRoom, toggleRoundInRoom } from 'reduxstore/gameSlice';
 import { Event } from './constants';
 import {
   Bet,
@@ -70,6 +70,19 @@ export class SocketService {
     this.socket.emit(Event.BET, bet);
   }
 
+  public restartRound(issueId: string): void {
+    console.log(`restart round to issue: ${issueId}`);
+    this.socket.emit(Event.RESTART_ROUND, issueId);
+  }
+
+  public onBet(dispatch: any): void {
+    console.log(`Getting bet...`);
+    this.socket.on(Event.ON_BET, (bets: Array<Bet>) => {
+      console.log(bets);
+      dispatch(setUsersBets(bets));
+    });
+  }
+
   public getIssues(dispatch: any): void {
     this.socket.on(Event.ON_ISSUE_CREATE, (issuesList: Array<IssueResp>) => {
       console.log('Get issues', issuesList);
@@ -109,9 +122,9 @@ export class SocketService {
     });
   }
 
-  public runRound(roomId: string): void {
+  public runRound(roomId: string, issueId: string): void {
     console.log('Round...');
-    this.socket.emit(Event.RUN_ROUND, roomId);
+    this.socket.emit(Event.RUN_ROUND, { roomId, issueId });
   }
 
   public onRunRound(dispatch: any): void {

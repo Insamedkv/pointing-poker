@@ -11,10 +11,10 @@ import { useStyles } from './UseScore.styles';
 
 interface IUserScoreProps {
   user: IUserInfo;
-  bet?: string;
+  bet?: string | null;
 }
 
-const UserScore: React.FC<IUserScoreProps> = ({ user, bet = 'inProgress' }) => {
+const UserScore: React.FC<IUserScoreProps> = ({ user, bet = 'In Progress' }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { userId, isDealer } = useTypedSelector((state) => state.currentUser);

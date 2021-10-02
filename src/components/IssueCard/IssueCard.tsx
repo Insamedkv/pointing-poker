@@ -5,7 +5,7 @@ import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
 import AddOutlinedIcon from '@material-ui/icons/AddOutlined';
-import { editIssueModal } from 'reduxstore/modalSlice/modalSlice';
+import { createIssueModal, editIssueModal } from 'reduxstore/modalSlice/modalSlice';
 import classNames from 'classnames';
 import { dropIssue } from 'reduxstore/issuesSlice';
 import { useTypedSelector } from 'hooks/useTypedSelector';
@@ -37,6 +37,10 @@ const IssueCard: React.FC<IIssueProps> = ({ mode, issue }) => {
 
   const setAsCurrent = () => {
     if (!isRoundstarted && isDealer && issue?._id && room?._id) socket.setActiveIssue(room._id, issue._id);
+  };
+
+  const addNewIssue = () => {
+    dispatch(createIssueModal());
   };
 
   const deleteIssue = (event: React.MouseEvent) => {
@@ -81,7 +85,7 @@ const IssueCard: React.FC<IIssueProps> = ({ mode, issue }) => {
         isCreateMode && classes.issueCreator,
         isDealer && classes.issueCreator
       )}
-      onClick={setAsCurrent}
+      onClick={isCreateMode ? addNewIssue : setAsCurrent}
     >
       {isCreateMode ? (
         <>

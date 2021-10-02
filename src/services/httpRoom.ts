@@ -181,10 +181,10 @@ export const sendMessage = async (message: string) => {
   });
 };
 
-export const getRoomBets = async (roomId: string) => {
+export const getRoomBets = async (issueId: string) => {
   return new Promise<BetResp[]>(async (res, rej) => {
     try {
-      const response = await axios.get(`/game/${roomId}`);
+      const response = await axios.get(`/game/${issueId}`);
       res(response.data);
     } catch (error) {
       rej(error);

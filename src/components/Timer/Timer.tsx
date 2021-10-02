@@ -2,12 +2,15 @@ import { Box, Container } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import React, { FC, useEffect, useState } from 'react';
 import { useTypedSelector } from 'hooks/useTypedSelector';
+import { setUsersBets } from 'reduxstore/gameSlice';
+import { getRoomBets } from 'services/httpRoom';
 import { useStyles } from './Timer.style';
 import { socket } from '../../index';
 
 export const Timer: FC = () => {
   const classes = useStyles();
   const { room } = useTypedSelector((state) => state.currentUser);
+  const { currentIssue } = useTypedSelector((state) => state.game);
   const [seconds, setSeconds] = useState<number>(0);
   const dispatch = useDispatch();
   const { isRoundstarted } = useTypedSelector((state) => state.game);
@@ -24,13 +27,15 @@ export const Timer: FC = () => {
 
   useEffect(() => {
     if (isRoundstarted && room && seconds > 0) {
-      setTimeout(() => {
+      const timer = setTimeout(() => {
         setSeconds(seconds - 1);
+        if (!isRoundstarted || seconds <= 0) clearTimeout(timer);
       }, 1000);
     }
     if (!isRoundstarted || seconds <= 0) {
-      if (room?._id) {
+      if (room?._id && room.rules[0]) {
         socket.stopRound(room._id);
+        getRoomBets(currentIssue).then((data) => setUsersBets(data));
         setSeconds(room.rules[0].roundTime);
       }
     }
