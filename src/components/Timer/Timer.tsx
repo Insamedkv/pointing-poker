@@ -23,17 +23,22 @@ export const Timer: FC = () => {
   // }, [isRoundstarted, seconds]);
 
   useEffect(() => {
+    // let timer: any;
     if (isRoundstarted && room && seconds > 0) {
+      // setSeconds(room.rules[0].roundTime);
       setTimeout(() => {
+        // clearInterval(timer);
         setSeconds(seconds - 1);
       }, 1000);
     }
     if (!isRoundstarted || seconds <= 0) {
-      if (room?._id) {
+      if (room?._id && room.rules[0]) {
+        // clearInterval(timer);
         socket.stopRound(room._id);
         setSeconds(room.rules[0].roundTime);
       }
     }
+    // if (seconds > 0 && isRoundstarted)
   });
 
   useEffect(() => {
