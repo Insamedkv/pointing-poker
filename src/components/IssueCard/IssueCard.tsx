@@ -90,14 +90,16 @@ const IssueCard: React.FC<IIssueProps> = ({ mode, issue }) => {
       {isCreateMode ? (
         <>
           <CardContent className={classes.cardBody}>
-            <Typography variant="h5">Create new Issue</Typography>
+            <Typography variant="h6">Create new Issue</Typography>
           </CardContent>
           <AddOutlinedIcon classes={{ root: classes.controlElement }} fontSize="large" />
         </>
       ) : (
         <>
           <CardContent className={classes.cardBody}>
-            <Typography variant="h5">{issue?.issueTitle}</Typography>
+            <Typography className={classes.textOverflow} variant="h6">
+              {issue?.issueTitle}
+            </Typography>
             <Typography variant="subtitle2">Priority: {issue?.priority}</Typography>
           </CardContent>
 

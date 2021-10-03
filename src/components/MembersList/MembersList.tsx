@@ -33,9 +33,9 @@ const MembersList: React.FC = () => {
 
   return (
     <Container component="section">
-      <Grid container spacing={4}>
+      <Grid container spacing={2}>
         {usersList.map((user: IUserInfo) => (
-          <Grid key={user._id} item sm={4}>
+          <Grid key={user._id} item xs>
             <PersonPanel userInfo={user} avaSize="medium" />
           </Grid>
         ))}

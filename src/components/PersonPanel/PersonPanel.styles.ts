@@ -13,22 +13,28 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     personName: {
       // width: '310px',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      // maxWidth: '300px',
       whiteSpace: 'nowrap',
-      textAlign: 'center',
     },
     cardContent: {
+      width: 'inherit',
+      // maxWidth: '280px',
       display: 'flex',
       justifyContent: 'space-between',
       height: '91px',
       alignItems: 'center',
-      padding: '18px 22px',
+      // padding: '18px 22px',
+      // marginRight: '20px',
+      overflow: 'hidden',
     },
     blockIcon: {
       position: 'absolute',
       fontSize: '32px',
       opacity: '.3',
-      top: '10px',
-      right: '15px',
+      top: '3px',
+      right: '3px',
       transition: 'all .2s ease-in-out',
       '&:hover': {
         cursor: 'pointer',
@@ -51,6 +57,14 @@ const useStyles = makeStyles((theme: Theme) =>
     lowerText: {
       height: '11px',
       textAlign: 'right',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      // maxWidth: '300px',
+      whiteSpace: 'nowrap',
+    },
+    textOverflow: {
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
     },
   })
 );

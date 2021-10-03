@@ -3,6 +3,9 @@ import { AdditionalColors } from 'utils/styleConstants';
 
 const useStyles = makeStyles(({ typography, palette, transitions, shadows }) =>
   createStyles({
+    // root: {
+    //   margin: 0,
+    // },
     selectSize: {
       maxWidth: '441px',
       minWidth: '350px',
@@ -36,7 +39,6 @@ const useStyles = makeStyles(({ typography, palette, transitions, shadows }) =>
       textAlign: 'left',
     },
     formControl: {
-      margin: '0 0 0 16px',
       fontFamily: ['Ruda', 'serif'].join(','),
       color: palette.common.black,
       fontSize: '24px',
@@ -45,9 +47,10 @@ const useStyles = makeStyles(({ typography, palette, transitions, shadows }) =>
       textAlign: 'left',
     },
     controlSize: {
+      margin: 0,
       justifyContent: 'space-between',
+      flexDirection: 'row-reverse',
       padding: '10px 0',
-      minWidth: '540px',
       maxWidth: '750px',
     },
     switcherRoot: {

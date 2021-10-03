@@ -14,7 +14,7 @@ const useIssueStyles = makeStyles(({ shadows, typography }) =>
       boxShadow: `inner ${shadows[4]}`,
     },
     labelText: {
-      width: '20%',
+      width: '30%',
       fontSize: '24px',
       fontWeight: typography.fontWeightBold,
     },

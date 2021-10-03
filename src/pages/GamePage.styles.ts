@@ -7,17 +7,21 @@ const useStyles = makeStyles(({ palette }) =>
       padding: '40px 20px',
     },
     setupGrid: {
-      padding: '35px 0',
+      padding: '106px 20px 0 20px !important',
+      minWidth: '240px',
     },
     setubGridButtons: {
-      padding: '45px 0',
+      width: '100%',
       display: 'flex',
+      padding: '0px',
       justifyContent: 'center',
       flexDirection: 'column',
-      width: '65%',
     },
     btnMargin: {
       margin: '20px 0',
+    },
+    setupWidth: {
+      padding: '0 22px',
     },
     cardStyles: {
       width: 'auto',
@@ -39,8 +43,9 @@ const useStyles = makeStyles(({ palette }) =>
     },
     cardContainer: {
       maxWidth: '740px',
+      padding: '0 22px',
       margin: 'auto',
-      minWidth: '500px',
+      minWidth: '468px',
     },
   })
 );

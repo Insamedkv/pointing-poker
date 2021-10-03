@@ -9,6 +9,7 @@ export const useStyles = makeStyles(({ palette }) => ({
     justifyContent: 'center',
     padding: '0px',
     width: '100%',
+    maxWidth: '100vw',
   },
   title: {
     display: 'flex',

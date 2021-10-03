@@ -5,12 +5,14 @@ import { AdditionalColors } from '../../utils/styleConstants';
 const useStyles = makeStyles(({ shadows, palette }: Theme) =>
   createStyles({
     root: {
+      whiteSpace: 'nowrap',
+      marginBottom: '10px',
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
-      width: '250px',
+      minWidth: '215px',
+      width: 'inherit',
       height: '64px',
-      margin: '2px 0 14px 0',
       boxShadow: shadows[6],
       transition: 'all .2s ease-in-out',
       '&:hover .MuiSvgIcon-root': {
@@ -22,7 +24,9 @@ const useStyles = makeStyles(({ shadows, palette }: Theme) =>
       boxShadow: shadows[10],
     },
     cardBody: {
-      width: '100%',
+      width: 'inherit',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
     },
     actionContainer: {
       display: 'flex',
@@ -50,6 +54,10 @@ const useStyles = makeStyles(({ shadows, palette }: Theme) =>
       '&:active': {
         background: palette.divider,
       },
+    },
+    textOverflow: {
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
     },
   })
 );

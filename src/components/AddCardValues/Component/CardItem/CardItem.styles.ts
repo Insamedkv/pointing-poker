@@ -3,6 +3,9 @@ import { BackgrCardColor, AdditionalColors } from '../../../../utils/styleConsta
 
 export const useStyles = makeStyles(({ shadows }) => ({
   cardItem: {
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    width: '100%',
     alignSelf: 'flex-start',
     cursor: 'default',
   },
@@ -21,6 +24,9 @@ export const useStyles = makeStyles(({ shadows }) => ({
     transform: 'rotate(180deg)',
     alignSelf: 'flex-end',
     cursor: 'default',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    width: '100%',
   },
   cardStylesActive: {
     position: 'absolute',

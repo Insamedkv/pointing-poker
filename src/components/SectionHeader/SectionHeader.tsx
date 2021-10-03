@@ -12,7 +12,7 @@ const SectionHeader: React.FC<ISectionHeaderProps> = ({ header, withoutColon }) 
   const fullHeader = withoutColon ? header : `${header}:`;
 
   return (
-    <Typography className={classes.root} variant="h5">
+    <Typography className={classes.root} variant="h6">
       {fullHeader}
     </Typography>
   );

@@ -37,13 +37,13 @@ const useStyles = makeStyles(({ palette, typography, shadows }) =>
       justifyContent: 'space-between',
     },
     chatContainer: {
-      padding: '10px 0',
+      padding: '0 0 10px 0',
       position: 'relative',
     },
     messageField: {
       display: 'flex',
       height: '100%',
-      width: '99%',
+      minWidth: '240px',
       flexDirection: 'column',
       justifyContent: 'space-between',
       background: 'aliceblue',
@@ -78,10 +78,12 @@ const useStyles = makeStyles(({ palette, typography, shadows }) =>
       textAlign: 'right',
     },
     nameSection: {
+      overflow: 'hidden',
+      width: 'inherit',
+      textOverflow: 'ellipsis',
       fontWeight: typography.fontWeightBold,
       fontStyle: 'italic',
       padding: '5px 10px',
-      textAlign: 'right',
       fontSize: '16px',
     },
     kickPlayer: {

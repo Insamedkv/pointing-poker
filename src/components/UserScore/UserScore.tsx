@@ -32,26 +32,26 @@ const UserScore: React.FC<IUserScoreProps> = ({ user, bet = 'In Progress' }) => 
   };
 
   return (
-    <Grid container spacing={1} justifyContent="space-between">
-      <Grid item sm={12} className={classes.chatContainer}>
-        <Container className={classes.messageField}>
-          {isDealer && user._id !== userId && (
-            <IconButton className={classes.kickPlayer} onClick={openKickPlayerModal}>
-              <BlockIcon></BlockIcon>
-            </IconButton>
-          )}
-          <Container className={classes.usernameContainer}>
-            <Avatara avatar={userInfoObj} />
-            <Typography component="span" className={classes.nameSection}>
-              {user.firstName} {user.lastName}
-            </Typography>
-          </Container>
-          <Typography component="span" className={classes.textSection}>
-            {bet}
+    // <Grid container spacing={1} justifyContent="space-between">
+    <Grid item className={classes.chatContainer}>
+      <Container className={classes.messageField}>
+        {isDealer && user._id !== userId && (
+          <IconButton className={classes.kickPlayer} onClick={openKickPlayerModal}>
+            <BlockIcon></BlockIcon>
+          </IconButton>
+        )}
+        <Container className={classes.usernameContainer}>
+          <Avatara avatar={userInfoObj} />
+          <Typography component="span" className={classes.nameSection}>
+            {user.firstName} {user.lastName}
           </Typography>
         </Container>
-      </Grid>
+        <Typography component="span" className={classes.textSection}>
+          {bet}
+        </Typography>
+      </Container>
     </Grid>
+    // </Grid>
   );
 };
 

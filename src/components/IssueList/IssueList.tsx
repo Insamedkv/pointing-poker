@@ -17,11 +17,13 @@ const IssueList: React.FC = () => {
   }, [roomId]);
 
   return (
-    <Grid item sm={6}>
+    <>
       {issues.map((issue: IssueResp) => (
-        <IssueCard key={issue._id} mode="show" issue={issue} />
+        <Grid key={issue._id} item xs>
+          <IssueCard key={issue._id} mode="show" issue={issue} />
+        </Grid>
       ))}
-    </Grid>
+    </>
   );
 };
 

@@ -68,18 +68,18 @@ const GamePage: React.FC = () => {
   }, [room]);
 
   const setActive = (value: string): void => {
+    const betObj: Bet = {
+      content: value,
+      issueId: currentIssue,
+      roomId: room?._id || '',
+      userId,
+    };
     if (isRoundstarted) {
       dispatch(setBet(value));
-
-      if (room?.rules[0]?.autoRotateCardsAfterVote) {
-        const betObj: Bet = {
-          content: value,
-          issueId: currentIssue,
-          roomId: room?._id || '',
-          userId,
-        };
-        socket.bet(betObj);
-      }
+      socket.bet(betObj);
+      // if (room?.rules[0]?.autoRotateCardsAfterVote) {
+      //   socket.bet(betObj);
+      // }
     }
   };
 
@@ -89,13 +89,15 @@ const GamePage: React.FC = () => {
       <Chat />
       <DealerPanel />
 
-      <Grid container spacing={2}>
-        <Grid item md={4}>
+      <Grid container className={classes.setupWidth} spacing={4}>
+        <Grid item xs>
+          {/* <Grid item sm> */}
           <SectionHeader header="Issues" />
           <IssueList />
           <IssueCard mode="create" />
         </Grid>
-        <Grid item className={classes.setupGrid} md={4}>
+        <Grid item className={classes.setupGrid} xs>
+          {/* <Grid item className={classes.setupGrid} md> */}
           <Timer />
           {isDealer && (
             <Container className={classes.setubGridButtons}>
@@ -112,7 +114,7 @@ const GamePage: React.FC = () => {
                   if (room && isRoundstarted) {
                     socket.stopRound(room?._id);
                     getRoomBets(currentIssue).then((data) => {
-                      setUsersBets(data);
+                      dispatch(setUsersBets(data));
                       console.log('We get it:', data);
                     });
                   }
@@ -126,10 +128,11 @@ const GamePage: React.FC = () => {
             </Container>
           )}
         </Grid>
-        <Grid item md={4}>
+        <Grid item xs>
+          {/* <Grid item> */}
           <SectionHeader header="Users scores" />
           {usersList.map((user: IUserInfo) => (
-            <Grid key={user._id} item sm={12}>
+            <Grid key={user._id} item>
               <UserScore
                 user={user}
                 bet={userBets.find((userBet) => userBet.userId === user._id)?.content || DEFAULT_BET}
@@ -139,9 +142,9 @@ const GamePage: React.FC = () => {
         </Grid>
       </Grid>
 
-      <Grid container spacing={2} className={classes.cardContainer}>
+      <Grid container spacing={1} className={classes.cardContainer}>
         {cardList.map((value, index) => (
-          <Grid key={index} item sm={3}>
+          <Grid key={index} item xs={3}>
             <CardItem
               name={value as string}
               className={classes.cardStyles}

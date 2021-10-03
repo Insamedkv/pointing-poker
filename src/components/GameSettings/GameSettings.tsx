@@ -58,7 +58,7 @@ const GameSettings: React.FC = () => {
           />
         }
         label="Scrum master as player:"
-        labelPlacement="start"
+        // labelPlacement="start"
       />
       <FormControlLabel
         className={classes.controlSize}
@@ -81,7 +81,7 @@ const GameSettings: React.FC = () => {
           />
         }
         label="Changing card in round end:"
-        labelPlacement="start"
+        // labelPlacement="start"
       />
       <FormControlLabel
         className={classes.controlSize}
@@ -105,7 +105,7 @@ const GameSettings: React.FC = () => {
           />
         }
         label="Admit all new users:"
-        labelPlacement="start"
+        // labelPlacement="start"
       />
       <FormControlLabel
         className={classes.controlSize}
@@ -129,7 +129,7 @@ const GameSettings: React.FC = () => {
           />
         }
         label="Auto rotate card after vote:"
-        labelPlacement="start"
+        // labelPlacement="start"
       />
       <FormControlLabel
         className={classes.controlSize}
@@ -153,7 +153,7 @@ const GameSettings: React.FC = () => {
           />
         }
         label="Is timer needed:"
-        labelPlacement="start"
+        // labelPlacement="start"
       />
       {/* Score type: */}
       <FormControlLabel
@@ -180,7 +180,7 @@ const GameSettings: React.FC = () => {
           </Select>
         }
         label="Score type:"
-        labelPlacement="start"
+        // labelPlacement="start"
       />
       {/* <FormControlLabel
         className={classes.controlSize}
@@ -210,7 +210,7 @@ const GameSettings: React.FC = () => {
           />
         }
         label="Score type(short):"
-        labelPlacement="start"
+        // labelPlacement="start"
       />
       <Fade in={gameSettings.isTimerNeeded}>
         <FormControlLabel
@@ -218,7 +218,7 @@ const GameSettings: React.FC = () => {
           classes={{ label: classes.label }}
           control={<SetTimeComponent />}
           label="Round time:"
-          labelPlacement="start"
+          // labelPlacement="start"
         />
       </Fade>
 

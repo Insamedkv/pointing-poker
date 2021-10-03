@@ -42,7 +42,7 @@ const MessageBlock: React.FC<IMessageProps> = ({ user, message }) => {
 
   return (
     <Grid container spacing={1} justifyContent="space-between">
-      <Grid item sm={12} className={classes.chatContainer}>
+      <Grid item xs={12} className={classes.chatContainer}>
         <Container className={classes.messageField}>
           {isDealer && user._id !== userId && (
             <IconButton className={classes.kickPlayer} onClick={openKickPlayerModal}>

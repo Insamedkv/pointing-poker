@@ -12,7 +12,7 @@ export const AddCardValues: FC = () => {
   const [flipAddCard, setFlipAddCard] = useState<boolean>(false);
 
   return (
-    <Grid container spacing={3}>
+    <Grid container spacing={1}>
       <Grid item xs={3}>
         <CardForAdd
           className={flipAddCard === true ? classes.cardStylesBack : classes.cardStyles}

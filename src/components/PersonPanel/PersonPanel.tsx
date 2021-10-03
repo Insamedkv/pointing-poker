@@ -44,7 +44,7 @@ const PersonPanel: React.FC<IPersonPanelProps> = ({ userInfo, avaSize }) => {
     <Card className={classes.root}>
       <CardContent className={classes.cardContent}>
         <Avatara avatar={getUserInfo()} />
-        <Container>
+        <Container className={classes.textOverflow}>
           <Typography className={classes.upperText} variant="subtitle2">
             {whatAmI && 'IT’S YOU'}
           </Typography>

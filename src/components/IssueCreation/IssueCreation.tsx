@@ -27,12 +27,14 @@ const IssueCreation: React.FC = () => {
   }, []);
 
   return (
-    <Container className={classes.root}>
-      <Grid container spacing={1}>
-        <IssueList />
-        <Grid item sm={6}>
+    <Container>
+      <Grid container className={classes.root} spacing={2}>
+        <Grid item xs>
           <IssueCard mode="create" />
         </Grid>
+        {/* <Grid item sm={6}> */}
+        <IssueList />
+        {/* </Grid> */}
       </Grid>
     </Container>
   );
