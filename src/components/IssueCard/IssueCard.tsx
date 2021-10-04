@@ -74,7 +74,8 @@ const IssueCard: React.FC<IIssueProps> = ({ mode, issue }) => {
         </>
       );
     }
-    return <CloseOutlinedIcon classes={{ root: classes.controlElement }} fontSize="large" />;
+    // return <CloseOutlinedIcon classes={{ root: classes.controlElement }} fontSize="large" />;
+    return <></>;
   };
 
   return (

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import { Container, Grid, Typography } from '@material-ui/core';
 import LinkToLobby from 'components/LinkToLobby';
 import PersonPanel from 'components/PersonPanel';
@@ -20,11 +20,19 @@ const DealerPanel: React.FC = () => {
   const { cardTypes } = useTypedSelector((state) => state.settings);
   const rules = useTypedSelector((state) => state.settings);
   const [userInfo, setUserInfo] = useState<IUserInfo>();
+  const history = useHistory();
 
   const link = `${room?._id}`;
 
   const cancelGame = () => {
     if (room?._id) deleteRoom(room._id);
+  };
+
+  const stopGame = () => {
+    if (room?._id) {
+      const toResults = `/results/${room?._id}`;
+      history.push(toResults);
+    }
   };
 
   const exitGame = async () => {
@@ -98,7 +106,7 @@ const DealerPanel: React.FC = () => {
                   color="secondary"
                   variant="outlined"
                   size="medium"
-                  onClick={cancelGame}
+                  onClick={room?.isGameStarted ? stopGame : cancelGame}
                 />
               </>
             ) : (

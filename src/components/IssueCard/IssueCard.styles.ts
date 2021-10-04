@@ -40,7 +40,7 @@ const useStyles = makeStyles(({ shadows, palette }: Theme) =>
       transition: 'all .2s ease-in-out',
       '&:hover': {
         opacity: '1 !important',
-        transform: 'scale(1.2)',
+        transform: 'scale(1.05)',
       },
       '&:active': {
         transform: 'scale(1)',
@@ -49,7 +49,7 @@ const useStyles = makeStyles(({ shadows, palette }: Theme) =>
     issueCreator: {
       cursor: 'pointer',
       '&:hover': {
-        transform: 'scale(1.1)',
+        transform: 'scale(1.05)',
       },
       '&:active': {
         background: palette.divider,

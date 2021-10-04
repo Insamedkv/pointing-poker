@@ -8,7 +8,7 @@ import { Footer } from './components/Footer/index';
 import { baseTheme } from './utils/customTheme';
 import { useStyles } from './App.styles';
 import ModalWindow from './components/Modal/index';
-import { GamePage, LobbyPage } from './pages';
+import { GamePage, LobbyPage, ResultsPage } from './pages';
 import { socket } from './index';
 
 const routes = [
@@ -24,6 +24,10 @@ const routes = [
   {
     path: '/game/:roomId/',
     component: GamePage,
+  },
+  {
+    path: '/results/:roomId/',
+    component: ResultsPage,
   },
 ];
 
