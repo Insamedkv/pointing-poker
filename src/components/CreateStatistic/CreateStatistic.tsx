@@ -7,16 +7,18 @@ import { getRoomBets } from 'services/httpRoom';
 import { useStyles } from './CreateStatistic.styles';
 
 interface IProps {
-  issueId: string;
+  issueId?: string;
 }
 
 const CreateStatistic: React.FC<IProps> = ({ issueId }) => {
   const classes = useStyles();
   const rules = useTypedSelector((state) => state.currentUser.room?.rules[0]);
+  const currentIssue = useTypedSelector((state) => state.game.currentIssue);
   const [currentBets, setCurrentBets] = useState<Array<Bet>>([]);
 
   const getIssueBets = async () => {
-    const response = await getRoomBets(issueId);
+    const response = await getRoomBets(issueId || currentIssue);
+    if (!issueId) setCurrentBets(response);
     setCurrentBets(response);
   };
 
@@ -27,7 +29,6 @@ const CreateStatistic: React.FC<IProps> = ({ issueId }) => {
   const createStatistic = (defaultBets: Array<Bet>) => {
     const bets = new Map<string, number>();
     if (rules) rules.cardType.forEach((val) => bets.set(val.toString(), 0));
-    console.log(bets);
     const totalBets = defaultBets.length;
     defaultBets.forEach((bet) => {
       if (bets.has(bet.content)) {

@@ -1,27 +1,17 @@
-import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { Container, Grid, Typography } from '@material-ui/core';
-import { CardItem } from 'components/AddCardValues/Component/CardItem';
+import React from 'react';
+import { Container, Grid } from '@material-ui/core';
 import SectionHeader from 'components/SectionHeader';
-import { getRoomBets } from 'services/httpRoom';
 import { useTypedSelector } from 'hooks/useTypedSelector';
-import { setUsersBets } from 'reduxstore/gameSlice';
 import CreateStatistic from 'components/CreateStatistic/CreateStatistic';
 import { useStyles } from './Statistic.styles';
 
 const Statistic: React.FC = () => {
-  const dispatch = useDispatch();
   const classes = useStyles();
-  const { currentIssue, userBets } = useTypedSelector((state) => state.game);
-
-  // const getIssue = async () => {
-  //   const response = await getRoomBets(currentIssue);
-  //   dispatch(setUsersBets(response));
-  // };
+  const { currentIssue, isRoundstarted } = useTypedSelector((state) => state.game);
 
   return (
     <>
-      {userBets.length > 0 && (
+      {currentIssue && !isRoundstarted && (
         <Container className={classes.statisticcontainer}>
           <SectionHeader header="Statistics" />
 

@@ -10,23 +10,19 @@ import Statistic from 'components/Statistic';
 import CreateStatistic from 'components/CreateStatistic/CreateStatistic';
 import { Bet, IssueResp } from 'services/serviceTypes';
 import { IIssue } from 'defaultTypes';
+import { useStyles } from './ResultsPage.styles';
 
 const ResultsPage: React.FC = () => {
+  const classes = useStyles();
   const issues = useTypedSelector((state) => state.issues);
 
-  const getIssueStatistic = async (issueId: string) => {
-    const response: Array<Bet> = await getRoomBets(issueId);
-    return response;
-    // if (response) dispatch(setUsersBets(response));
-  };
-
   return (
-    <Container>
+    <Container className={classes.resultContainer}>
       <SprintHeader />
 
       {issues.map((issue) => {
         return (
-          <Container key={issue._id}>
+          <Container key={issue._id} className={classes.issueContainer}>
             <IssueCard issue={issue} mode="show" />
             <Grid container spacing={2}>
               <CreateStatistic issueId={issue._id} />

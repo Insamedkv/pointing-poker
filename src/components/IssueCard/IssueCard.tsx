@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux';
 import { Card, CardContent, Container, Typography } from '@material-ui/core';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
-import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
 import AddOutlinedIcon from '@material-ui/icons/AddOutlined';
 import { createIssueModal, editIssueModal } from 'reduxstore/modalSlice/modalSlice';
 import classNames from 'classnames';
