@@ -11,7 +11,7 @@ export const Timer: FC = () => {
   const classes = useStyles();
   const { room } = useTypedSelector((state) => state.currentUser);
   const { currentIssue } = useTypedSelector((state) => state.game);
-  const [seconds, setSeconds] = useState<number>(0);
+  const [seconds, setSeconds] = useState<number>(1);
   const dispatch = useDispatch();
   const { isRoundstarted } = useTypedSelector((state) => state.game);
 
@@ -32,14 +32,14 @@ export const Timer: FC = () => {
         if (!isRoundstarted || seconds <= 0) clearTimeout(timer);
       }, 1000);
     }
-    if (!isRoundstarted || seconds <= 0) {
+    if ((!isRoundstarted || seconds <= 0) && currentIssue.length !== 0) {
       if (room?._id && room.rules[0]) {
         socket.stopRound(room._id);
-        getRoomBets(currentIssue).then((data) => setUsersBets(data));
+        getRoomBets(currentIssue).then((data) => dispatch(setUsersBets(data)));
         setSeconds(room.rules[0].roundTime);
       }
     }
-  });
+  }, [seconds, isRoundstarted]);
 
   useEffect(() => {
     if (room?.rules[0]) setSeconds(room.rules[0].roundTime);
