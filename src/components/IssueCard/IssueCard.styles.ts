@@ -24,7 +24,7 @@ const useStyles = makeStyles(({ shadows, palette }: Theme) =>
       boxShadow: shadows[10],
     },
     cardBody: {
-      width: 'inherit',
+      width: '100%',
       overflow: 'hidden',
       textOverflow: 'ellipsis',
     },

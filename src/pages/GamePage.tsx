@@ -18,6 +18,7 @@ import { CardItem } from 'components/AddCardValues/Component/CardItem';
 import UserScore from 'components/UserScore';
 import { Bet } from 'services/serviceTypes';
 import { setBet, setUsersBets } from 'reduxstore/gameSlice';
+import Statistic from 'components/Statistic';
 import { useStyles } from './GamePage.styles';
 import { socket } from '../index';
 
@@ -128,8 +129,9 @@ const GamePage: React.FC = () => {
             </Container>
           )}
         </Grid>
+
         <Grid item xs>
-          {/* <Grid item> */}
+          {/* <USER SCORES> */}
           <SectionHeader header="Users scores" />
           {usersList.map((user: IUserInfo) => (
             <Grid key={user._id} item>
@@ -142,17 +144,21 @@ const GamePage: React.FC = () => {
         </Grid>
       </Grid>
 
-      <Grid container spacing={1} className={classes.cardContainer}>
-        {cardList.map((value, index) => (
-          <Grid key={index} item xs={3}>
-            <CardItem
-              name={value as string}
-              className={classes.cardStyles}
-              onClick={() => setActive(value as string)}
-            />
-          </Grid>
-        ))}
-      </Grid>
+      <Statistic />
+
+      {isRoundstarted && (
+        <Grid container spacing={1} className={classes.cardContainer}>
+          {cardList.map((value, index) => (
+            <Grid key={index} item xs={3}>
+              <CardItem
+                name={value as string}
+                className={classes.cardStyles}
+                onClick={() => setActive(value as string)}
+              />
+            </Grid>
+          ))}
+        </Grid>
+      )}
     </Container>
   );
 };
