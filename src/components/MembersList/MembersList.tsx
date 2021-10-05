@@ -9,6 +9,7 @@ import { useTypedSelector } from 'hooks/useTypedSelector';
 import { socket } from '../../index';
 
 const MembersList: React.FC = () => {
+  const dispatch = useDispatch();
   const { room } = useTypedSelector((state) => state.currentUser);
   const [usersList, setUsersList] = useState<Array<IUserInfo>>([]);
 
@@ -23,13 +24,19 @@ const MembersList: React.FC = () => {
     if (room?._id) {
       // socket.onJoin(room._id);
       getRoomUsers(room._id).then((data) => {
-        if (isMounted) setUsersList(data);
+        if (isMounted) {
+          setUsersList(data);
+        }
       });
     }
     return () => {
       isMounted = false;
     };
   }, [room]);
+
+  // useEffect(() => {
+  //   dispatch(updateRoomUsers(usersList));
+  // }, [usersList]);
 
   return (
     <Container component="section">

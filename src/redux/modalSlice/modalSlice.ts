@@ -1,4 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { IUserInfo } from 'defaultTypes';
+import { UserResp } from 'services/serviceTypes';
 import { kickOutPlayerModal } from './modalActions';
 import { IModalState, ModalTypes } from './modalActionTypes';
 
@@ -26,6 +28,11 @@ const modal = createSlice({
       modalType: ModalTypes.CREATE_ISSUE,
       editableIssueID: action.payload,
     }),
+    admitPlayerModal: (state, action: PayloadAction<IUserInfo>) => ({
+      isOpen: true,
+      modalType: ModalTypes.ADMIT_PLAYER,
+      player: action.payload,
+    }),
   },
   extraReducers: (builder) => {
     builder.addCase(
@@ -41,4 +48,4 @@ const modal = createSlice({
 });
 
 export default modal;
-export const { closeModal, connectToLobby, createIssueModal, editIssueModal } = modal.actions;
+export const { closeModal, connectToLobby, createIssueModal, editIssueModal, admitPlayerModal } = modal.actions;

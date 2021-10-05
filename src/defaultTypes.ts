@@ -77,7 +77,7 @@ export interface Issue {
   link: string;
 }
 
-interface RoomUser {
+export interface RoomUser {
   user: string;
 }
 

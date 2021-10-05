@@ -14,10 +14,11 @@ import { Timer } from 'components/Timer';
 import { buttonTextConstants } from 'utils/buttonTextConstants';
 import { IUserInfo } from 'defaultTypes';
 import IssueCard from 'components/IssueCard';
-import { getRoomBets, getRoomUsers } from 'services/httpRoom';
+import { getRoomBets, getRoomUsers, setGameStatus } from 'services/httpRoom';
 import { CardItem } from 'components/AddCardValues/Component/CardItem';
 import UserScore from 'components/UserScore';
 import { Bet } from 'services/serviceTypes';
+import { admitPlayerModal } from 'reduxstore/modalSlice/modalSlice';
 import { setBet, setUsersBets } from 'reduxstore/gameSlice';
 import Statistic from 'components/Statistic';
 import { useStyles } from './GamePage.styles';
@@ -27,7 +28,8 @@ const GamePage: React.FC = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const currentSession = restoreSession();
-  const { room, isDealer, userId } = useTypedSelector((state) => state.currentUser);
+  const { room, isDealer, userId, avaliableUsers } = useTypedSelector((state) => state.currentUser);
+  const isTimerNeeded = room?.rules[0]?.isTimerNeeded;
   const { isRoundstarted, currentIssue, userBets } = useTypedSelector((state) => state.game);
   const [usersList, setUsersList] = useState<Array<IUserInfo>>([]);
   const [cardList, setCardList] = useState<Array<number | string>>([]);
@@ -35,6 +37,17 @@ const GamePage: React.FC = () => {
 
   useEffect(() => {
     socket.getUsersInRoom(setUsersList);
+  }, []);
+
+  useEffect(() => {
+    if (isDealer) {
+      const [user] = usersList.filter((item) => {
+        const isNewUser = avaliableUsers.includes(item._id as string);
+        return !isNewUser;
+      });
+      console.log('NEW USER:', user);
+      dispatch(admitPlayerModal(user));
+    }
   }, [usersList]);
 
   useEffect(() => {
@@ -42,8 +55,9 @@ const GamePage: React.FC = () => {
     socket.deleteUserFromRoom(setUsersList);
 
     if (room?._id) {
+      setGameStatus(room._id, true);
       getRoomUsers(room._id).then((data) => {
-        if (isMounted) {
+        if (isMounted && room.rules[0]) {
           setUsersList(data);
           setCardList(room.rules[0].cardType);
         }
@@ -61,6 +75,7 @@ const GamePage: React.FC = () => {
     socket.onStopRound(dispatch);
     socket.onSetActiveIssue(dispatch);
     socket.onFinishGame(history, toResults);
+    socket.onBlur();
     currentSession.then((data) => data && dispatch(setUserCredentials(data)));
   }, []);
 
@@ -109,7 +124,7 @@ const GamePage: React.FC = () => {
         </Grid>
         <Grid item className={classes.setupGrid} xs>
           {/* <Grid item className={classes.setupGrid} md> */}
-          <Timer />
+          {isTimerNeeded && <Timer />}
           {isDealer && (
             <Container className={classes.setubGridButtons}>
               <Button

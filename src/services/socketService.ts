@@ -1,7 +1,7 @@
 import io, { Socket } from 'socket.io-client';
 import { fromEvent, Observable } from 'rxjs';
 import { setIssues } from 'reduxstore/issuesSlice';
-import { toggleGameInRoom } from 'reduxstore/userSlice';
+import { toggleGameInRoom, updateRoomUsers } from 'reduxstore/userSlice';
 import { pushMessage } from 'reduxstore/chatSlice/chatSlice';
 import { setCurrentIssue, setUsersBets, stopRoundInRoom, toggleRoundInRoom } from 'reduxstore/gameSlice';
 import { Event } from './constants';
@@ -175,6 +175,13 @@ export class SocketService {
   public changeObserverStatus(userId: string, status: boolean): void {
     console.log(`Change status ${userId} to ${status}`);
     this.socket.emit(Event.CHANGE_OBSERVER_STATUS, { userId, status });
+  }
+
+  public onBlur(): void {
+    console.log('WAIT!...');
+    this.socket.on(Event.BLUR, () => {
+      console.log('Wait plz!');
+    });
   }
 
   public disconnect(): void {

@@ -7,6 +7,7 @@ import { closeModal } from 'reduxstore/modalSlice/modalSlice';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import { useStyles } from 'components/Modal/ModalWindow.styles';
 import { deleteUserById } from 'services/httpUser';
+import { UserResp } from 'services/serviceTypes';
 import { useKickPlayerStyles } from './KickPlayer.styles';
 
 const KickPlayer: React.FC = () => {
@@ -17,7 +18,7 @@ const KickPlayer: React.FC = () => {
   const { isDealer } = useTypedSelector((state) => state.currentUser);
 
   const kickPlayer = () => {
-    if (player) deleteUserById(player._id);
+    if (player) deleteUserById((player as UserResp)._id);
     dispatch(closeModal());
   };
 

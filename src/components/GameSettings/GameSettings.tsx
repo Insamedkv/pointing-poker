@@ -54,7 +54,7 @@ const GameSettings: React.FC = () => {
             onChange={(event) => {
               const { checked } = event.target;
               dispatch(changeMasterAsPalyer(checked));
-              dispatch(setObserverStatus(checked));
+              dispatch(setObserverStatus(!checked));
             }}
           />
         }
@@ -106,7 +106,7 @@ const GameSettings: React.FC = () => {
             }}
           />
         }
-        label="Auto rotate card after vote:"
+        label="Auto show card after vote:"
         // labelPlacement="start"
       />
       <FormControlLabel

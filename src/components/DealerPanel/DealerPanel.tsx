@@ -91,6 +91,7 @@ const DealerPanel: React.FC = () => {
                 {!room?.isGameStarted && (
                   <CustomButton
                     className={classes.btnPadding}
+                    disabled={cardTypes.length <= 1}
                     buttonCaption={buttonTextConstants.START_GAME}
                     size="medium"
                     onClick={startGame}

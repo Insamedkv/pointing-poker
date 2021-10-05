@@ -1,4 +1,5 @@
 import { createStyles, makeStyles } from '@material-ui/core';
+import shadows from '@material-ui/core/styles/shadows';
 
 const useStyles = makeStyles(({ palette }) =>
   createStyles({
@@ -46,6 +47,15 @@ const useStyles = makeStyles(({ palette }) =>
       padding: '0 22px',
       margin: 'auto',
       minWidth: '468px',
+    },
+    infoBlock: {
+      padding: '20px',
+      boxSizing: 'border-box',
+      fontSize: '24px',
+      border: `1px solid ${palette.divider}`,
+      width: '100%',
+      boxShadow: shadows[4],
+      textShadow: `1px 1px 4px ${palette.common.black}`,
     },
   })
 );

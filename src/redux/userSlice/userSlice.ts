@@ -1,21 +1,22 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Room } from 'defaultTypes';
-import { SignupResp } from 'services/serviceTypes';
+import { IUserInfo, Room, RoomUser } from 'defaultTypes';
+import { SignupResp, UserResp } from 'services/serviceTypes';
 
 interface IUserDatastate {
   userId: string;
   token: string;
-  room: Room | undefined;
   isDealer: boolean;
   isObserver: boolean;
+  room?: Room;
+  avaliableUsers: Array<string>;
 }
 
 const initialState: IUserDatastate = {
   userId: '',
-  room: undefined,
   token: '',
   isObserver: false,
   isDealer: false,
+  avaliableUsers: [],
 };
 
 const userSlice = createSlice({
@@ -28,11 +29,12 @@ const userSlice = createSlice({
       room: action.payload.room,
       isDealer: action.payload.room.roomCreator === action.payload.userData._id,
       isObserver: action.payload.userData.asObserver,
+      avaliableUsers: action.payload.room.users.map((user) => user.user),
     }),
-    updateRoomUsers: (state, action: PayloadAction<Room>) => ({
-      ...state,
-      room: action.payload,
-    }),
+    updateRoomUsers: (state, action: PayloadAction<Array<IUserInfo>>) => {
+      const avaliableUsers: Array<string> = action.payload.map((user) => user._id as string);
+      if (state.room) state.avaliableUsers = avaliableUsers;
+    },
     toggleGameInRoom: (state, action: PayloadAction<boolean>) => {
       if (state.room) state.room.isGameStarted = action.payload;
     },

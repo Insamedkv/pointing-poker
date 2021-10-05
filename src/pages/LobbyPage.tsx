@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Container } from '@material-ui/core';
+import { Container, Typography } from '@material-ui/core';
 import DealerPanel from 'components/DealerPanel';
 import GameSettings from 'components/GameSettings';
 import IssueCreation from 'components/IssueCreation';
@@ -14,12 +14,14 @@ import { SignupResp } from 'services/serviceTypes';
 import Chat from 'components/Chat';
 import { setGameStatus } from 'services/httpRoom';
 import { socket } from '../index';
+import { useStyles } from './GamePage.styles';
 
 interface ILobbyProps {
   roomId: string;
 }
 
 const LobbyPage: React.FC<ILobbyProps> = () => {
+  const classes = useStyles();
   const dispatch = useDispatch();
   const currentSession = restoreSession();
   const { userId, isDealer, isObserver } = useTypedSelector((state) => state.currentUser);
@@ -27,12 +29,12 @@ const LobbyPage: React.FC<ILobbyProps> = () => {
 
   useEffect(() => {
     currentSession.then((data) => data && dispatch(setUserCredentials(data as SignupResp)));
-    if (isDealer && roomId) setGameStatus(roomId, true);
+    // if (isDealer && roomId) setGameStatus(roomId, true);
   }, []);
 
   useEffect(() => {
     console.log('isObserver:', isObserver);
-    if (isObserver !== undefined) socket.changeObserverStatus(userId, isObserver);
+    if (isObserver !== undefined && userId) socket.changeObserverStatus(userId, isObserver);
   }, [isObserver]);
 
   return (
@@ -40,6 +42,14 @@ const LobbyPage: React.FC<ILobbyProps> = () => {
       <SprintHeader />
       <Chat />
       <DealerPanel />
+
+      {!isDealer && (
+        <Container>
+          <Typography className={classes.infoBlock} align="center" variant="h3">
+            Wait, please. The creator customizes the game...
+          </Typography>
+        </Container>
+      )}
 
       <SectionHeader header="Members" />
       <MembersList />
