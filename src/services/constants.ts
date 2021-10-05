@@ -29,6 +29,7 @@ export enum Event {
   ON_STOP_ROUND = 'on stop round',
   FINISH_GAME = 'finish game',
   ON_FINISH_GAME = 'finish game',
+  CHANGE_OBSERVER_STATUS = 'change observer status',
 }
 
 export const ERROR_MESSAGES = {

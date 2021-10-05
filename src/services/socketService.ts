@@ -16,6 +16,7 @@ import {
   UserSocket,
   VoteResult,
 } from './serviceTypes';
+import { setGameStatus } from './httpRoom';
 
 export class SocketService {
   private token = localStorage.getItem('poker-auth')!;
@@ -160,6 +161,7 @@ export class SocketService {
 
   public finishGame(roomId: string): void {
     console.log('Game finished...');
+    setGameStatus(roomId, false);
     this.socket.emit(Event.FINISH_GAME, roomId);
   }
 
@@ -168,6 +170,11 @@ export class SocketService {
     this.socket.on(Event.ON_FINISH_GAME, () => {
       transferTo.push(link);
     });
+  }
+
+  public changeObserverStatus(userId: string, status: boolean): void {
+    console.log(`Change status ${userId} to ${status}`);
+    this.socket.emit(Event.CHANGE_OBSERVER_STATUS, { userId, status });
   }
 
   public disconnect(): void {

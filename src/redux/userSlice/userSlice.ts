@@ -7,12 +7,14 @@ interface IUserDatastate {
   token: string;
   room: Room | undefined;
   isDealer: boolean;
+  isObserver: boolean;
 }
 
 const initialState: IUserDatastate = {
   userId: '',
   room: undefined,
   token: '',
+  isObserver: false,
   isDealer: false,
 };
 
@@ -25,6 +27,7 @@ const userSlice = createSlice({
       token: action.payload.authorization,
       room: action.payload.room,
       isDealer: action.payload.room.roomCreator === action.payload.userData._id,
+      isObserver: action.payload.userData.asObserver,
     }),
     updateRoomUsers: (state, action: PayloadAction<Room>) => ({
       ...state,
@@ -33,8 +36,11 @@ const userSlice = createSlice({
     toggleGameInRoom: (state, action: PayloadAction<boolean>) => {
       if (state.room) state.room.isGameStarted = action.payload;
     },
+    setObserverStatus: (state, action: PayloadAction<boolean>) => {
+      state.isObserver = action.payload;
+    },
   },
 });
 
 export default userSlice;
-export const { setUserCredentials, updateRoomUsers, toggleGameInRoom } = userSlice.actions;
+export const { setUserCredentials, updateRoomUsers, toggleGameInRoom, setObserverStatus } = userSlice.actions;

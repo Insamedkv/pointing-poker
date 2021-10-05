@@ -27,7 +27,6 @@ export interface Rules {
   shortScoreType: string;
   newUsersEnter: boolean;
   autoRotateCardsAfterVote: boolean;
-  changingCardInEnd: boolean;
   isTimerNeeded: boolean;
   roundTime: number;
 }
@@ -60,8 +59,8 @@ export interface UserResp {
   lastName?: string;
   position?: string;
   avatar: string;
+  asObserver: boolean;
   cloudinary_id?: string;
-  role: string;
 }
 
 export interface MessagesResp {

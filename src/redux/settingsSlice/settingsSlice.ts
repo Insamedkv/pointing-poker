@@ -12,7 +12,6 @@ interface ITime {
 interface ISettingsState {
   scrumMasterAsAPlayer: boolean;
   cardTypes: Array<ICardItem>;
-  changingCardInEnd: boolean;
   isTimerNeeded: boolean;
   newUsersEnter: boolean;
   autoRotateCardsAfterVote: boolean;
@@ -32,7 +31,6 @@ const DEFAULT_LENGTH = 3;
 const initialState: ISettingsState = {
   scrumMasterAsAPlayer: true,
   cardTypes: [],
-  changingCardInEnd: false,
   isTimerNeeded: true,
   newUsersEnter: true,
   autoRotateCardsAfterVote: false,
@@ -50,9 +48,6 @@ const settingsSlice = createSlice({
   reducers: {
     changeMasterAsPalyer: (state, action: PayloadAction<boolean>) => {
       state.scrumMasterAsAPlayer = action.payload;
-    },
-    allowChangeCardInEnd: (state, action: PayloadAction<boolean>) => {
-      state.changingCardInEnd = action.payload;
     },
     toggleTimer: (state, action: PayloadAction<boolean>) => {
       state.isTimerNeeded = action.payload;
@@ -137,7 +132,6 @@ export const {
   allowNewUserEnter,
   setAutoRotate,
   changeMasterAsPalyer,
-  allowChangeCardInEnd,
   toggleTimer,
   setScoreType,
   setShortScoreType,

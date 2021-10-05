@@ -63,7 +63,6 @@ const DealerPanel: React.FC = () => {
       scrumMasterAsAPlayer: rules.scrumMasterAsAPlayer,
       newUsersEnter: rules.newUsersEnter,
       autoRotateCardsAfterVote: rules.autoRotateCardsAfterVote,
-      changingCardInEnd: rules.changingCardInEnd,
       isTimerNeeded: rules.isTimerNeeded,
       shortScoreType: rules.shortScoreType,
       cardType: arrayOfValues,
@@ -72,7 +71,6 @@ const DealerPanel: React.FC = () => {
 
     if (room) {
       setRoomRules(room._id, laws);
-      setGameStatus(room._id, true);
       socket.play(room._id);
     }
   };

@@ -14,8 +14,8 @@ import CustomInput from 'components/CustomInput';
 import SectionHeader from 'components/SectionHeader';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import SetTimeComponent from 'components/SetTimeComponent';
+import { setObserverStatus } from 'reduxstore/userSlice';
 import {
-  allowChangeCardInEnd,
   allowNewUserEnter,
   changeMasterAsPalyer,
   changeScoreType,
@@ -54,33 +54,11 @@ const GameSettings: React.FC = () => {
             onChange={(event) => {
               const { checked } = event.target;
               dispatch(changeMasterAsPalyer(checked));
+              dispatch(setObserverStatus(checked));
             }}
           />
         }
         label="Scrum master as player:"
-        // labelPlacement="start"
-      />
-      <FormControlLabel
-        className={classes.controlSize}
-        classes={{ label: classes.label }}
-        checked={gameSettings.changingCardInEnd}
-        control={
-          <Switch
-            classes={{
-              root: classes.switcherRoot,
-              switchBase: classes.switcherBase,
-              checked: classes.checked,
-              track: classes.track,
-              thumb: classes.thumb,
-            }}
-            color="primary"
-            onChange={(event) => {
-              const { checked } = event.target;
-              dispatch(allowChangeCardInEnd(checked));
-            }}
-          />
-        }
-        label="Changing card in round end:"
         // labelPlacement="start"
       />
       <FormControlLabel

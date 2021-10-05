@@ -7,6 +7,7 @@ export interface IButton {
   variant?: 'text' | 'outlined' | 'contained';
   className?: string;
   onClick?: React.MouseEventHandler;
+  disabled?: boolean;
 }
 
 export interface IAvataraInfo {

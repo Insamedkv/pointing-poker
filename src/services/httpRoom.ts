@@ -42,8 +42,8 @@ export const getRoomById = async (roomId: string) => {
     try {
       const response = await axios.get(`/room/${roomId}`);
       res(response.data);
-    } catch (err) {
-      rej(err);
+    } catch (err: any) {
+      rej(err.response.data.error);
     }
   });
 };
