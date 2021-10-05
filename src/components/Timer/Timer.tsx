@@ -32,7 +32,7 @@ export const Timer: FC = () => {
         if (!isRoundstarted || seconds <= 0) clearTimeout(timer);
       }, 1000);
     }
-    if ((!isRoundstarted || seconds <= 0) && currentIssue.length !== 0) {
+    if ((!isRoundstarted || seconds <= 0) && currentIssue !== '') {
       if (room?._id && room.rules[0]) {
         socket.stopRound(room._id);
         getRoomBets(currentIssue).then((data) => dispatch(setUsersBets(data)));

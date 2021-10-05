@@ -27,6 +27,8 @@ export enum Event {
   ON_SET_ACTIVE_ISSUE = 'on set active issue',
   STOP_ROUND = 'stop round',
   ON_STOP_ROUND = 'on stop round',
+  FINISH_GAME = 'finish game',
+  ON_FINISH_GAME = 'finish game',
 }
 
 export const ERROR_MESSAGES = {

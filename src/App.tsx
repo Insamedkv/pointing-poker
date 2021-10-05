@@ -26,8 +26,9 @@ const routes = [
     component: GamePage,
   },
   {
-    path: '/results/:roomId/',
+    path: '/results',
     component: ResultsPage,
+    exact: true,
   },
 ];
 

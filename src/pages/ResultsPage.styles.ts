@@ -15,6 +15,10 @@ const useStyles = makeStyles(({ palette }) =>
         border: 'none',
       },
     },
+    downloadButton: {
+      width: '100%',
+      marginBottom: '20px',
+    },
   })
 );
 

@@ -158,6 +158,18 @@ export class SocketService {
     });
   }
 
+  public finishGame(roomId: string): void {
+    console.log('Game finished...');
+    this.socket.emit(Event.FINISH_GAME, roomId);
+  }
+
+  public onFinishGame(transferTo: any, link: string): void {
+    console.log('Game finished => transfer to results!');
+    this.socket.on(Event.ON_FINISH_GAME, () => {
+      transferTo.push(link);
+    });
+  }
+
   public disconnect(): void {
     console.log('Disconnecting...');
     this.socket.disconnect();

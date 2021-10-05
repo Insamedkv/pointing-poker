@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Button, Container, Grid } from '@material-ui/core';
 import SprintHeader from 'components/SprintHeader';
@@ -22,8 +23,6 @@ import Statistic from 'components/Statistic';
 import { useStyles } from './GamePage.styles';
 import { socket } from '../index';
 
-const DEFAULT_BET = 'In Progress...';
-
 const GamePage: React.FC = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -32,6 +31,7 @@ const GamePage: React.FC = () => {
   const { isRoundstarted, currentIssue, userBets } = useTypedSelector((state) => state.game);
   const [usersList, setUsersList] = useState<Array<IUserInfo>>([]);
   const [cardList, setCardList] = useState<Array<number | string>>([]);
+  const history = useHistory();
 
   useEffect(() => {
     socket.getUsersInRoom(setUsersList);
@@ -56,9 +56,11 @@ const GamePage: React.FC = () => {
   }, [room]);
 
   useEffect(() => {
+    const toResults = `/results`;
     socket.onRunRound(dispatch);
     socket.onStopRound(dispatch);
     socket.onSetActiveIssue(dispatch);
+    socket.onFinishGame(history, toResults);
     currentSession.then((data) => data && dispatch(setUserCredentials(data)));
   }, []);
 
@@ -67,6 +69,14 @@ const GamePage: React.FC = () => {
       socket.onBet(dispatch);
     }
   }, [room]);
+
+  useEffect(() => {
+    if (currentIssue !== '') {
+      getRoomBets(currentIssue).then((data) => {
+        dispatch(setUsersBets(data));
+      });
+    }
+  }, [currentIssue]);
 
   const setActive = (value: string): void => {
     const betObj: Bet = {
@@ -135,10 +145,7 @@ const GamePage: React.FC = () => {
           <SectionHeader header="Users scores" />
           {usersList.map((user: IUserInfo) => (
             <Grid key={user._id} item>
-              <UserScore
-                user={user}
-                bet={userBets.find((userBet) => userBet.userId === user._id)?.content || DEFAULT_BET}
-              />
+              <UserScore user={user} bet={userBets.find((userBet) => userBet.userId === user._id)?.content} />
             </Grid>
           ))}
         </Grid>

@@ -202,3 +202,28 @@ export const updateRoomBet = async (data: UpdateBet) => {
     }
   });
 };
+
+const download = (data: any) => {
+  const blob = new Blob([data], { type: 'text/csv' });
+  const url = window.URL.createObjectURL(blob);
+  console.log('blob', blob);
+  const a = document.createElement('a');
+  a.setAttribute('hidden', '');
+  a.setAttribute('href', url);
+  a.setAttribute('download', 'download.csv');
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+};
+
+export const downloadResults = async (roomId: string) => {
+  return new Promise<Array<IUserInfo>>(async (res, rej) => {
+    try {
+      const response = await axios.get(`/download/${roomId}`);
+      console.log(response.data);
+      download(response.data);
+    } catch (err) {
+      rej(err);
+    }
+  });
+};

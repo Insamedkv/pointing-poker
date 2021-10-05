@@ -42,15 +42,20 @@ const CreateStatistic: React.FC<IProps> = ({ issueId }) => {
     let statistic: Array<JSX.Element> = [];
 
     bets.forEach((count, item) => {
+      const percent = (count / totalBets) * 100;
+      const percentFormat = percent % 10 === 0 ? `${percent}%` : `${percent.toFixed(2)}%`;
+      const isNumber = !Number.isNaN(percent);
+      const gtZero = percent > 0;
+
       const newElement = (
         <Grid key={item} item xs={3}>
           <CardItem name={item} className={classes.cardStyles} />
           <Typography align="center" variant="h5">
-            {((count / totalBets) * 100).toFixed(2)}%
+            {isNumber ? percentFormat : ''}
           </Typography>
         </Grid>
       );
-      statistic = [...statistic, newElement];
+      statistic = gtZero ? [...statistic, newElement] : statistic;
     });
 
     return <>{statistic}</>;

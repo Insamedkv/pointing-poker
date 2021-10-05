@@ -9,15 +9,19 @@ import { kickOutPlayerModal } from 'reduxstore/modalSlice/modalActions';
 import { IAvataraInfo, IUserInfo } from 'defaultTypes';
 import { useStyles } from './UseScore.styles';
 
+const INPROGRESS = 'In Progress...';
+const UNKNOWN = 'Unknown';
+
 interface IUserScoreProps {
   user: IUserInfo;
   bet?: string | null;
 }
 
-const UserScore: React.FC<IUserScoreProps> = ({ user, bet = 'In Progress' }) => {
+const UserScore: React.FC<IUserScoreProps> = ({ user, bet }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { userId, isDealer } = useTypedSelector((state) => state.currentUser);
+  const { isRoundstarted } = useTypedSelector((state) => state.game);
 
   const openKickPlayerModal = async () => {
     const initiator = await getUserById(userId);
@@ -47,7 +51,7 @@ const UserScore: React.FC<IUserScoreProps> = ({ user, bet = 'In Progress' }) => 
           </Typography>
         </Container>
         <Typography component="span" className={classes.textSection}>
-          {bet}
+          {bet || (isRoundstarted ? INPROGRESS : UNKNOWN)}
         </Typography>
       </Container>
     </Grid>

@@ -20,7 +20,6 @@ const DealerPanel: React.FC = () => {
   const { cardTypes } = useTypedSelector((state) => state.settings);
   const rules = useTypedSelector((state) => state.settings);
   const [userInfo, setUserInfo] = useState<IUserInfo>();
-  const history = useHistory();
 
   const link = `${room?._id}`;
 
@@ -30,8 +29,7 @@ const DealerPanel: React.FC = () => {
 
   const stopGame = () => {
     if (room?._id) {
-      const toResults = `/results/${room?._id}`;
-      history.push(toResults);
+      socket.finishGame(room?._id);
     }
   };
 
