@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { SiteColors, AdditionalColors } from '../../../../utils/styleConstants';
+import { AdditionalColors } from '../../../../utils/styleConstants';
 
-export const useStyles = makeStyles(({ palette }) => ({
+export const useStyles = makeStyles(() => ({
   input: {
     width: 'auto',
     height: '40px',

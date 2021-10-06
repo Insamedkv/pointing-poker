@@ -106,6 +106,8 @@ export class SocketService {
       if (currentUser !== userForKick._id) {
         dispatch(kickOutPlayerModal(userForKick, initUser));
         dispatch(setUsersNumber(startUsersNumber));
+      } else {
+        console.log(userForKick, 'dont vote!');
       }
     });
   }

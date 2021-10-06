@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import { Container, ThemeProvider } from '@material-ui/core';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import { ModalTypes } from 'reduxstore/modalSlice/modalActionTypes';
+import { Event } from 'services/constants';
 import MainPage from './pages/MainPage';
 import { Header } from './components/Header/index';
 import { Footer } from './components/Footer/index';
@@ -45,8 +46,13 @@ export const App: FC = (): ReactElement => {
     socket.onDeleteRoom();
     socket.onBlur(dispatch);
     socket.getIssues(dispatch);
-    socket.onVoteStart(dispatch, userId);
   }, []);
+
+  useEffect(() => {
+    console.log('Set user id to:', userId);
+    socket.removeListener(Event.ON_VOTE_START);
+    socket.onVoteStart(dispatch, userId);
+  }, [userId]);
 
   return (
     <ThemeProvider theme={baseTheme}>

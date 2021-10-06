@@ -25,6 +25,7 @@ const PersonPanel: React.FC<IPersonPanelProps> = ({ userInfo, avaSize }) => {
 
   const isMe = userInfo._id === userId;
   const isNotRoomCreator = room?.roomCreator !== userInfo._id;
+  const isVoteAvaliable = avaliableUsers.length > 4;
 
   const openKickModalByPlayer = async () => {
     const initiator = await getUserById(userId);
@@ -65,7 +66,7 @@ const PersonPanel: React.FC<IPersonPanelProps> = ({ userInfo, avaSize }) => {
             {position && position}
           </Typography>
         </Container>
-        {isNotRoomCreator && !isMe && (
+        {((isDealer && !isMe) || (!isMe && isNotRoomCreator && isVoteAvaliable)) && (
           <IconButton className={classes.blockIcon} onClick={isDealer ? openKickModalByDealer : openKickModalByPlayer}>
             <BlockIcon />
           </IconButton>
