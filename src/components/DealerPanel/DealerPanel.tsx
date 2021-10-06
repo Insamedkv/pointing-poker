@@ -30,7 +30,6 @@ const DealerPanel: React.FC = () => {
 
   const stopGame = () => {
     if (room?._id) {
-      dispatch(toggleGameInRoom('finished'));
       socket.finishGame(room?._id);
     }
   };

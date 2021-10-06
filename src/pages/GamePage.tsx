@@ -67,6 +67,7 @@ const GamePage: React.FC = () => {
 
     return () => {
       isMounted = false;
+      setUsersList([]);
     };
   }, [room]);
 
@@ -77,7 +78,7 @@ const GamePage: React.FC = () => {
     socket.onRunRound(dispatch);
     socket.onStopRound(dispatch);
     socket.onSetActiveIssue(dispatch);
-    socket.onFinishGame(history, toResults);
+    socket.onFinishGame(history, toResults, dispatch);
     currentSession.then((data) => data && dispatch(setUserCredentials(data)));
   }, []);
 

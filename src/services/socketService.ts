@@ -140,13 +140,13 @@ export class SocketService {
 
   public finishGame(roomId: string): void {
     setGameStatus(roomId, 'finished');
-    localStorage.clear();
     this.socket.emit(Event.FINISH_GAME, roomId);
   }
 
-  public onFinishGame(transferTo: any, link: string): void {
-    this.socket.on(Event.ON_FINISH_GAME, () => {
+  public onFinishGame(transferTo: any, link: string, dispatch: any): void {
+    this.socket.on(Event.ON_FINISH_GAME, ({ gameStatus }) => {
       transferTo.push(link);
+      dispatch(toggleGameInRoom(gameStatus));
     });
   }
 
