@@ -33,6 +33,10 @@ const modal = createSlice({
       modalType: ModalTypes.ADMIT_PLAYER,
       player: action.payload,
     }),
+    waitModal: () => ({
+      isOpen: true,
+      modalType: ModalTypes.WAIT_MODAL,
+    }),
   },
   extraReducers: (builder) => {
     builder.addCase(
@@ -48,4 +52,5 @@ const modal = createSlice({
 });
 
 export default modal;
-export const { closeModal, connectToLobby, createIssueModal, editIssueModal, admitPlayerModal } = modal.actions;
+export const { closeModal, connectToLobby, createIssueModal, editIssueModal, admitPlayerModal, waitModal } =
+  modal.actions;

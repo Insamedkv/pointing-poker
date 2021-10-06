@@ -15,11 +15,11 @@ const MembersList: React.FC = () => {
 
   useEffect(() => {
     socket.getUsersInRoom(setUsersList);
+    socket.deleteUserFromRoom(setUsersList);
   }, []);
 
   useEffect(() => {
     let isMounted = true;
-    socket.deleteUserFromRoom(setUsersList);
 
     if (room?._id) {
       // socket.onJoin(room._id);
@@ -31,12 +31,9 @@ const MembersList: React.FC = () => {
     }
     return () => {
       isMounted = false;
+      setUsersList([]);
     };
   }, [room]);
-
-  // useEffect(() => {
-  //   dispatch(updateRoomUsers(usersList));
-  // }, [usersList]);
 
   return (
     <Container component="section">

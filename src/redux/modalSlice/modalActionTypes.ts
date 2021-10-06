@@ -13,16 +13,22 @@ export enum ModalTypes {
   KICK_PLAYER = 'kickPlayer',
   CREATE_ISSUE = 'createIssue',
   ADMIT_PLAYER = 'admitPlayer',
+  WAIT_MODAL = 'waitModal',
 }
 
-export type IModalState = IGlobalModalState | IStateForConnect | IStateForKick | IStateAdmit;
+export type IModalState = IGlobalModalState | IStateForConnect | IStateForKick | IStateAdmit | IStateWaitModal;
 export type IModalActionPayloads = IConnectToLobbyPayload | IKickPlayerPayload;
 export type IModalActions = IConnectToLobbyAction | IKickPlayerAction;
 
 //  STATE
 export interface IGlobalModalState {
   isOpen: boolean;
-  modalType?: ModalTypes.CONNECT_TO_LOBBY | ModalTypes.KICK_PLAYER | ModalTypes.CREATE_ISSUE | ModalTypes.ADMIT_PLAYER;
+  modalType?:
+    | ModalTypes.CONNECT_TO_LOBBY
+    | ModalTypes.KICK_PLAYER
+    | ModalTypes.CREATE_ISSUE
+    | ModalTypes.ADMIT_PLAYER
+    | ModalTypes.WAIT_MODAL;
   roomId?: string;
   player?: UserResp | IUserInfo;
   initiator?: UserResp;
@@ -43,6 +49,10 @@ interface IStateForKick extends IGlobalModalState {
 interface IStateAdmit extends IGlobalModalState {
   modalType: ModalTypes.ADMIT_PLAYER;
   player: UserResp;
+}
+
+interface IStateWaitModal extends IGlobalModalState {
+  modalType: ModalTypes.WAIT_MODAL;
 }
 
 //  PAYLOADS

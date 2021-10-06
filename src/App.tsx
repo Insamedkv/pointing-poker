@@ -2,6 +2,8 @@ import React, { FC, ReactElement, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { Container, ThemeProvider } from '@material-ui/core';
+import { useTypedSelector } from 'hooks/useTypedSelector';
+import { ModalTypes } from 'reduxstore/modalSlice/modalActionTypes';
 import MainPage from './pages/MainPage';
 import { Header } from './components/Header/index';
 import { Footer } from './components/Footer/index';
@@ -35,16 +37,18 @@ const routes = [
 export const App: FC = (): ReactElement => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const modalType = useTypedSelector((state) => state.modal.modalType);
 
   useEffect(() => {
     socket.onKick();
     socket.onDeleteRoom();
+    socket.onBlur(dispatch);
     socket.getIssues(dispatch);
   }, []);
 
   return (
     <ThemeProvider theme={baseTheme}>
-      <Container className={classes.wrapper}>
+      <Container className={modalType === ModalTypes.WAIT_MODAL ? classes.blurWrapper : classes.wrapper}>
         <Header />
         <Router>
           <Switch>

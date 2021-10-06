@@ -31,6 +31,8 @@ export enum Event {
   ON_FINISH_GAME = 'finish game',
   CHANGE_OBSERVER_STATUS = 'change observer status',
   BLUR = 'blur',
+  UN_BLUR = 'un blur',
+  ADMIT = 'admit',
 }
 
 export const ERROR_MESSAGES = {

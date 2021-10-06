@@ -7,4 +7,11 @@ export const useStyles = makeStyles({
     margin: '0px',
     maxWidth: 'none',
   },
+  blurWrapper: {
+    position: 'relative',
+    padding: '0px',
+    margin: '0px',
+    maxWidth: 'none',
+    filter: 'blur(5px)',
+  },
 });

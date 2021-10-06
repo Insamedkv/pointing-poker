@@ -24,29 +24,31 @@ import Statistic from 'components/Statistic';
 import { useStyles } from './GamePage.styles';
 import { socket } from '../index';
 
+const OBSERVER = 'Observer';
+
 const GamePage: React.FC = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const currentSession = restoreSession();
-  const { room, isDealer, userId, avaliableUsers } = useTypedSelector((state) => state.currentUser);
+  const { room, isDealer, isObserver, userId, avaliableUsers } = useTypedSelector((state) => state.currentUser);
   const isTimerNeeded = room?.rules[0]?.isTimerNeeded;
   const { isRoundstarted, currentIssue, userBets } = useTypedSelector((state) => state.game);
   const [usersList, setUsersList] = useState<Array<IUserInfo>>([]);
   const [cardList, setCardList] = useState<Array<number | string>>([]);
   const history = useHistory();
 
-  useEffect(() => {
-    socket.getUsersInRoom(setUsersList);
-  }, []);
+  const useAdmitModal = (user: IUserInfo | undefined) => {
+    if (user) dispatch(admitPlayerModal(user));
+  };
 
   useEffect(() => {
-    if (isDealer) {
+    if (isDealer && !room?.rules[0]?.newUsersEnter) {
       const [user] = usersList.filter((item) => {
         const isNewUser = avaliableUsers.includes(item._id as string);
         return !isNewUser;
       });
       console.log('NEW USER:', user);
-      dispatch(admitPlayerModal(user));
+      useAdmitModal(user);
     }
   }, [usersList]);
 
@@ -71,11 +73,12 @@ const GamePage: React.FC = () => {
 
   useEffect(() => {
     const toResults = `/results`;
+    socket.getUsersInRoom(setUsersList);
+    socket.admitUser(dispatch);
     socket.onRunRound(dispatch);
     socket.onStopRound(dispatch);
     socket.onSetActiveIssue(dispatch);
     socket.onFinishGame(history, toResults);
-    socket.onBlur();
     currentSession.then((data) => data && dispatch(setUserCredentials(data)));
   }, []);
 
@@ -120,7 +123,7 @@ const GamePage: React.FC = () => {
           {/* <Grid item sm> */}
           <SectionHeader header="Issues" />
           <IssueList />
-          <IssueCard mode="create" />
+          {isDealer && <IssueCard mode="create" />}
         </Grid>
         <Grid item className={classes.setupGrid} xs>
           {/* <Grid item className={classes.setupGrid} md> */}
@@ -160,7 +163,10 @@ const GamePage: React.FC = () => {
           <SectionHeader header="Users scores" />
           {usersList.map((user: IUserInfo) => (
             <Grid key={user._id} item>
-              <UserScore user={user} bet={userBets.find((userBet) => userBet.userId === user._id)?.content} />
+              <UserScore
+                user={user}
+                bet={user.asObserver ? OBSERVER : userBets.find((userBet) => userBet.userId === user._id)?.content}
+              />
             </Grid>
           ))}
         </Grid>
@@ -168,7 +174,7 @@ const GamePage: React.FC = () => {
 
       <Statistic />
 
-      {isRoundstarted && (
+      {isRoundstarted && !isObserver && (
         <Grid container spacing={1} className={classes.cardContainer}>
           {cardList.map((value, index) => (
             <Grid key={index} item xs={3}>

@@ -6,9 +6,15 @@ import { LobbyContent } from './Components/LobbyContent';
 import { KickPlayer } from './Components/KickPlayer';
 import CreateIssue from './Components/CreateIssue';
 import AdmitPlayer from './Components/AdmitPlayer';
+import WaitInfo from './Components/WaitInfo';
 
 interface IModalBodyProps {
-  modalType?: ModalTypes.CONNECT_TO_LOBBY | ModalTypes.CREATE_ISSUE | ModalTypes.KICK_PLAYER | ModalTypes.ADMIT_PLAYER;
+  modalType?:
+    | ModalTypes.CONNECT_TO_LOBBY
+    | ModalTypes.CREATE_ISSUE
+    | ModalTypes.KICK_PLAYER
+    | ModalTypes.ADMIT_PLAYER
+    | ModalTypes.WAIT_MODAL;
 }
 
 interface IBodyVariants {
@@ -20,6 +26,7 @@ const bodyVariants: IBodyVariants = {
   kickPlayer: KickPlayer,
   createIssue: CreateIssue,
   admitPlayer: AdmitPlayer,
+  waitModal: WaitInfo,
 };
 
 const ModalBody: React.FC<IModalBodyProps> = ({ modalType }) => {

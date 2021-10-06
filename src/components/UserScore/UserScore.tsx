@@ -20,7 +20,7 @@ interface IUserScoreProps {
 const UserScore: React.FC<IUserScoreProps> = ({ user, bet }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { userId, isDealer } = useTypedSelector((state) => state.currentUser);
+  const { userId, isDealer, isObserver } = useTypedSelector((state) => state.currentUser);
   const { isRoundstarted } = useTypedSelector((state) => state.game);
 
   const openKickPlayerModal = async () => {

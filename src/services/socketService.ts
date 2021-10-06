@@ -3,6 +3,7 @@ import { fromEvent, Observable } from 'rxjs';
 import { setIssues } from 'reduxstore/issuesSlice';
 import { toggleGameInRoom, updateRoomUsers } from 'reduxstore/userSlice';
 import { pushMessage } from 'reduxstore/chatSlice/chatSlice';
+import { closeModal, waitModal } from 'reduxstore/modalSlice/modalSlice';
 import { setCurrentIssue, setUsersBets, stopRoundInRoom, toggleRoundInRoom } from 'reduxstore/gameSlice';
 import { Event } from './constants';
 import {
@@ -177,10 +178,25 @@ export class SocketService {
     this.socket.emit(Event.CHANGE_OBSERVER_STATUS, { userId, status });
   }
 
-  public onBlur(): void {
+  public onBlur(dispatch: any): void {
     console.log('WAIT!...');
     this.socket.on(Event.BLUR, () => {
       console.log('Wait plz!');
+      setTimeout(() => {
+        console.log('Now modal must go on!');
+        dispatch(waitModal());
+      }, 1000);
+    });
+  }
+
+  public unblur(userId: string): void {
+    console.log('unBlur user!');
+    this.socket.emit(Event.UN_BLUR, { userId });
+  }
+
+  public admitUser(dispatch: any): void {
+    this.socket.on(Event.ADMIT, () => {
+      dispatch(closeModal());
     });
   }
 
@@ -191,5 +207,9 @@ export class SocketService {
 
   public getSocketId(): string {
     return this.socket.id;
+  }
+
+  public removeListener(event: string) {
+    (this.socket as any).removeAllListeners(event);
   }
 }

@@ -38,6 +38,7 @@ export interface IUserInfo {
   lastName?: string;
   position?: string;
   avatar?: string;
+  asObserver?: boolean;
   _id?: string;
 }
 
