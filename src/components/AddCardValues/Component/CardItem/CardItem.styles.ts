@@ -1,0 +1,62 @@
+import { makeStyles } from '@material-ui/core/styles';
+import { BackgrCardColor, AdditionalColors } from '../../../../utils/styleConstants';
+
+export const useStyles = makeStyles(() => ({
+  cardItem: {
+    fontSize: '32px',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    width: '100%',
+    alignSelf: 'flex-start',
+    cursor: 'default',
+  },
+  cardImage: {
+    width: '80%',
+    height: 'auto',
+    borderRadius: '0',
+  },
+  cardIcon: {
+    fontSize: '52px',
+    fontWeight: 800,
+    textShadow: '2px 2px 4px rgb(0, 0, 0, .4)',
+    userSelect: 'none',
+  },
+  cardImageReverse: {
+    fontSize: '32px',
+    transform: 'rotate(180deg)',
+    alignSelf: 'flex-end',
+    cursor: 'default',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    width: '100%',
+  },
+  cardStylesActive: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    background: `${BackgrCardColor.ACTIVE_CARD}`,
+    top: 0,
+    zIndex: 1,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  cardStylesNotActive: {
+    display: 'none',
+  },
+  backgrIcon: {
+    background: `${AdditionalColors.AV10}`,
+    width: '60px',
+    height: '60px',
+    borderRadius: '50%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  approveImage: {
+    width: '100%',
+    height: '100%',
+    padding: '15px',
+    boxSizing: 'border-box',
+  },
+}));
