@@ -1,6 +1,9 @@
 import React, { FC, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { deleteOldCard } from 'reduxstore/settingsSlice/settingsSlice';
+import { useTypedSelector } from 'hooks/useTypedSelector';
+import { Room, ScoreTypes } from 'defaultTypes';
+import { setBet } from 'reduxstore/gameSlice';
 import { CardBack } from '../CardBack';
 import { CardItem } from '../CardItem';
 import { useStyles } from '../../AddCardValues.styles';
@@ -15,6 +18,7 @@ interface ICardInstanceProps {
 
 export const CardInstance: FC<ICardInstanceProps> = ({ itemVal, valueIndex }) => {
   const classes = useStyles();
+  const { scoreType } = useTypedSelector((state) => state.settings);
   const [flip, setFlip] = useState(false);
   const dispatch = useDispatch();
 
@@ -31,7 +35,7 @@ export const CardInstance: FC<ICardInstanceProps> = ({ itemVal, valueIndex }) =>
         valueIndex={valueIndex}
         className={flip === true ? classes.cardStylesBack : classes.cardStyles}
         onClick={() => {
-          setFlip(!flip);
+          if (scoreType === ScoreTypes.CUSTOM) setFlip(!flip);
         }}
       />
       <CardBack

@@ -1,20 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Grid } from '@material-ui/core';
 import IssueCard from 'components/IssueCard';
-import { IIssue } from 'defaultTypes';
 import { IssueResp } from 'services/serviceTypes';
+import { useTypedSelector } from 'hooks/useTypedSelector';
+import { getRoomIssues } from 'services/httpRoom';
+import { setIssues } from 'reduxstore/issuesSlice';
 
-interface IIssueListProps {
-  issues: Array<IssueResp>;
-}
+const IssueList: React.FC = () => {
+  const issues = useTypedSelector((state) => state.issues);
+  const roomId = useTypedSelector((state) => state.currentUser.room?._id);
+  const dispatch = useDispatch();
 
-const IssueList: React.FC<IIssueListProps> = ({ issues }) => {
+  useEffect(() => {
+    if (roomId) getRoomIssues(roomId).then((data) => dispatch(setIssues(data)));
+  }, [roomId]);
+
   return (
-    <Grid item sm={6}>
+    <>
       {issues.map((issue: IssueResp) => (
-        <IssueCard key={issue._id} mode="show" issue={issue} />
+        <Grid key={issue._id} item xs>
+          <IssueCard key={issue._id} mode="show" issue={issue} />
+        </Grid>
       ))}
-    </Grid>
+    </>
   );
 };
 

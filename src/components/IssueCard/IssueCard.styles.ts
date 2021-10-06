@@ -5,12 +5,14 @@ import { AdditionalColors } from '../../utils/styleConstants';
 const useStyles = makeStyles(({ shadows, palette }: Theme) =>
   createStyles({
     root: {
+      whiteSpace: 'nowrap',
+      marginBottom: '10px',
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
-      width: '250px',
+      minWidth: '215px',
+      width: 'inherit',
       height: '64px',
-      margin: '2px 0 14px 0',
       boxShadow: shadows[6],
       transition: 'all .2s ease-in-out',
       '&:hover .MuiSvgIcon-root': {
@@ -23,6 +25,8 @@ const useStyles = makeStyles(({ shadows, palette }: Theme) =>
     },
     cardBody: {
       width: '100%',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
     },
     actionContainer: {
       display: 'flex',
@@ -36,7 +40,7 @@ const useStyles = makeStyles(({ shadows, palette }: Theme) =>
       transition: 'all .2s ease-in-out',
       '&:hover': {
         opacity: '1 !important',
-        transform: 'scale(1.2)',
+        transform: 'scale(1.05)',
       },
       '&:active': {
         transform: 'scale(1)',
@@ -45,11 +49,15 @@ const useStyles = makeStyles(({ shadows, palette }: Theme) =>
     issueCreator: {
       cursor: 'pointer',
       '&:hover': {
-        transform: 'scale(1.1)',
+        transform: 'scale(1.05)',
       },
       '&:active': {
         background: palette.divider,
       },
+    },
+    textOverflow: {
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
     },
   })
 );

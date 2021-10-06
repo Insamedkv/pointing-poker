@@ -7,17 +7,30 @@ import { closeModal } from 'reduxstore/modalSlice/modalSlice';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import { useStyles } from 'components/Modal/ModalWindow.styles';
 import { deleteUserById } from 'services/httpUser';
+import { UserResp } from 'services/serviceTypes';
 import { useKickPlayerStyles } from './KickPlayer.styles';
+import { socket } from '../../../../../../index';
 
 const KickPlayer: React.FC = () => {
   const classes = useStyles();
   const kickPlayerclasses = useKickPlayerStyles();
   const dispatch = useDispatch();
   const { player, initiator } = useTypedSelector((state) => state.modal);
-  const { isDealer } = useTypedSelector((state) => state.currentUser);
+  const { room, startUsersNumber } = useTypedSelector((state) => state.currentUser);
 
-  const kickPlayer = () => {
-    if (player) deleteUserById(player._id);
+  const isDealerInitiator = initiator?._id === room?.roomCreator;
+
+  const executePlayer = () => {
+    if (player && isDealerInitiator) {
+      deleteUserById((player as UserResp)._id);
+    } else if (player?._id && !isDealerInitiator) {
+      socket.voteEnd(true, player._id, startUsersNumber as number);
+    }
+    dispatch(closeModal());
+  };
+
+  const pardonPlayer = () => {
+    if (player?._id && !isDealerInitiator) socket.voteEnd(false, player._id, startUsersNumber as number);
     dispatch(closeModal());
   };
 
@@ -54,17 +67,17 @@ const KickPlayer: React.FC = () => {
 
       <Container>
         <Typography variant="body1" className={kickPlayerclasses.bodyMessage}>
-          {isDealer ? getDealerMessage() : getPlayerMessage()}
+          {isDealerInitiator ? getDealerMessage() : getPlayerMessage()}
         </Typography>
       </Container>
 
       <Container className={classes.buttonsBlock}>
-        <CustomButton className={classes.btn} buttonCaption={buttonTextConstants.YES} onClick={kickPlayer} />
+        <CustomButton className={classes.btn} buttonCaption={buttonTextConstants.YES} onClick={executePlayer} />
         <CustomButton
           className={classes.btn}
           buttonCaption={buttonTextConstants.NO}
           variant="outlined"
-          onClick={() => dispatch(closeModal())}
+          onClick={pardonPlayer}
         />
       </Container>
     </>

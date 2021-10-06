@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Container, IconButton, Typography } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -10,6 +10,7 @@ import { useTypedSelector } from 'hooks/useTypedSelector';
 import { useStyles } from './PersonPanel.styles';
 import Avatara from '../Avatara';
 import { IAvataraInfo, IUserInfo } from '../../defaultTypes';
+import { socket } from '../../index';
 
 interface IPersonPanelProps {
   userInfo: IUserInfo;
@@ -19,12 +20,19 @@ interface IPersonPanelProps {
 const PersonPanel: React.FC<IPersonPanelProps> = ({ userInfo, avaSize }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { userId, room, isDealer } = useTypedSelector((state) => state.currentUser);
+  const { userId, room, isDealer, avaliableUsers } = useTypedSelector((state) => state.currentUser);
   const { lastName, firstName, avatar, position } = userInfo;
 
-  const whatAmI = userInfo._id === userId;
+  const isMe = userInfo._id === userId;
+  const isNotRoomCreator = room?.roomCreator !== userInfo._id;
+  const isVoteAvaliable = avaliableUsers.length > 4;
 
-  const openKickPlayerModal = async () => {
+  const openKickModalByPlayer = async () => {
+    const initiator = await getUserById(userId);
+    if (room?._id && userInfo?._id) socket.voteStart(room._id, userInfo._id, initiator._id);
+  };
+
+  const openKickModalByDealer = async () => {
     const initiator = await getUserById(userId);
     dispatch(kickOutPlayerModal(userInfo, initiator));
   };
@@ -44,9 +52,9 @@ const PersonPanel: React.FC<IPersonPanelProps> = ({ userInfo, avaSize }) => {
     <Card className={classes.root}>
       <CardContent className={classes.cardContent}>
         <Avatara avatar={getUserInfo()} />
-        <Container>
+        <Container className={classes.textOverflow}>
           <Typography className={classes.upperText} variant="subtitle2">
-            {whatAmI && 'IT’S YOU'}
+            {isMe && 'IT’S YOU'}
           </Typography>
           <Typography variant="h5" className={classes.personName}>
             {userInfo.firstName}
@@ -58,8 +66,8 @@ const PersonPanel: React.FC<IPersonPanelProps> = ({ userInfo, avaSize }) => {
             {position && position}
           </Typography>
         </Container>
-        {isDealer && !whatAmI && (
-          <IconButton className={classes.blockIcon} onClick={openKickPlayerModal}>
+        {((isDealer && !isMe) || (!isMe && isNotRoomCreator && isVoteAvaliable)) && (
+          <IconButton className={classes.blockIcon} onClick={isDealer ? openKickModalByDealer : openKickModalByPlayer}>
             <BlockIcon />
           </IconButton>
         )}

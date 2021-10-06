@@ -2,6 +2,13 @@ import { createStyles, makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles(({ palette, typography, shadows }) =>
   createStyles({
+    '@global': {
+      '*::-webkit-scrollbar': {
+        width: '0px',
+        background: 'transparent',
+        scrollbarWidth: 'thin !important',
+      },
+    },
     chatMainContainer: {
       position: 'absolute',
       top: '70px',
@@ -27,11 +34,11 @@ const useStyles = makeStyles(({ palette, typography, shadows }) =>
       padding: '0px',
       overflowX: 'hidden',
       overflowY: 'scroll',
+      scrollbarWidth: 'none',
     },
     enterTextArea: {
-      height: '12vh',
       padding: '0px',
-      marginTop: '10px',
+      marginTop: '5px',
       position: 'sticky',
       display: 'flex',
       justifyContent: 'space-between',
@@ -43,12 +50,10 @@ const useStyles = makeStyles(({ palette, typography, shadows }) =>
     messageField: {
       display: 'flex',
       height: '100%',
-      width: '99%',
       flexDirection: 'column',
       justifyContent: 'space-between',
       background: 'aliceblue',
       borderRadius: '4px',
-      padding: '7px 10px',
       fontSize: '18px',
     },
     inputMessageField: {
@@ -77,10 +82,12 @@ const useStyles = makeStyles(({ palette, typography, shadows }) =>
       textAlign: 'right',
     },
     nameSection: {
+      overflow: 'hidden',
+      width: 'inherit',
+      textOverflow: 'ellipsis',
       fontWeight: typography.fontWeightBold,
       fontStyle: 'italic',
       padding: '5px 10px',
-      textAlign: 'right',
       fontSize: '16px',
     },
     kickPlayer: {

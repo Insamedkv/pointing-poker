@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { Container, Grid } from '@material-ui/core';
 import PersonPanel from 'components/PersonPanel';
-import { updateRoomUsers } from 'reduxstore/userSlice';
 import { getRoomUsers } from 'services/httpRoom';
 import { IUserInfo } from 'defaultTypes';
 import { useTypedSelector } from 'hooks/useTypedSelector';
@@ -14,22 +12,30 @@ const MembersList: React.FC = () => {
 
   useEffect(() => {
     socket.getUsersInRoom(setUsersList);
-  }, [usersList]);
+    socket.deleteUserFromRoom(setUsersList);
+  }, []);
 
   useEffect(() => {
-    socket.deleteUserFromRoom(setUsersList);
+    let isMounted = true;
 
     if (room?._id) {
-      // socket.onJoin(room._id);
-      getRoomUsers(room._id).then((data) => setUsersList(data));
+      getRoomUsers(room._id).then((data) => {
+        if (isMounted) {
+          setUsersList(data);
+        }
+      });
     }
+    return () => {
+      isMounted = false;
+      setUsersList([]);
+    };
   }, [room]);
 
   return (
     <Container component="section">
-      <Grid container spacing={4}>
+      <Grid container spacing={2}>
         {usersList.map((user: IUserInfo) => (
-          <Grid key={user._id} item sm={4}>
+          <Grid key={user._id} item xs>
             <PersonPanel userInfo={user} avaSize="medium" />
           </Grid>
         ))}

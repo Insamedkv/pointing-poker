@@ -7,6 +7,7 @@ export interface IButton {
   variant?: 'text' | 'outlined' | 'contained';
   className?: string;
   onClick?: React.MouseEventHandler;
+  disabled?: boolean;
 }
 
 export interface IAvataraInfo {
@@ -37,6 +38,7 @@ export interface IUserInfo {
   lastName?: string;
   position?: string;
   avatar?: string;
+  asObserver?: boolean;
   _id?: string;
 }
 
@@ -76,7 +78,7 @@ export interface Issue {
   link: string;
 }
 
-interface RoomUser {
+export interface RoomUser {
   user: string;
 }
 
@@ -91,6 +93,7 @@ export interface Room {
   users: Array<RoomUser>;
   issues: Array<Issue>;
   roomCreator: string;
+  gameStatus: 'pre' | 'started' | 'finished';
 }
 
 export enum ScoreTypes {
@@ -98,3 +101,5 @@ export enum ScoreTypes {
   POWEROFTWO = 'poweroftwo',
   CUSTOM = 'custom',
 }
+
+export type IGamePayloadStatus = 'started' | 'finished';

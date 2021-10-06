@@ -1,21 +1,12 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import {
-  Container,
-  Fade,
-  FormControl,
-  FormControlLabel,
-  InputLabel,
-  MenuItem,
-  Select,
-  Switch,
-} from '@material-ui/core';
+import { Container, Fade, FormControlLabel, InputLabel, MenuItem, Select, Switch } from '@material-ui/core';
 import CustomInput from 'components/CustomInput';
 import SectionHeader from 'components/SectionHeader';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import SetTimeComponent from 'components/SetTimeComponent';
+import { setObserverStatus } from 'reduxstore/userSlice';
 import {
-  allowChangeCardInEnd,
   allowNewUserEnter,
   changeMasterAsPalyer,
   changeScoreType,
@@ -54,34 +45,11 @@ const GameSettings: React.FC = () => {
             onChange={(event) => {
               const { checked } = event.target;
               dispatch(changeMasterAsPalyer(checked));
+              dispatch(setObserverStatus(!checked));
             }}
           />
         }
         label="Scrum master as player:"
-        labelPlacement="start"
-      />
-      <FormControlLabel
-        className={classes.controlSize}
-        classes={{ label: classes.label }}
-        checked={gameSettings.changingCardInEnd}
-        control={
-          <Switch
-            classes={{
-              root: classes.switcherRoot,
-              switchBase: classes.switcherBase,
-              checked: classes.checked,
-              track: classes.track,
-              thumb: classes.thumb,
-            }}
-            color="primary"
-            onChange={(event) => {
-              const { checked } = event.target;
-              dispatch(allowChangeCardInEnd(checked));
-            }}
-          />
-        }
-        label="Changing card in round end:"
-        labelPlacement="start"
       />
       <FormControlLabel
         className={classes.controlSize}
@@ -105,7 +73,6 @@ const GameSettings: React.FC = () => {
           />
         }
         label="Admit all new users:"
-        labelPlacement="start"
       />
       <FormControlLabel
         className={classes.controlSize}
@@ -128,8 +95,7 @@ const GameSettings: React.FC = () => {
             }}
           />
         }
-        label="Auto rotate card after vote:"
-        labelPlacement="start"
+        label="Auto show card after vote:"
       />
       <FormControlLabel
         className={classes.controlSize}
@@ -153,9 +119,7 @@ const GameSettings: React.FC = () => {
           />
         }
         label="Is timer needed:"
-        labelPlacement="start"
       />
-      {/* Score type: */}
       <FormControlLabel
         className={classes.controlSize}
         classes={{ label: classes.label }}
@@ -174,29 +138,13 @@ const GameSettings: React.FC = () => {
               dispatch(changeScoreType(value as IScoreType));
             }}
           >
-            <MenuItem value={ScoreTypes.FIBONACHI}>Fibonachi</MenuItem>
+            <MenuItem value={ScoreTypes.FIBONACHI}>Fibonacсi</MenuItem>
             <MenuItem value={ScoreTypes.POWEROFTWO}>Power of two</MenuItem>
             <MenuItem value={ScoreTypes.CUSTOM}>Custom</MenuItem>
           </Select>
         }
         label="Score type:"
-        labelPlacement="start"
       />
-      {/* <FormControlLabel
-        className={classes.controlSize}
-        classes={{ label: classes.label }}
-        control={
-          <CustomInput
-            input={{ label: '', value: gameSettings.scoreType }}
-            onChange={(event) => {
-              const { value } = event.target;
-              dispatch(setScoreType(value));
-            }}
-          />
-        }
-        label="Score type:"
-        labelPlacement="start"
-      /> */}
       <FormControlLabel
         className={classes.controlSize}
         classes={{ label: classes.label }}
@@ -205,12 +153,11 @@ const GameSettings: React.FC = () => {
             input={{ label: '', value: gameSettings.shortScoreType }}
             onChange={(event) => {
               const { value } = event.target;
-              dispatch(setShortScoreType(value));
+              dispatch(setShortScoreType(value.slice(0, 3)));
             }}
           />
         }
         label="Score type(short):"
-        labelPlacement="start"
       />
       <Fade in={gameSettings.isTimerNeeded}>
         <FormControlLabel
@@ -218,7 +165,6 @@ const GameSettings: React.FC = () => {
           classes={{ label: classes.label }}
           control={<SetTimeComponent />}
           label="Round time:"
-          labelPlacement="start"
         />
       </Fade>
 

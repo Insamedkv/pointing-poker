@@ -42,8 +42,8 @@ export const getRoomById = async (roomId: string) => {
     try {
       const response = await axios.get(`/room/${roomId}`);
       res(response.data);
-    } catch (err) {
-      rej(err);
+    } catch (err: any) {
+      rej(err.response.data.error);
     }
   });
 };
@@ -63,7 +63,6 @@ export const createRoomIssue = async (roomId: string, data: Issue) => {
   return new Promise<IssueResp>(async (res, rej) => {
     try {
       const response = await axios.post(`/room/${roomId}/issue`, data);
-      console.log('CreateRoomIssue!', data);
       res(response.data);
     } catch (err) {
       rej(err);
@@ -115,10 +114,10 @@ export const setRoomRules = async (roomId: string, data: Rules) => {
   });
 };
 
-export const setGameStatus = async (roomId: string, isGameStarted: boolean) => {
+export const setGameStatus = async (roomId: string, gameStatus: string) => {
   return new Promise<Rules>(async (res, rej) => {
     try {
-      const response = await axios.put(`/room/${roomId}/gamestatus`, { isGameStarted });
+      const response = await axios.put(`/room/${roomId}/gamestatus`, { gameStatus });
       res(response.data);
     } catch (err) {
       rej(err);
@@ -181,10 +180,10 @@ export const sendMessage = async (message: string) => {
   });
 };
 
-export const getRoomBets = async (roomId: string) => {
+export const getRoomBets = async (issueId: string) => {
   return new Promise<BetResp[]>(async (res, rej) => {
     try {
-      const response = await axios.get(`/game/${roomId}`);
+      const response = await axios.get(`/game/${issueId}`);
       res(response.data);
     } catch (error) {
       rej(error);
@@ -199,6 +198,31 @@ export const updateRoomBet = async (data: UpdateBet) => {
       res(response.data);
     } catch (error) {
       rej(error);
+    }
+  });
+};
+
+const download = (data: any) => {
+  const blob = new Blob([data], { type: 'text/csv' });
+  const url = window.URL.createObjectURL(blob);
+  console.log('blob', blob);
+  const a = document.createElement('a');
+  a.setAttribute('hidden', '');
+  a.setAttribute('href', url);
+  a.setAttribute('download', 'download.csv');
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+};
+
+export const downloadResults = async (roomId: string) => {
+  return new Promise<Array<IUserInfo>>(async (res, rej) => {
+    try {
+      const response = await axios.get(`/download/${roomId}`);
+      console.log(response.data);
+      download(response.data);
+    } catch (err) {
+      rej(err);
     }
   });
 };

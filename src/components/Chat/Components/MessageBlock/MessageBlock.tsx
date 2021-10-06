@@ -1,7 +1,6 @@
 import React from 'react';
 import { Container, Grid, IconButton, Typography } from '@material-ui/core';
 import BlockIcon from '@material-ui/icons/Block';
-import PersonPanel from 'components/PersonPanel';
 import { IAvataraInfo, IUserInfo } from 'defaultTypes';
 import { useStyles } from 'components/Chat/Chat.styles';
 import Avatara from 'components/Avatara';
@@ -42,10 +41,7 @@ const MessageBlock: React.FC<IMessageProps> = ({ user, message }) => {
 
   return (
     <Grid container spacing={1} justifyContent="space-between">
-      {/* <Grid item sm={6}>
-        <PersonPanel userInfo={user} />
-      </Grid> */}
-      <Grid item sm={12} className={classes.chatContainer}>
+      <Grid item xs={12} className={classes.chatContainer}>
         <Container className={classes.messageField}>
           {isDealer && user._id !== userId && (
             <IconButton className={classes.kickPlayer} onClick={openKickPlayerModal}>

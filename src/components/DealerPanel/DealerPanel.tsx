@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { Container, Grid, Typography } from '@material-ui/core';
 import LinkToLobby from 'components/LinkToLobby';
@@ -6,19 +7,20 @@ import PersonPanel from 'components/PersonPanel';
 import CustomButton from 'components/CustomButton';
 import { IUserInfo } from 'defaultTypes';
 import { buttonTextConstants } from 'utils/buttonTextConstants';
-import { deleteRoom, getRoomCreator, leaveRoom, setGameStatus, setRoomRules } from 'services/httpRoom';
+import { deleteRoom, getRoomCreator, leaveRoom, setRoomRules } from 'services/httpRoom';
 import { Rules } from 'services/serviceTypes';
 import { useTypedSelector } from 'hooks/useTypedSelector';
+import { toggleGameInRoom } from 'reduxstore/userSlice';
 import { useStyles } from './DealerPanel.styles';
 import { socket } from '../../index';
 
 const DealerPanel: React.FC = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const { room, isDealer } = useTypedSelector((state) => state.currentUser);
   const { cardTypes } = useTypedSelector((state) => state.settings);
   const rules = useTypedSelector((state) => state.settings);
   const [userInfo, setUserInfo] = useState<IUserInfo>();
-  const [isGameStarted, setGameStarted] = useState(false);
 
   const link = `${room?._id}`;
 
@@ -26,23 +28,36 @@ const DealerPanel: React.FC = () => {
     if (room?._id) deleteRoom(room._id);
   };
 
+  const stopGame = () => {
+    if (room?._id) {
+      socket.finishGame(room?._id);
+    }
+  };
+
   const exitGame = async () => {
-    if (room?._id)
+    if (room?._id) {
       leaveRoom(room._id).then(() => {
+        localStorage.clear();
+        dispatch(toggleGameInRoom('finished'));
         window.location.href = window.location.origin;
       });
+    }
   };
 
   useEffect(() => {
-    socket.onPlay(setGameStarted);
+    socket.onPlay(dispatch);
   }, []);
 
   useEffect(() => {
+    let isMounted = true;
     if (room?._id) {
       getRoomCreator(room._id).then((creator) => {
-        setUserInfo(creator);
+        if (isMounted) setUserInfo(creator);
       });
     }
+    return () => {
+      isMounted = false;
+    };
   }, [room]);
 
   const startGame = () => {
@@ -52,7 +67,6 @@ const DealerPanel: React.FC = () => {
       scrumMasterAsAPlayer: rules.scrumMasterAsAPlayer,
       newUsersEnter: rules.newUsersEnter,
       autoRotateCardsAfterVote: rules.autoRotateCardsAfterVote,
-      changingCardInEnd: rules.changingCardInEnd,
       isTimerNeeded: rules.isTimerNeeded,
       shortScoreType: rules.shortScoreType,
       cardType: arrayOfValues,
@@ -61,7 +75,6 @@ const DealerPanel: React.FC = () => {
 
     if (room) {
       setRoomRules(room._id, laws);
-      setGameStatus(room._id, true);
       socket.play(room._id);
     }
   };
@@ -79,19 +92,24 @@ const DealerPanel: React.FC = () => {
           <Container className={classes.btnContainer}>
             {isDealer ? (
               <>
+                {room?.gameStatus !== 'started' && (
+                  <CustomButton
+                    className={classes.btnPadding}
+                    disabled={cardTypes.length <= 1}
+                    buttonCaption={buttonTextConstants.START_GAME}
+                    size="medium"
+                    onClick={startGame}
+                  />
+                )}
                 <CustomButton
                   className={classes.btnPadding}
-                  buttonCaption={buttonTextConstants.START_GAME}
-                  size="medium"
-                  onClick={startGame}
-                />
-                <CustomButton
-                  className={classes.btnPadding}
-                  buttonCaption={buttonTextConstants.CANCEL_GAME}
+                  buttonCaption={
+                    room?.gameStatus === 'started' ? buttonTextConstants.STOP_GAME : buttonTextConstants.CANCEL_GAME
+                  }
                   color="secondary"
                   variant="outlined"
                   size="medium"
-                  onClick={cancelGame}
+                  onClick={room?.gameStatus === 'started' ? stopGame : cancelGame}
                 />
               </>
             ) : (
@@ -106,11 +124,13 @@ const DealerPanel: React.FC = () => {
             )}
           </Container>
         </Grid>
-        <Grid item sm={12}>
-          <LinkToLobby link={link} />
-        </Grid>
+        {room?.gameStatus !== 'started' && isDealer && (
+          <Grid item sm={12}>
+            <LinkToLobby link={link} />
+          </Grid>
+        )}
       </Grid>
-      {link && isGameStarted && <Redirect to={`/game/${link}`} />}
+      {link && room?.gameStatus === 'started' && <Redirect to={`/game/${link}`} />}
     </div>
   );
 };

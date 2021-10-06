@@ -3,10 +3,9 @@ import { grey } from '@material-ui/core/colors';
 
 export const useStyles = makeStyles(() => ({
   timerWrap: {
-    margin: 0,
-    width: '250px',
-    height: '100px',
+    height: '64px',
     display: 'flex',
+    borderRadius: '2px',
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
@@ -25,10 +24,5 @@ export const useStyles = makeStyles(() => ({
   seconds: {
     fontSize: '55px',
     margin: '0px',
-  },
-  BTNBlock: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 }));

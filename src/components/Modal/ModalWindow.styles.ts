@@ -19,6 +19,7 @@ const useStyles = makeStyles(({ typography, palette }) => ({
     flexDirection: 'column',
     justifyContent: 'space-between',
     minHeight: '500px',
+    height: 'inherit',
   },
   buttonsBlock: {
     display: 'flex',

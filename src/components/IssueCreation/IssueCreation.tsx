@@ -1,18 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Container, Grid } from '@material-ui/core';
+import { setIssues } from 'reduxstore/issuesSlice';
 import IssueCard from 'components/IssueCard';
 import IssueList from 'components/IssueList';
 import { useTypedSelector } from 'hooks/useTypedSelector';
-import { createIssueModal } from 'reduxstore/modalSlice/modalSlice';
-import { IssueResp } from 'services/serviceTypes';
-import { setIssues } from 'reduxstore/issuesSlice';
 import { getRoomIssues } from 'services/httpRoom';
 import { useStyles } from './IssueCreation.styles';
 import { socket } from '../../index';
 
 const IssueCreation: React.FC = () => {
-  const issues = useTypedSelector((state) => state.issues);
   const { room } = useTypedSelector((state) => state.currentUser);
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -28,19 +25,13 @@ const IssueCreation: React.FC = () => {
     socket.getIssues(dispatch);
   }, []);
 
-  const addIssue = () => {
-    dispatch(createIssueModal());
-  };
-
   return (
-    <Container className={classes.root}>
-      <Grid container spacing={1}>
-        <IssueList issues={issues} />
-        <Grid item sm={6}>
-          <div onClick={addIssue}>
-            <IssueCard mode="create" />
-          </div>
+    <Container>
+      <Grid container className={classes.root} spacing={2}>
+        <Grid item xs>
+          <IssueCard mode="create" />
         </Grid>
+        <IssueList />
       </Grid>
     </Container>
   );

@@ -28,8 +28,8 @@ const useStyles = makeStyles(({ typography, palette, shadows }) =>
     },
     container: {
       display: 'flex',
-      width: '465px',
       margin: 0,
+      padding: '0 0 0 24px',
     },
     inputLabel: {
       color: palette.common.black,

@@ -12,8 +12,8 @@ export const AddCardValues: FC = () => {
   const [flipAddCard, setFlipAddCard] = useState<boolean>(false);
 
   return (
-    <Grid container spacing={3}>
-      <Grid item xs={3}>
+    <Grid container spacing={1}>
+      <Grid item xs={4} md={3} sm={3}>
         <CardForAdd
           className={flipAddCard === true ? classes.cardStylesBack : classes.cardStyles}
           onClick={() => setFlipAddCard(!flipAddCard)}
@@ -25,7 +25,7 @@ export const AddCardValues: FC = () => {
         />
       </Grid>
       {cards.map((card) => (
-        <Grid item key={card.id} xs={3}>
+        <Grid item key={card.id} xs={4} md={3} sm={3}>
           <CardInstance valueIndex={card.id} itemVal={card.value} />
         </Grid>
       ))}

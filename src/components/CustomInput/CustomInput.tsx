@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Input, InputLabel } from '@material-ui/core';
+import { Container, Input, InputLabel, Typography } from '@material-ui/core';
 import { useStyles } from './CustomInput.styles';
 import CustomButton from '../CustomButton';
 import { IButton, IInput } from '../../defaultTypes';
@@ -9,16 +9,25 @@ interface IInputProps {
   name?: string;
   button?: IButton;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  errorMessage?: string;
 }
 
-const CustomInput: React.FC<IInputProps> = ({ input, button, name, onChange }) => {
+const CustomInput: React.FC<IInputProps> = ({ input, button, name, onChange, errorMessage }) => {
   const classes = useStyles();
   const requireClass = input.required ? classes.requiredField : '';
-  const [isError, setError] = useState(false);
 
   return (
     <>
-      {input.label && <InputLabel className={classes.inputLabel}>{input.label}:</InputLabel>}
+      {input.label && (
+        <InputLabel className={classes.inputLabel}>
+          {input.label}:
+          {errorMessage && (
+            <Typography component="span" style={{ color: 'red' }}>
+              {errorMessage}
+            </Typography>
+          )}
+        </InputLabel>
+      )}
       <Container className={classes.container}>
         <Input
           fullWidth
@@ -29,7 +38,7 @@ const CustomInput: React.FC<IInputProps> = ({ input, button, name, onChange }) =
           disableUnderline
           name={name}
           required={input.required}
-          error={isError}
+          error={!!errorMessage}
           type={input.type || 'text'}
           onChange={onChange}
           value={input.value}

@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { IUserInfo } from 'defaultTypes';
 import { kickOutPlayerModal } from './modalActions';
 import { IModalState, ModalTypes } from './modalActionTypes';
 
@@ -21,10 +22,18 @@ const modal = createSlice({
       modalType: ModalTypes.CREATE_ISSUE,
     }),
     editIssueModal: (state, action: PayloadAction<string>) => ({
-      // string = issue ID
       isOpen: true,
       modalType: ModalTypes.CREATE_ISSUE,
       editableIssueID: action.payload,
+    }),
+    admitPlayerModal: (state, action: PayloadAction<IUserInfo>) => ({
+      isOpen: true,
+      modalType: ModalTypes.ADMIT_PLAYER,
+      player: action.payload,
+    }),
+    waitModal: () => ({
+      isOpen: true,
+      modalType: ModalTypes.WAIT_MODAL,
     }),
   },
   extraReducers: (builder) => {
@@ -41,4 +50,5 @@ const modal = createSlice({
 });
 
 export default modal;
-export const { closeModal, connectToLobby, createIssueModal, editIssueModal } = modal.actions;
+export const { closeModal, connectToLobby, createIssueModal, editIssueModal, admitPlayerModal, waitModal } =
+  modal.actions;

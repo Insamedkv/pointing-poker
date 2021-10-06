@@ -67,7 +67,18 @@ export const useStyles = makeStyles(({ palette, shadows }) => ({
     height: '55px',
     border: `1px solid ${SiteColors.SECONDARY_COLOR}`,
     boxShadow: shadows[7],
-    padding: '5px 30px',
+    '& > p': {
+      fontSize: '18px',
+    },
+    '& > div': {
+      '& > fieldset': {
+        border: 'none',
+      },
+      '& > .MuiInputBase-input': {
+        fontSize: '24px',
+        padding: '12.5px 14px',
+      },
+    },
   },
   inputError: {
     border: `2px solid ${palette.error.main}`,

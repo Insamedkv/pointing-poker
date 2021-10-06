@@ -89,6 +89,10 @@ const LobbyContent: React.FC = () => {
     updateUserData(name, value);
   };
 
+  const isValid = (value: string): string | undefined => {
+    return value.match(/^[a-zа-я'-]*$/i) ? undefined : 'Invalid name!';
+  };
+
   const setImage = (src: ArrayBuffer | string | null) => {
     setBlobImage(src);
   };
@@ -104,19 +108,26 @@ const LobbyContent: React.FC = () => {
         <Typography className={classes.modalHeaderAlternative} variant="h2">
           Connect to Lobby:
         </Typography>
-        <FormControlLabel
-          control={
-            <Switch
-              name="asObserver"
-              color="primary"
-              onChange={(event) => updateUserData(event.target.name, event.target.checked)}
-            />
-          }
-          label="Connect as observer"
-          labelPlacement="start"
-        />
+        {modalState.roomId && (
+          <FormControlLabel
+            control={
+              <Switch
+                name="asObserver"
+                color="primary"
+                onChange={(event) => updateUserData(event.target.name, event.target.checked)}
+              />
+            }
+            label="Connect as observer"
+            labelPlacement="start"
+          />
+        )}
       </Container>
-      <CustomInput name="firstName" input={firstNameInput} onChange={getDataFromInput} />
+      <CustomInput
+        name="firstName"
+        input={firstNameInput}
+        onChange={getDataFromInput}
+        errorMessage={isValid(userData.firstName)}
+      />
       <CustomInput name="lastName" input={lastNameInput} onChange={getDataFromInput} />
       <CustomInput name="position" input={jobPositionInput} onChange={getDataFromInput} />
       <FileChooser
@@ -138,7 +149,12 @@ const LobbyContent: React.FC = () => {
         </Container>
       )}
       <Container className={classes.buttonsBlock}>
-        <CustomButton className={classes.btn} buttonCaption={buttonTextConstants.CONFIRM} onClick={createRoom} />
+        <CustomButton
+          disabled={isValid(userData.firstName) !== undefined || userData.firstName === ''}
+          className={classes.btn}
+          buttonCaption={buttonTextConstants.CONFIRM}
+          onClick={createRoom}
+        />
         <CustomButton
           className={classes.btn}
           buttonCaption={buttonTextConstants.CANCEL}

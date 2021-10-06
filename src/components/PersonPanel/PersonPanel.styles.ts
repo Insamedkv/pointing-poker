@@ -7,28 +7,28 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       position: 'relative',
       height: '132px',
-      // width: '500px',
       boxShadow: '0px 1px 4px rgba(0, 0, 0, .25)',
       borderRadius: '4px',
     },
     personName: {
-      // width: '310px',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
       whiteSpace: 'nowrap',
-      textAlign: 'center',
     },
     cardContent: {
+      width: 'inherit',
       display: 'flex',
       justifyContent: 'space-between',
       height: '91px',
       alignItems: 'center',
-      padding: '18px 22px',
+      overflow: 'hidden',
     },
     blockIcon: {
       position: 'absolute',
       fontSize: '32px',
       opacity: '.3',
-      top: '10px',
-      right: '15px',
+      top: '3px',
+      right: '3px',
       transition: 'all .2s ease-in-out',
       '&:hover': {
         cursor: 'pointer',
@@ -51,6 +51,13 @@ const useStyles = makeStyles((theme: Theme) =>
     lowerText: {
       height: '11px',
       textAlign: 'right',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap',
+    },
+    textOverflow: {
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
     },
   })
 );

@@ -7,21 +7,28 @@ import { useStyles } from './MainPage.styles';
 import MainImage from '../asset/Main_img.png';
 import CustomButton from '../components/CustomButton';
 
+interface IError {
+  isError: boolean;
+  errorMsg?: string;
+}
+
 const MainPage: FC = (): ReactElement => {
   const classes = useStyles();
   const [value, setValue] = useState<string>('');
   const [disabledBtn, setDisabledBtn] = useState<boolean>(true);
-  const [isRoomExist, setIsRoomExist] = useState<boolean>(false);
+  const [error, setError] = useState<IError>({ isError: false });
   const dispatch = useDispatch();
 
   const checkLobby = async () => {
     try {
       await getRoomById(value);
-      setIsRoomExist(false);
+      setError({ isError: false });
       dispatch(connectToLobby(value));
-    } catch (e) {
-      setIsRoomExist(true);
-      console.log('Error:', e);
+    } catch (e: any) {
+      setError({
+        isError: true,
+        errorMsg: e,
+      });
     }
   };
 
@@ -49,12 +56,13 @@ const MainPage: FC = (): ReactElement => {
           Connect to session:
         </Box>
         <Box className={classes.wrapSecondBlock} id="secondWrap">
-          <Input
+          <TextField
             className={classes.inputURL}
-            disableUnderline
-            classes={{ error: classes.inputError }}
-            error={isRoomExist}
+            variant="outlined"
+            error={error.isError}
+            helperText={error.isError && error.errorMsg}
             onChange={(event) => {
+              setError({ isError: false });
               setValue(event.target.value);
               if (event.target.value !== '') {
                 setDisabledBtn(false);

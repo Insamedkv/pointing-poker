@@ -3,15 +3,15 @@ import { useDispatch } from 'react-redux';
 import { Card, CardContent, Container, Typography } from '@material-ui/core';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
-import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
 import AddOutlinedIcon from '@material-ui/icons/AddOutlined';
-import { editIssueModal } from 'reduxstore/modalSlice/modalSlice';
+import { createIssueModal, editIssueModal } from 'reduxstore/modalSlice/modalSlice';
 import classNames from 'classnames';
 import { dropIssue } from 'reduxstore/issuesSlice';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import { IssueResp } from 'services/serviceTypes';
 import { deleteRoomIssue } from 'services/httpRoom';
 import { useStyles } from './IssueCard.styles';
+import { socket } from '../../index';
 
 interface IPropsForCreate {
   mode: 'create';
@@ -27,11 +27,20 @@ type IIssueProps = IPropsForShow | IPropsForCreate;
 
 const IssueCard: React.FC<IIssueProps> = ({ mode, issue }) => {
   const { room, isDealer } = useTypedSelector((state) => state.currentUser);
+  const isCurrentIssue = issue?._id === useTypedSelector((state) => state.game.currentIssue);
+  const isRoundstarted = useTypedSelector((state) => state.game.isRoundstarted);
+  const isGameStarted = room?.gameStatus === 'started';
   const dispatch = useDispatch();
   const classes = useStyles();
   const isCreateMode = mode === 'create';
 
-  const isGameStarted = false;
+  const setAsCurrent = () => {
+    if (!isRoundstarted && isDealer && issue?._id && room?._id) socket.setActiveIssue(room._id, issue._id);
+  };
+
+  const addNewIssue = () => {
+    dispatch(createIssueModal());
+  };
 
   const deleteIssue = (event: React.MouseEvent) => {
     event.stopPropagation();
@@ -64,29 +73,32 @@ const IssueCard: React.FC<IIssueProps> = ({ mode, issue }) => {
         </>
       );
     }
-    return <CloseOutlinedIcon classes={{ root: classes.controlElement }} fontSize="large" />;
+    return <></>;
   };
 
   return (
     <Card
       className={classNames(
         classes.root,
-        // isInProgress && classes.currentIssue,
+        isCurrentIssue && classes.currentIssue,
         isCreateMode && classes.issueCreator,
         isDealer && classes.issueCreator
       )}
+      onClick={isCreateMode ? addNewIssue : setAsCurrent}
     >
       {isCreateMode ? (
         <>
           <CardContent className={classes.cardBody}>
-            <Typography variant="h5">Create new Issue</Typography>
+            <Typography variant="h6">Create new Issue</Typography>
           </CardContent>
           <AddOutlinedIcon classes={{ root: classes.controlElement }} fontSize="large" />
         </>
       ) : (
         <>
           <CardContent className={classes.cardBody}>
-            <Typography variant="h5">{issue?.issueTitle}</Typography>
+            <Typography className={classes.textOverflow} variant="h6">
+              {issue?.issueTitle}
+            </Typography>
             <Typography variant="subtitle2">Priority: {issue?.priority}</Typography>
           </CardContent>
 
