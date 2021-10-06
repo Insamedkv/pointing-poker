@@ -9,6 +9,7 @@ interface IUserDatastate {
   isObserver: boolean;
   room?: Room;
   avaliableUsers: Array<string>;
+  startUsersNumber?: number;
 }
 
 const initialState: IUserDatastate = {
@@ -41,8 +42,13 @@ const userSlice = createSlice({
     setObserverStatus: (state, action: PayloadAction<boolean>) => {
       state.isObserver = action.payload;
     },
+    setUsersNumber: (state, action: PayloadAction<number>) => ({
+      ...state,
+      startUsersNumber: action.payload,
+    }),
   },
 });
 
 export default userSlice;
-export const { setUserCredentials, updateRoomUsers, toggleGameInRoom, setObserverStatus } = userSlice.actions;
+export const { setUserCredentials, updateRoomUsers, toggleGameInRoom, setObserverStatus, setUsersNumber } =
+  userSlice.actions;

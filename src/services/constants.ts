@@ -17,6 +17,7 @@ export enum Event {
   VOTE_START = 'vote start',
   VOTE_END = 'vote end',
   VOTE_RESULT = 'vote result',
+  ON_VOTE_START = 'on vote start',
   SET_RULES = 'set rules',
   PLAY = 'play',
   ON_PLAY = 'on play',

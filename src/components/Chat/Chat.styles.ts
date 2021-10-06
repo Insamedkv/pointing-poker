@@ -6,7 +6,12 @@ const useStyles = makeStyles(({ palette, typography, shadows }) =>
       '*::-webkit-scrollbar': {
         width: '0px',
         background: 'transparent',
+        scrollbarWidth: 'thin !important',
       },
+      // 'sdf': {
+      //   width: '0px',
+      //   background: 'transparent',
+      // },
     },
     chatMainContainer: {
       position: 'absolute',
@@ -29,10 +34,11 @@ const useStyles = makeStyles(({ palette, typography, shadows }) =>
       overflow: 'auto',
     },
     messagesArea: {
-      height: '80vh',
+      height: '85vh',
       padding: '0px',
       overflowX: 'hidden',
       overflowY: 'scroll',
+      scrollbarWidth: 'none',
     },
     enterTextArea: {
       // height: '12vh',

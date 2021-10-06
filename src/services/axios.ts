@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const instance = axios.create({ baseURL: 'http://localhost:4000/api' });
+const instance = axios.create({ baseURL: 'https://rft-planning-poker.herokuapp.com/api' });
 
 instance.interceptors.request.use((req) => {
   console.log(`${req.method} ${req.url}`);

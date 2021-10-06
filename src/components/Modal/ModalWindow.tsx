@@ -14,6 +14,7 @@ const ModalWindow: React.FC = () => {
 
   const closeModalHandler = () => {
     if (modalState.modalType === ModalTypes.WAIT_MODAL) return;
+    if (modalState.modalType === ModalTypes.KICK_PLAYER) return;
     dispatch(closeModal());
   };
 

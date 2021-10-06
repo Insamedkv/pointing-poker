@@ -38,12 +38,14 @@ export const App: FC = (): ReactElement => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const modalType = useTypedSelector((state) => state.modal.modalType);
+  const userId = useTypedSelector((state) => state.currentUser.userId);
 
   useEffect(() => {
     socket.onKick();
     socket.onDeleteRoom();
     socket.onBlur(dispatch);
     socket.getIssues(dispatch);
+    socket.onVoteStart(dispatch, userId);
   }, []);
 
   return (

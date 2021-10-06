@@ -1,10 +1,12 @@
 import io, { Socket } from 'socket.io-client';
 import { fromEvent, Observable } from 'rxjs';
 import { setIssues } from 'reduxstore/issuesSlice';
-import { toggleGameInRoom, updateRoomUsers } from 'reduxstore/userSlice';
+import { setUsersNumber, toggleGameInRoom, updateRoomUsers } from 'reduxstore/userSlice';
 import { pushMessage } from 'reduxstore/chatSlice/chatSlice';
 import { closeModal, waitModal } from 'reduxstore/modalSlice/modalSlice';
 import { setCurrentIssue, setUsersBets, stopRoundInRoom, toggleRoundInRoom } from 'reduxstore/gameSlice';
+import { kickOutPlayerModal } from 'reduxstore/modalSlice/modalActions';
+import { IUserInfo } from 'defaultTypes';
 import { Event } from './constants';
 import {
   Bet,
@@ -22,7 +24,7 @@ import { setGameStatus } from './httpRoom';
 export class SocketService {
   private token = localStorage.getItem('poker-auth')!;
 
-  private socket: Socket = io('http://localhost:4000/', {
+  private socket: Socket = io('https://rft-planning-poker.herokuapp.com/', {
     query: { token: this.token },
   });
 
@@ -92,14 +94,25 @@ export class SocketService {
     });
   }
 
-  public voteStart(roomId: string): void {
-    console.log(`Room ${roomId}`);
-    this.socket.emit(Event.VOTE_START, roomId);
+  public voteStart(roomId: string, player: string, initiator: string): void {
+    console.log(`Vote to kick ${player} in room ${roomId} by ${initiator}`);
+    this.socket.emit(Event.VOTE_START, { roomId, player, initiator });
   }
 
-  public voteEnd(roomId: string, vote: boolean): void {
-    console.log(`In ${roomId} voted ${vote}`);
-    this.socket.emit(Event.VOTE_END, { roomId, vote });
+  public onVoteStart(dispatch: any, currentUser: string): void {
+    this.socket.on(Event.ON_VOTE_START, ({ userForKick, initUser, startUsersNumber }) => {
+      console.log(`${initUser.firstName} send request to kick ${userForKick.firstName}`);
+      console.log(currentUser, userForKick._id, currentUser !== userForKick._id);
+      if (currentUser !== userForKick._id) {
+        dispatch(kickOutPlayerModal(userForKick, initUser));
+        dispatch(setUsersNumber(startUsersNumber));
+      }
+    });
+  }
+
+  public voteEnd(vote: boolean, userForKickId: string, startUsersNumber: number): void {
+    console.log(`${userForKickId} ======> ${vote}(${startUsersNumber})`);
+    this.socket.emit(Event.VOTE_END, { vote, userForKickId, startUsersNumber });
   }
 
   public voteResult(voteRes: VoteResult): void {
