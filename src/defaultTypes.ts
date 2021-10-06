@@ -12,17 +12,16 @@ export interface IButton {
 export interface IAvataraInfo {
   firstName: string;
   lastName?: string;
-  size: 'large' | 'medium';
+  size: 'large' | 'medium' | 'small';
   src?: string | ArrayBuffer;
 }
 
 export interface IIssue {
   issueName: string;
   issueLink: string;
-  issuePriority: 'low' | 'medium' | 'high';
-  issueStatus: 'opened' | 'closed' | 'progress';
+  issuePriority: string;
+  isCurrent: boolean;
   issueID?: string;
-  isCurrent?: boolean;
 }
 
 export interface IInput {
@@ -37,8 +36,16 @@ export interface IUserInfo {
   firstName: string;
   lastName?: string;
   position?: string;
-  imgPath?: string;
-  id?: string | number;
+  avatar?: string;
+  _id?: string;
+}
+
+export interface IUserData {
+  firstName: string;
+  lastName: string;
+  asObserver: boolean;
+  position?: string;
+  avatar?: string | ArrayBuffer;
 }
 
 export interface ICardItemProps {
@@ -51,4 +58,43 @@ export interface ICardItemProps {
   value?: string;
   invisBtn?: boolean;
   foo?: void;
+}
+
+export interface Rules {
+  masterAsAPlayer: boolean;
+  cardType: any[];
+  newUsersEnter: boolean;
+  autoRotateCardsAfterVote: boolean;
+  changeChoiseAfterCardsRotate: boolean;
+  isTimerNeeded: boolean;
+  roundTime: number;
+}
+
+export interface Issue {
+  issueTitle: string;
+  priority: string;
+  link: string;
+}
+
+interface RoomUser {
+  user: string;
+}
+
+interface RoomCreator {
+  roomCreator: string;
+}
+
+export interface Room {
+  _id: string;
+  roomTitle: string;
+  rules: Array<Rules>;
+  users: Array<RoomUser>;
+  issues: Array<Issue>;
+  roomCreator: string;
+}
+
+export enum ScoreTypes {
+  FIBONACHI = 'fibonachi',
+  POWEROFTWO = 'poweroftwo',
+  CUSTOM = 'custom',
 }

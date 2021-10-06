@@ -1,33 +1,58 @@
-import React, { useState } from 'react';
-import { Button, Container, Fade, Grid, Slide, Zoom } from '@material-ui/core';
-import { IUserInfo } from 'defaultTypes';
-import * as list from 'utils/fakeData/fakeUser.json';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Button, Container, Slide, TextField } from '@material-ui/core';
+import SendIcon from '@material-ui/icons/Send';
+import { useTypedSelector } from 'hooks/useTypedSelector';
+import { getMessages, sendMessage } from 'services/httpRoom';
+import { setMessages } from 'reduxstore/chatSlice/chatSlice';
 import { useStyles } from './Chat.styles';
 import MessageBlock from './Components/MessageBlock';
-
-interface IMessages {
-  user: IUserInfo;
-  message: { date: string; text: string };
-}
+import { socket } from '../../index';
 
 const Chat: React.FC = () => {
-  const messagesList: Array<IMessages> = list.messages;
   const classes = useStyles();
-  const [isOpenChat, setChatOpen] = useState(false);
+  const isChatOpen = useTypedSelector((state) => state.chat.isOpen);
+  const messagesList = useTypedSelector((state) => state.chat.chat);
+  const dispatch = useDispatch();
+  const [message, setMessage] = useState('');
 
-  const toggleChat = () => {
-    setChatOpen((prev) => !prev);
-  };
+  useEffect(() => {
+    getMessages().then((msgs) => dispatch(setMessages(msgs)));
+    socket.onMessage(dispatch);
+  }, []);
 
   return (
     <>
-      <Button onClick={toggleChat}>{isOpenChat.toString()}</Button>
-      <Slide in={!isOpenChat} timeout={300}>
+      <Slide in={!isChatOpen} timeout={300}>
         <Container className={classes.chatMainContainer}>
           <Container className={classes.chatWorkflow}>
-            {messagesList.map((msg, index) => (
-              <MessageBlock key={index} user={msg.user} message={msg.message} />
-            ))}
+            <Container className={classes.messagesArea}>
+              {messagesList.map((msg, index) => (
+                <MessageBlock key={index} user={msg.user} message={{ text: msg.content, date: msg.createdAt }} />
+              ))}
+            </Container>
+            <Container className={classes.enterTextArea}>
+              <TextField
+                multiline
+                className={classes.inputMessageField}
+                rows={3}
+                fullWidth
+                variant="outlined"
+                value={message}
+                onChange={(event) => setMessage(event.target.value)}
+              ></TextField>
+              <Button
+                variant="contained"
+                disabled={message === ''}
+                color="primary"
+                onClick={() => {
+                  sendMessage(message);
+                  setMessage('');
+                }}
+              >
+                <SendIcon></SendIcon>
+              </Button>
+            </Container>
           </Container>
         </Container>
       </Slide>

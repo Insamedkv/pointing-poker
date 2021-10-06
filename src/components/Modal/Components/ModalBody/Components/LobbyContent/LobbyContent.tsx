@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import { Container, Typography, Switch, FormControlLabel } from '@material-ui/core';
 import { buttonTextConstants } from 'utils/buttonTextConstants';
 import { IInput } from 'defaultTypes';
@@ -10,28 +11,56 @@ import FileChooser from 'components/FileChooser';
 import { useDispatch } from 'react-redux';
 import { closeModal } from 'reduxstore/modalSlice/modalSlice';
 import { useTypedSelector } from 'hooks/useTypedSelector';
+import { setUserCredentials } from 'reduxstore/userSlice';
+import { signup } from 'services/httpRoom';
+import { socket } from '../../../../../../index';
 
 interface IUserData {
   firstName: string;
   lastName: string;
   asObserver: boolean;
   position?: string;
-  avatar?: string;
+  avatar?: string | ArrayBuffer;
+  roomId?: string;
+  socketId?: string;
 }
+
+const userState: IUserData = {
+  lastName: '',
+  firstName: '',
+  position: '',
+  avatar: '',
+  asObserver: false,
+};
 
 const LobbyContent: React.FC = () => {
   const modalState = useTypedSelector((state) => state.modal);
   const dispatch = useDispatch();
-  const userState: IUserData = {
-    lastName: '',
-    firstName: '',
-    position: '',
-    avatar: '',
-    asObserver: false,
-  };
+  const [lobbyLink, setLobbyLink] = useState('');
+  const [socketId, setSocketId] = useState('');
+
   const classes = useStyles();
   const [userData, setUserData] = useState<IUserData>(userState);
   const [blobImage, setBlobImage] = useState<ArrayBuffer | string | null>();
+
+  const createRoom = async () => {
+    const player: IUserData = {
+      ...userData,
+      avatar: blobImage || '',
+      roomId: modalState.roomId,
+      socketId,
+    };
+
+    const response = await signup(player);
+    const sessionData = { roomId: response.room._id, userId: response.userData._id };
+
+    localStorage.setItem('poker-auth', response.authorization);
+    localStorage.setItem('poker-session', JSON.stringify(sessionData));
+
+    setLobbyLink(`/lobby/${modalState.roomId || response.room._id}`);
+    dispatch(setUserCredentials(response));
+    dispatch(closeModal());
+  };
 
   const firstNameInput: IInput = {
     label: 'Your first name',
@@ -64,6 +93,11 @@ const LobbyContent: React.FC = () => {
     setBlobImage(src);
   };
 
+  useEffect(() => {
+    const cosketId = socket.getSocketId();
+    setSocketId(cosketId);
+  }, []);
+
   return (
     <>
       <Container className={classes.modalHeaderContainer}>
@@ -89,7 +123,7 @@ const LobbyContent: React.FC = () => {
         fieldName="avatar"
         setImage={(src) => setImage(src)}
         getFile={(name, value) => updateUserData(name, value)}
-        value={userData.avatar}
+        value={userData.avatar as string}
       />
       {(userData.firstName || blobImage) && (
         <Container className={classes.avatarBlock}>
@@ -104,7 +138,7 @@ const LobbyContent: React.FC = () => {
         </Container>
       )}
       <Container className={classes.buttonsBlock}>
-        <CustomButton className={classes.btn} buttonCaption={buttonTextConstants.CONFIRM} />
+        <CustomButton className={classes.btn} buttonCaption={buttonTextConstants.CONFIRM} onClick={createRoom} />
         <CustomButton
           className={classes.btn}
           buttonCaption={buttonTextConstants.CANCEL}
@@ -112,6 +146,7 @@ const LobbyContent: React.FC = () => {
           onClick={() => dispatch(closeModal())}
         />
       </Container>
+      {lobbyLink && <Redirect to={lobbyLink} />}
     </>
   );
 };

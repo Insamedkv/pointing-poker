@@ -2,26 +2,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import { grey } from '@material-ui/core/colors';
 
 export const useStyles = makeStyles({
-  cardsContainer: {
-    display: 'flex',
-    // flexDirection: 'row-reverse',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
-    margin: '0 auto',
-    padding: '20px',
-    boxSizing: 'border-box',
+  cardStylesBack: {
+    display: 'none',
   },
-  card: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexWrap: 'wrap',
-  },
-  cardStylesFront: {
-    margin: '10px',
-    width: '12%',
-    minWidth: '125px',
+  cardStyles: {
+    width: 'auto',
+    margin: '10px 5px 0 0',
+    minWidth: '100px',
     height: '40%',
     minHeight: '200px',
     boxShadow: `2px 2px 5px 2px ${grey.A200}`,
@@ -29,32 +16,11 @@ export const useStyles = makeStyles({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: '15px',
-    fontSize: '1.2rem',
-    borderRadius: '20px',
-    fontWeight: 900,
-    position: 'relative',
-  },
-  cardStylesBack: {
-    display: 'none',
-  },
-  cardStyles: {
-    margin: '10px',
-    width: '12%',
-    minWidth: '125px',
-    height: '40%',
-    minHeight: '200px',
-    boxShadow: `2px 2px 5px 2px ${grey.A200}`,
-    boxSizing: 'border-box',
-    display: 'flex',
-    alignItems: 'center',
     justifyContent: 'center',
     padding: '20px',
     fontSize: '25px',
     borderRadius: '20px',
     fontWeight: 900,
     position: 'relative',
-    zIndex: 12,
   },
 });

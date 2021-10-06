@@ -1,6 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import crypto from 'crypto';
-import { ICardItem } from './settingsActionTypes';
+import { ScoreTypes } from 'defaultTypes';
+import { doubleCardValues, fibonacciCardValues } from 'utils/share';
+import { IScoreType, ICardItem } from './settingsActionTypes';
 
 interface ITime {
   minutes: number;
@@ -8,11 +10,13 @@ interface ITime {
 }
 
 interface ISettingsState {
+  scrumMasterAsAPlayer: boolean;
   cardTypes: Array<ICardItem>;
-  scrumMasterAsPlayer: boolean;
   changingCardInEnd: boolean;
   isTimerNeeded: boolean;
-  scoreType: string;
+  newUsersEnter: boolean;
+  autoRotateCardsAfterVote: boolean;
+  scoreType: IScoreType;
   shortScoreType: string;
   time: ITime;
 }
@@ -22,12 +26,17 @@ export interface NewCard {
   index: number;
 }
 
+const generateId = () => crypto.randomBytes(16).toString('hex');
+const DEFAULT_LENGTH = 3;
+
 const initialState: ISettingsState = {
-  scrumMasterAsPlayer: true,
+  scrumMasterAsAPlayer: true,
   cardTypes: [],
   changingCardInEnd: false,
   isTimerNeeded: true,
-  scoreType: 'Story Points',
+  newUsersEnter: true,
+  autoRotateCardsAfterVote: false,
+  scoreType: ScoreTypes.POWEROFTWO,
   shortScoreType: 'SP',
   time: {
     minutes: 2,
@@ -40,7 +49,7 @@ const settingsSlice = createSlice({
   initialState,
   reducers: {
     changeMasterAsPalyer: (state, action: PayloadAction<boolean>) => {
-      state.scrumMasterAsPlayer = action.payload;
+      state.scrumMasterAsAPlayer = action.payload;
     },
     allowChangeCardInEnd: (state, action: PayloadAction<boolean>) => {
       state.changingCardInEnd = action.payload;
@@ -48,7 +57,13 @@ const settingsSlice = createSlice({
     toggleTimer: (state, action: PayloadAction<boolean>) => {
       state.isTimerNeeded = action.payload;
     },
-    setScoreType: (state, action: PayloadAction<string>) => {
+    allowNewUserEnter: (state, action: PayloadAction<boolean>) => {
+      state.newUsersEnter = action.payload;
+    },
+    setAutoRotate: (state, action: PayloadAction<boolean>) => {
+      state.autoRotateCardsAfterVote = action.payload;
+    },
+    setScoreType: (state, action: PayloadAction<IScoreType>) => {
       state.scoreType = action.payload;
     },
     setShortScoreType: (state, action: PayloadAction<string>) => {
@@ -57,10 +72,47 @@ const settingsSlice = createSlice({
     setTimer: (state, action: PayloadAction<ITime>) => {
       state.time = action.payload;
     },
+    changeScoreType: (state, action: PayloadAction<IScoreType>) => {
+      let cardValues: Array<ICardItem> = [...state.cardTypes];
+      const arrayLength = cardValues.length || DEFAULT_LENGTH;
+
+      if (action.payload === ScoreTypes.POWEROFTWO) {
+        const dd = doubleCardValues();
+        cardValues = [];
+        for (let i = 0; i < arrayLength; i++) {
+          const card: ICardItem = { id: generateId(), value: dd.next().value };
+          cardValues = [...cardValues, card];
+        }
+      }
+
+      if (action.payload === ScoreTypes.FIBONACHI) {
+        const fib = fibonacciCardValues();
+        cardValues = [];
+        for (let i = 0; i < arrayLength; i++) {
+          const card: ICardItem = { id: generateId(), value: fib.next().value };
+          cardValues = [...cardValues, card];
+        }
+      }
+
+      state.scoreType = action.payload;
+      state.cardTypes = cardValues;
+    },
     addNewCard: (state, action: PayloadAction<string>) => {
-      const id = crypto.randomBytes(16).toString('hex');
+      const id = generateId();
       const newCard: ICardItem = { id, value: action.payload };
       state.cardTypes = [...state.cardTypes, newCard];
+    },
+    generateNextValue: (state, action: PayloadAction) => {
+      if (state.scoreType === ScoreTypes.POWEROFTWO) {
+        const dd = doubleCardValues();
+        state.cardTypes = state.cardTypes.map((card) => ({ id: card.id, value: dd.next().value }));
+        state.cardTypes = [...state.cardTypes, { id: generateId(), value: dd.next().value }];
+      }
+      if (state.scoreType === ScoreTypes.FIBONACHI) {
+        const fib = fibonacciCardValues();
+        state.cardTypes = state.cardTypes.map((card) => ({ id: card.id, value: fib.next().value }));
+        state.cardTypes = [...state.cardTypes, { id: generateId(), value: fib.next().value }];
+      }
     },
     changeCardValues: (state, action: PayloadAction<ICardItem>) => {
       state.cardTypes = state.cardTypes.map((card) => {
@@ -82,13 +134,17 @@ const settingsSlice = createSlice({
 
 export default settingsSlice;
 export const {
+  allowNewUserEnter,
+  setAutoRotate,
   changeMasterAsPalyer,
   allowChangeCardInEnd,
   toggleTimer,
   setScoreType,
   setShortScoreType,
   setTimer,
+  changeScoreType,
   addNewCard,
   changeCardValues,
   deleteOldCard,
+  generateNextValue,
 } = settingsSlice.actions;

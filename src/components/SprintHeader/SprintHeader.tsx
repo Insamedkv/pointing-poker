@@ -1,30 +1,64 @@
-import React, { useState } from 'react';
-import { Container, IconButton, Typography } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
+import { Container, IconButton, InputLabel, TextField, Typography } from '@material-ui/core';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
-import { IIssue } from 'defaultTypes';
+import CheckIcon from '@material-ui/icons/Check';
+import { IIssue, Room } from 'defaultTypes';
+import { useTypedSelector } from 'hooks/useTypedSelector';
+import { updateRoomTitle } from 'services/httpRoom';
 import { useStyles } from './SprintHeader.styles';
+import { socket } from '../../index';
 
-interface ISprintHeaderProps {
-  sprintId: string;
-  issuesList: Array<IIssue>;
-}
-
-const SprintHeader: React.FC<ISprintHeaderProps> = ({ sprintId, issuesList }) => {
+const SprintHeader: React.FC = () => {
   const classes = useStyles();
-  const baseTitle = `Sprint ${sprintId} planing, ISSUES: ${issuesList.map((issue) => issue.issueName).join(', ')}.`;
-  const [title, setTitle] = useState(baseTitle);
+  const roomTitle = useTypedSelector((state) => state.currentUser.room?.roomTitle);
+  const roomId = useTypedSelector((state) => state.currentUser.room?._id);
+  const [newTitle, setNewTitle] = useState('');
+  const { isDealer } = useTypedSelector((state) => state.currentUser);
 
-  const editTitle = () => {};
+  useEffect(() => {
+    socket.onTitleUpdate(setNewTitle);
+  }, [roomId]);
+
+  useEffect(() => {
+    if (roomTitle) setNewTitle(roomTitle);
+  }, [roomTitle]);
+
+  const editTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setNewTitle(event.target.value);
+  };
 
   return (
     <>
       <Container className={classes.container}>
-        <Typography variant="h3" className={classes.root}>
-          {title}
-        </Typography>
-        <IconButton aria-label="edit" className={classes.editButton} size="small">
-          <EditOutlinedIcon className={classes.editButton} />
-        </IconButton>
+        {isDealer ? (
+          <>
+            <Typography variant="h3" className={classes.root}>
+              <InputLabel className={classes.inputLabel}>
+                <TextField
+                  name="issueName"
+                  className={classes.input}
+                  fullWidth
+                  onChange={editTitle}
+                  value={newTitle || ''}
+                />
+              </InputLabel>
+            </Typography>
+            <IconButton
+              aria-label="edit"
+              className={classes.confirmButton}
+              size="small"
+              onClick={() => {
+                if (roomId) updateRoomTitle(roomId, newTitle);
+              }}
+            >
+              <CheckIcon className={classes.confirmButton} />
+            </IconButton>
+          </>
+        ) : (
+          <Typography variant="h3" className={classes.root}>
+            {newTitle}
+          </Typography>
+        )}
       </Container>
     </>
   );

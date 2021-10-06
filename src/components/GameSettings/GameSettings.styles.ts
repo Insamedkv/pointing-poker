@@ -1,14 +1,44 @@
 import { createStyles, makeStyles } from '@material-ui/core';
 import { AdditionalColors } from 'utils/styleConstants';
 
-const useStyles = makeStyles(({ typography, palette, transitions }) =>
+const useStyles = makeStyles(({ typography, palette, transitions, shadows }) =>
   createStyles({
+    selectSize: {
+      maxWidth: '441px',
+      minWidth: '350px',
+    },
+    selectField: {
+      display: 'flex',
+      alignItems: 'center',
+      position: 'relative',
+      fontSize: '24px',
+      borderBottomLeftRadius: '10px',
+      padding: '2px 10px',
+      height: '42px',
+      boxShadow: `inset ${shadows[4]}, ${shadows[4]}`,
+      transition: 'all .2s ease-in-out',
+      outline: 'none',
+    },
+    selectFieldFocused: {
+      border: `1px solid ${palette.primary.main}`,
+    },
     gameSettingsContainer: {
+      maxWidth: '750px',
       display: 'flex',
       flexDirection: 'column',
     },
     label: {
       fontFamily: ['Ruda', 'serif'].join(','),
+      color: palette.common.black,
+      fontSize: '24px',
+      fontWeight: typography.fontWeightBold,
+      lineHeight: '30px',
+      textAlign: 'left',
+    },
+    formControl: {
+      margin: '0 0 0 16px',
+      fontFamily: ['Ruda', 'serif'].join(','),
+      color: palette.common.black,
       fontSize: '24px',
       fontWeight: typography.fontWeightBold,
       lineHeight: '30px',
@@ -51,6 +81,9 @@ const useStyles = makeStyles(({ typography, palette, transitions }) =>
     checked: {
       transform: 'translateX(16px)',
       color: palette.common.white,
+    },
+    disabled: {
+      opacity: '.2',
     },
     track: {
       borderRadius: 13,

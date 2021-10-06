@@ -1,9 +1,10 @@
 import { createAction, PrepareAction } from '@reduxjs/toolkit';
+import { UserResp } from 'services/serviceTypes';
 import { ModalActions as actions, IKickPlayerPayload } from './modalActionTypes';
 
-const kickOutPlayer = createAction<PrepareAction<IKickPlayerPayload>>(
+const kickOutPlayerModal = createAction<PrepareAction<IKickPlayerPayload>>(
   actions.KICK_PLAYER,
-  (player: string, initiator: string) => {
+  (player: UserResp, initiator: UserResp) => {
     return {
       payload: {
         player,
@@ -13,4 +14,4 @@ const kickOutPlayer = createAction<PrepareAction<IKickPlayerPayload>>(
   }
 );
 
-export { kickOutPlayer };
+export { kickOutPlayerModal };

@@ -10,7 +10,7 @@ interface IAvataraProps {
 const Avatara: React.FC<IAvataraProps> = ({ avatar }) => {
   const classes = useStyles();
   const { firstName, lastName, size, src } = avatar;
-  const sizeStyle = size.toLowerCase().localeCompare('large') ? classes.large : classes.medium;
+  // const sizeStyle = size.toLowerCase().localeCompare('large') && classes.large || ; //? classes.large : classes.medium;
   const shortName = `${firstName.slice(0, 1)}${lastName?.slice(0, 1)}`.toUpperCase();
 
   return (
@@ -18,7 +18,7 @@ const Avatara: React.FC<IAvataraProps> = ({ avatar }) => {
       <Avatar
         src={src as string}
         alt={lastName}
-        className={sizeStyle}
+        className={classes[avatar.size]}
         classes={{ root: classes.root, colorDefault: classes.colorDefault }}
       >
         {shortName}

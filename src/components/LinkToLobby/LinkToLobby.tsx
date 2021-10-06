@@ -10,7 +10,9 @@ interface ILinkToLobbyProps {
 const LinkToLobby: React.FC<ILinkToLobbyProps> = ({ link }) => {
   const classes = useStyles();
 
-  const copyLink = () => {};
+  const copyLink = () => {
+    if (link) navigator.clipboard.writeText(link);
+  };
 
   return (
     <>
@@ -24,7 +26,7 @@ const LinkToLobby: React.FC<ILinkToLobbyProps> = ({ link }) => {
           value={link || ''}
           classes={{ root: classes.root, focused: classes.focused, input: classes.input }}
         />
-        <Button color="primary" variant="contained" className={classes.inputButton}>
+        <Button color="primary" variant="contained" className={classes.inputButton} onClick={copyLink}>
           {buttonTextConstants.COPY}
         </Button>
       </Container>

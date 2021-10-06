@@ -1,5 +1,5 @@
 /* eslint-disable no-async-promise-executor */
-import axios from 'axios';
+import axios from './axios';
 import { UserResp } from './serviceTypes';
 
 export const getUserById = async (userId: string) => {

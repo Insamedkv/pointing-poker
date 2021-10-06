@@ -1,15 +1,17 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Card, CardContent, Container, Typography } from '@material-ui/core';
-import { dropIssue } from 'reduxstore/issuesSlice';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
 import AddOutlinedIcon from '@material-ui/icons/AddOutlined';
 import { editIssueModal } from 'reduxstore/modalSlice/modalSlice';
 import classNames from 'classnames';
+import { dropIssue } from 'reduxstore/issuesSlice';
+import { useTypedSelector } from 'hooks/useTypedSelector';
+import { IssueResp } from 'services/serviceTypes';
+import { deleteRoomIssue } from 'services/httpRoom';
 import { useStyles } from './IssueCard.styles';
-import { IIssue } from '../../defaultTypes';
 
 interface IPropsForCreate {
   mode: 'create';
@@ -18,32 +20,27 @@ interface IPropsForCreate {
 
 interface IPropsForShow {
   mode: 'show';
-  issue: IIssue;
+  issue: IssueResp;
 }
 
 type IIssueProps = IPropsForShow | IPropsForCreate;
 
 const IssueCard: React.FC<IIssueProps> = ({ mode, issue }) => {
+  const { room, isDealer } = useTypedSelector((state) => state.currentUser);
   const dispatch = useDispatch();
   const classes = useStyles();
   const isCreateMode = mode === 'create';
-  const isInProgress = issue?.issueStatus === 'progress';
 
   const isGameStarted = false;
-  const isDealer = true;
 
   const deleteIssue = (event: React.MouseEvent) => {
     event.stopPropagation();
-    if (issue?.issueID) dispatch(dropIssue(issue.issueID));
+    if (issue?._id) dispatch(dropIssue(issue._id));
   };
 
   const editIssue = (event: React.MouseEvent) => {
     event.stopPropagation();
-    if (issue?.issueID) dispatch(editIssueModal(issue.issueID));
-  };
-
-  const setAsCurrent = () => {
-    if (isDealer && !isCreateMode) console.log(`Current:`, issue?.issueID);
+    if (issue?._id) dispatch(editIssueModal(issue._id));
   };
 
   const setControls = (): JSX.Element => {
@@ -56,7 +53,10 @@ const IssueCard: React.FC<IIssueProps> = ({ mode, issue }) => {
             classes={{ root: classes.controlElement }}
           />
           <DeleteOutlineIcon
-            onClick={(event: React.MouseEvent) => deleteIssue(event)}
+            onClick={async (event: React.MouseEvent) => {
+              await deleteRoomIssue(room!._id, issue!._id);
+              deleteIssue(event);
+            }}
             fontSize="large"
             color="error"
             classes={{ root: classes.controlElement }}
@@ -71,11 +71,10 @@ const IssueCard: React.FC<IIssueProps> = ({ mode, issue }) => {
     <Card
       className={classNames(
         classes.root,
-        isInProgress && classes.currentIssue,
+        // isInProgress && classes.currentIssue,
         isCreateMode && classes.issueCreator,
         isDealer && classes.issueCreator
       )}
-      onClick={setAsCurrent}
     >
       {isCreateMode ? (
         <>
@@ -87,8 +86,8 @@ const IssueCard: React.FC<IIssueProps> = ({ mode, issue }) => {
       ) : (
         <>
           <CardContent className={classes.cardBody}>
-            <Typography variant="h5">{issue?.issueName}</Typography>
-            <Typography variant="subtitle2">Priority: {issue?.issuePriority}</Typography>
+            <Typography variant="h5">{issue?.issueTitle}</Typography>
+            <Typography variant="subtitle2">Priority: {issue?.priority}</Typography>
           </CardContent>
 
           {isDealer && <Container classes={{ root: classes.actionContainer }}>{setControls()}</Container>}

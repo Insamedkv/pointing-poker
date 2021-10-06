@@ -1,3 +1,5 @@
+import { UserResp } from 'services/serviceTypes';
+
 export enum ModalActions {
   CLOSE_MODAL = 'CLOSE_MODAL',
   CONNECT_TO_LOBBY = 'CONNECT_TO_LOBBY',
@@ -18,31 +20,31 @@ export type IModalActions = IConnectToLobbyAction | IKickPlayerAction;
 export interface IGlobalModalState {
   isOpen: boolean;
   modalType?: ModalTypes.CONNECT_TO_LOBBY | ModalTypes.KICK_PLAYER | ModalTypes.CREATE_ISSUE;
-  linkToLobby?: string;
-  player?: string;
-  initiator?: string;
+  roomId?: string;
+  player?: UserResp;
+  initiator?: UserResp;
   editableIssueID?: string;
 }
 
 interface IStateForConnect extends IGlobalModalState {
   modalType: ModalTypes.CONNECT_TO_LOBBY;
-  linkToLobby: string;
+  roomId: string;
 }
 
 interface IStateForKick extends IGlobalModalState {
   modalType: ModalTypes.KICK_PLAYER;
-  player: string;
-  initiator?: string;
+  player: UserResp;
+  initiator?: UserResp;
 }
 
 //  PAYLOADS
 export interface IConnectToLobbyPayload {
-  linkToLobby: string;
+  roomId: string;
 }
 
 export interface IKickPlayerPayload {
-  player: string; // ID
-  initiator: string; // ID
+  player: UserResp; // ID
+  initiator: UserResp; // ID
 }
 
 export interface ICreateIssueActionPayload {

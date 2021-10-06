@@ -1,31 +1,40 @@
-import React from 'react';
-import { Container, Typography } from '@material-ui/core';
+import React, { useEffect } from 'react';
+import { Container, IconButton, Typography } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import BlockIcon from '@material-ui/icons/Block';
+import { useDispatch } from 'react-redux';
+import { getUserById } from 'services/httpUser';
+import { kickOutPlayerModal } from 'reduxstore/modalSlice/modalActions';
+import { useTypedSelector } from 'hooks/useTypedSelector';
 import { useStyles } from './PersonPanel.styles';
 import Avatara from '../Avatara';
 import { IAvataraInfo, IUserInfo } from '../../defaultTypes';
 
-const myId = 2;
-
 interface IPersonPanelProps {
   userInfo: IUserInfo;
+  avaSize: 'small' | 'medium' | 'large';
 }
 
-const PersonPanel: React.FC<IPersonPanelProps> = ({ userInfo }) => {
+const PersonPanel: React.FC<IPersonPanelProps> = ({ userInfo, avaSize }) => {
   const classes = useStyles();
-  const { lastName, firstName, imgPath, position } = userInfo;
+  const dispatch = useDispatch();
+  const { userId, room, isDealer } = useTypedSelector((state) => state.currentUser);
+  const { lastName, firstName, avatar, position } = userInfo;
 
-  const isDealer = true;
-  const whatAmI = myId === userInfo.id;
+  const whatAmI = userInfo._id === userId;
+
+  const openKickPlayerModal = async () => {
+    const initiator = await getUserById(userId);
+    dispatch(kickOutPlayerModal(userInfo, initiator));
+  };
 
   const getUserInfo = (): IAvataraInfo => {
     const userInfoObj: IAvataraInfo = {
       firstName,
       lastName,
-      src: imgPath,
-      size: 'large',
+      src: avatar,
+      size: avaSize,
     };
 
     return userInfoObj;
@@ -49,7 +58,11 @@ const PersonPanel: React.FC<IPersonPanelProps> = ({ userInfo }) => {
             {position && position}
           </Typography>
         </Container>
-        {isDealer && !whatAmI && <BlockIcon className={classes.blockIcon} />}
+        {isDealer && !whatAmI && (
+          <IconButton className={classes.blockIcon} onClick={openKickPlayerModal}>
+            <BlockIcon />
+          </IconButton>
+        )}
       </CardContent>
     </Card>
   );

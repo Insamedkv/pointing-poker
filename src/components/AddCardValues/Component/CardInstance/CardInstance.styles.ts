@@ -3,9 +3,9 @@ import { grey } from '@material-ui/core/colors';
 
 export const useStyles = makeStyles({
   cardStylesFront: {
-    margin: '10px',
-    width: '12%',
-    minWidth: '125px',
+    margin: '10px 5px 0 0',
+    width: 'auto',
+    minWidth: '100px',
     height: '40%',
     minHeight: '200px',
     boxShadow: `2px 2px 5px 2px ${grey.A200}`,

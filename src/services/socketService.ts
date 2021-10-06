@@ -1,24 +1,67 @@
 import io, { Socket } from 'socket.io-client';
+import { fromEvent, Observable } from 'rxjs';
+import { IUserInfo } from 'defaultTypes';
+import { setIssues } from 'reduxstore/issuesSlice';
+import { pushMessage } from 'reduxstore/chatSlice/chatSlice';
 import { Event } from './constants';
-import { Bet, ChatMessage, IssueCreate, IssueUpdate, SocketRules, UserSocket, VoteResult } from './serviceTypes';
+import {
+  Bet,
+  ChatMessage,
+  Issue,
+  IssueCreate,
+  IssueResp,
+  IssueUpdate,
+  SocketRules,
+  UserSocket,
+  VoteResult,
+} from './serviceTypes';
 
 export class SocketService {
-  private socket: Socket = {} as Socket;
+  private token = localStorage.getItem('poker-auth')!;
 
-  public init(): SocketService {
-    console.log('Initializing Socket Service');
-    this.socket = io('http://localhost:4000/api');
-    return this;
+  private socket: Socket = io('http://localhost:4000/', {
+    query: { token: this.token },
+  });
+
+  public test(): void {
+    this.socket.on('clientConnected', (id) => console.log('I connected with', id));
   }
 
-  public join(userRoom: UserSocket): void {
-    console.log(`${userRoom.userId} joined ${userRoom.roomId}`);
-    this.socket.emit(Event.JOIN, userRoom);
+  public getUsersInRoom(setUsers: any): void {
+    this.socket.on(Event.ONJOIN, (users) => {
+      setUsers(users);
+    });
   }
 
-  public message(message: ChatMessage): void {
-    console.log(`Sending Message: ${message}`);
-    this.socket.emit(Event.MESSAGE, message);
+  public onKick(): void {
+    this.socket.on(Event.KICK, () => {
+      alert('You were kicked');
+      window.location.href = document.location.origin;
+    });
+  }
+
+  public onDeleteRoom(): void {
+    this.socket.on(Event.ROOM_DELETE, () => {
+      alert('Room has been deleted!');
+      window.location.href = document.location.origin;
+    });
+  }
+
+  public deleteUserFromRoom(setUsers: any): void {
+    this.socket.on(Event.USER_DELETE, (users) => {
+      console.log('delete user onSocket:', users);
+      setUsers(users);
+    });
+  }
+
+  public onTitleUpdate(setNewTitle: any): void {
+    this.socket.on(Event.ON_TITLE_UPDATE, (title) => {
+      setNewTitle(title);
+    });
+  }
+
+  public onMessage(dispatch: any): void {
+    this.socket.on(Event.MESSAGE, (msg) => dispatch(pushMessage(msg))); // redux
   }
 
   public bet(bet: Bet): void {
@@ -26,19 +69,11 @@ export class SocketService {
     this.socket.emit(Event.BET, bet);
   }
 
-  public issueCreate(issue: IssueCreate): void {
-    console.log(`Issue: ${issue}`);
-    this.socket.emit(Event.ISSUE_CREATE, issue);
-  }
-
-  public issueUpdate(issue: IssueUpdate): void {
-    console.log(`Issue: ${issue}`);
-    this.socket.emit(Event.ISSUE_UPDATE, issue);
-  }
-
-  public titleUpdate(roomTitle: string, roomId: string): void {
-    console.log(`${roomTitle} title chainged in room ${roomId}`);
-    this.socket.emit(Event.TITLE_UPDATE, { roomTitle, roomId });
+  public getIssues(dispatch: any): void {
+    this.socket.on(Event.ON_ISSUE_CREATE, (issuesList: Array<IssueResp>) => {
+      console.log('Get issues', issuesList);
+      dispatch(setIssues(issuesList));
+    });
   }
 
   public voteStart(roomId: string): void {
@@ -61,8 +96,24 @@ export class SocketService {
     this.socket.emit(Event.JOIN, rules);
   }
 
+  public play(roomId: string): void {
+    console.log(`play: ${roomId}`);
+    this.socket.emit(Event.PLAY, roomId);
+  }
+
+  public onPlay(setGame: any): void {
+    this.socket.on(Event.ON_PLAY, (game: { isGameStarted: boolean; roomId: string }) => {
+      setGame(game.isGameStarted);
+      console.log('YOU HAVE BEEN TRANSFERED!');
+    });
+  }
+
   public disconnect(): void {
     console.log('Disconnecting...');
     this.socket.disconnect();
+  }
+
+  public getSocketId(): string {
+    return this.socket.id;
   }
 }

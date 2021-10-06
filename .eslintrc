@@ -34,7 +34,9 @@
     "import/prefer-default-export": "off",
     "no-param-reassign": ["error", {
       "props": false
-    }]
+    }],
+    "no-underscore-dangle": "off",
+    "@typescript-eslint/naming-convention": "off",
   },
   "ignorePatterns": ["*config.js"]
 }

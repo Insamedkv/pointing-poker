@@ -69,6 +69,9 @@ export const useStyles = makeStyles(({ palette, shadows }) => ({
     boxShadow: shadows[7],
     padding: '5px 30px',
   },
+  inputError: {
+    border: `2px solid ${palette.error.main}`,
+  },
   btnConnect: {
     width: 'auto',
     height: '50px',

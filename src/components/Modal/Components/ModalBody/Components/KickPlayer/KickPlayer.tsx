@@ -1,23 +1,31 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Container, Typography } from '@material-ui/core';
 import CustomButton from 'components/CustomButton';
 import { buttonTextConstants } from 'utils/buttonTextConstants';
+import { closeModal } from 'reduxstore/modalSlice/modalSlice';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import { useStyles } from 'components/Modal/ModalWindow.styles';
+import { deleteUserById } from 'services/httpUser';
 import { useKickPlayerStyles } from './KickPlayer.styles';
 
 const KickPlayer: React.FC = () => {
   const classes = useStyles();
-  const { player, initiator } = useTypedSelector((state) => state.modal);
-  console.log(player, initiator);
   const kickPlayerclasses = useKickPlayerStyles();
-  const isDealer = true;
+  const dispatch = useDispatch();
+  const { player, initiator } = useTypedSelector((state) => state.modal);
+  const { isDealer } = useTypedSelector((state) => state.currentUser);
+
+  const kickPlayer = () => {
+    if (player) deleteUserById(player._id);
+    dispatch(closeModal());
+  };
 
   const getDealerMessage = () => (
     <>
       Are you really want to remove player{' '}
       <Typography component="span" className={kickPlayerclasses.playerName}>
-        {player}
+        {player && player.firstName}
       </Typography>{' '}
       from game session?
     </>
@@ -25,11 +33,11 @@ const KickPlayer: React.FC = () => {
   const getPlayerMessage = () => (
     <>
       <Typography component="span" className={kickPlayerclasses.playerName}>
-        {initiator}
+        {initiator && initiator.firstName}
       </Typography>{' '}
       want to kick member{' '}
       <Typography component="span" className={kickPlayerclasses.playerName}>
-        {player}
+        {player && player.firstName}
       </Typography>
       .
       <br /> Do you agree with it?
@@ -51,12 +59,12 @@ const KickPlayer: React.FC = () => {
       </Container>
 
       <Container className={classes.buttonsBlock}>
-        <CustomButton className={classes.btn} buttonCaption={buttonTextConstants.YES} />
+        <CustomButton className={classes.btn} buttonCaption={buttonTextConstants.YES} onClick={kickPlayer} />
         <CustomButton
           className={classes.btn}
           buttonCaption={buttonTextConstants.NO}
           variant="outlined"
-          onClick={() => {}}
+          onClick={() => dispatch(closeModal())}
         />
       </Container>
     </>

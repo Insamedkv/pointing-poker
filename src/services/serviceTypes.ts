@@ -1,10 +1,13 @@
+import { Room } from 'defaultTypes';
+import { ICardItem } from 'reduxstore/settingsSlice/settingsActionTypes';
+
 // request interface
 export interface SignupData {
   firstName: string;
   lastName?: string;
   position?: string;
-  avatar?: string;
-  role: string;
+  avatar?: string | ArrayBuffer;
+  asObserver: string;
 }
 
 export interface Issue {
@@ -19,11 +22,12 @@ export interface UpdateBet {
 }
 
 export interface Rules {
-  masterAsAPlayer: boolean;
-  cardType: any[];
+  scrumMasterAsAPlayer: boolean;
+  cardType: Array<string>;
+  shortScoreType: string;
   newUsersEnter: boolean;
   autoRotateCardsAfterVote: boolean;
-  changeChoiseAfterCardsRotate: boolean;
+  changingCardInEnd: boolean;
   isTimerNeeded: boolean;
   roundTime: number;
 }
@@ -42,8 +46,12 @@ export interface IssueResp {
 
 export interface SignupResp {
   authorization: string;
-  room?: string;
+  room: Room;
   userData: UserResp;
+}
+
+export interface RoomCreatorResp {
+  roomCreator: string;
 }
 
 export interface UserResp {
@@ -59,7 +67,8 @@ export interface UserResp {
 export interface MessagesResp {
   _id: string;
   content: string;
-  userId: string;
+  createdAt: Date;
+  user: UserResp;
   roomId: string;
 }
 
@@ -73,7 +82,7 @@ export interface BetResp {
 
 // socket interface
 export interface UserSocket {
-  socketId: string;
+  // socketId: string;
   userId: string;
   roomId: string;
 }

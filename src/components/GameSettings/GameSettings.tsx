@@ -1,17 +1,31 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { Container, Fade, FormControlLabel, Switch } from '@material-ui/core';
+import {
+  Container,
+  Fade,
+  FormControl,
+  FormControlLabel,
+  InputLabel,
+  MenuItem,
+  Select,
+  Switch,
+} from '@material-ui/core';
 import CustomInput from 'components/CustomInput';
 import SectionHeader from 'components/SectionHeader';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import SetTimeComponent from 'components/SetTimeComponent';
 import {
   allowChangeCardInEnd,
+  allowNewUserEnter,
   changeMasterAsPalyer,
-  setScoreType,
+  changeScoreType,
+  setAutoRotate,
   setShortScoreType,
   toggleTimer,
 } from 'reduxstore/settingsSlice/settingsSlice';
+import { IScoreType } from 'reduxstore/settingsSlice/settingsActionTypes';
+import { AddCardValues } from 'components/AddCardValues';
+import { ScoreTypes } from 'defaultTypes';
 import { useStyles } from './GameSettings.styles';
 
 const GameSettings: React.FC = () => {
@@ -36,7 +50,7 @@ const GameSettings: React.FC = () => {
             }}
             name="asObserver"
             color="primary"
-            checked={gameSettings.scrumMasterAsPlayer}
+            checked={gameSettings.scrumMasterAsAPlayer}
             onChange={(event) => {
               const { checked } = event.target;
               dispatch(changeMasterAsPalyer(checked));
@@ -59,7 +73,6 @@ const GameSettings: React.FC = () => {
               track: classes.track,
               thumb: classes.thumb,
             }}
-            name="asObserver"
             color="primary"
             onChange={(event) => {
               const { checked } = event.target;
@@ -82,7 +95,55 @@ const GameSettings: React.FC = () => {
               track: classes.track,
               thumb: classes.thumb,
             }}
-            name="asObserver"
+            name="newUserEnter"
+            color="primary"
+            checked={gameSettings.newUsersEnter}
+            onChange={(event) => {
+              const { checked } = event.target;
+              dispatch(allowNewUserEnter(checked));
+            }}
+          />
+        }
+        label="Admit all new users:"
+        labelPlacement="start"
+      />
+      <FormControlLabel
+        className={classes.controlSize}
+        classes={{ label: classes.label }}
+        control={
+          <Switch
+            classes={{
+              root: classes.switcherRoot,
+              switchBase: classes.switcherBase,
+              checked: classes.checked,
+              track: classes.track,
+              thumb: classes.thumb,
+            }}
+            name="timer"
+            color="primary"
+            checked={gameSettings.autoRotateCardsAfterVote}
+            onChange={(event) => {
+              const { checked } = event.target;
+              dispatch(setAutoRotate(checked));
+            }}
+          />
+        }
+        label="Auto rotate card after vote:"
+        labelPlacement="start"
+      />
+      <FormControlLabel
+        className={classes.controlSize}
+        classes={{ label: classes.label }}
+        control={
+          <Switch
+            classes={{
+              root: classes.switcherRoot,
+              switchBase: classes.switcherBase,
+              checked: classes.checked,
+              track: classes.track,
+              thumb: classes.thumb,
+            }}
+            name="timer"
             color="primary"
             checked={gameSettings.isTimerNeeded}
             onChange={(event) => {
@@ -94,7 +155,34 @@ const GameSettings: React.FC = () => {
         label="Is timer needed:"
         labelPlacement="start"
       />
+      {/* Score type: */}
       <FormControlLabel
+        className={classes.controlSize}
+        classes={{ label: classes.label }}
+        control={
+          <Select
+            fullWidth
+            className={classes.selectSize}
+            name="cardType"
+            classes={{ select: classes.selectField }}
+            color="primary"
+            value={gameSettings.scoreType}
+            disableUnderline
+            defaultValue={ScoreTypes.FIBONACHI}
+            onChange={(event) => {
+              const { value } = event.target;
+              dispatch(changeScoreType(value as IScoreType));
+            }}
+          >
+            <MenuItem value={ScoreTypes.FIBONACHI}>Fibonachi</MenuItem>
+            <MenuItem value={ScoreTypes.POWEROFTWO}>Power of two</MenuItem>
+            <MenuItem value={ScoreTypes.CUSTOM}>Custom</MenuItem>
+          </Select>
+        }
+        label="Score type:"
+        labelPlacement="start"
+      />
+      {/* <FormControlLabel
         className={classes.controlSize}
         classes={{ label: classes.label }}
         control={
@@ -108,7 +196,7 @@ const GameSettings: React.FC = () => {
         }
         label="Score type:"
         labelPlacement="start"
-      />
+      /> */}
       <FormControlLabel
         className={classes.controlSize}
         classes={{ label: classes.label }}
@@ -133,6 +221,11 @@ const GameSettings: React.FC = () => {
           labelPlacement="start"
         />
       </Fade>
+
+      <InputLabel className={classes.formControl} htmlFor="my-input">
+        Add card values:
+      </InputLabel>
+      <AddCardValues />
     </Container>
   );
 };

@@ -11,6 +11,11 @@ const useStyles = makeStyles((theme: Theme) =>
     colorDefault: {
       backgroundColor: AdditionalColors.AV10,
     },
+    small: {
+      fontSize: '24px',
+      width: theme.spacing(3.75),
+      height: theme.spacing(3.75),
+    },
     medium: {
       fontSize: '40px',
       width: theme.spacing(7.75),

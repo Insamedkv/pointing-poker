@@ -18,9 +18,10 @@ const useStyles = makeStyles(({ typography }) =>
       justifyContent: 'center',
       alignItems: 'center',
     },
-    editButton: {
+    confirmButton: {
       opacity: '.6',
       fontSize: '24px',
+      color: 'green',
       transition: 'opacity .2s ease-in-out',
       '&:hover': {
         opacity: 1,
@@ -29,6 +30,15 @@ const useStyles = makeStyles(({ typography }) =>
     btnPadding: {
       paddingLeft: '30px',
       paddingRight: '30px',
+    },
+    inputLabel: {
+      display: 'flex',
+      alignItems: 'center',
+      padding: '10px',
+      border: 'none',
+    },
+    input: {
+      border: 'none',
     },
   })
 );

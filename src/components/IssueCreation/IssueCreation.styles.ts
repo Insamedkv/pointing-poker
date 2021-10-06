@@ -5,8 +5,6 @@ const useStyles = makeStyles(() =>
     root: {
       minWidth: '500px',
       width: '550px',
-      padding: 0,
-      margin: 0,
     },
   })
 );

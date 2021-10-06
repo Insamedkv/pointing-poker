@@ -1,8 +1,8 @@
+import React, { FC, useState } from 'react';
 import { Box, Button, Container, Input } from '@material-ui/core';
 import { DeleteForeverOutlined } from '@material-ui/icons';
 import { useDispatch } from 'react-redux';
 import { ICardItemProps } from 'defaultTypes';
-import React, { FC, useState } from 'react';
 import { addNewCard, changeCardValues } from 'reduxstore/settingsSlice/settingsSlice';
 import { useStyles } from './CardBack.styles';
 
@@ -34,6 +34,7 @@ export const CardBack: FC<ICardItemProps> = ({
     <Container className={className}>
       <Input
         className={classes.input}
+        autoFocus
         classes={{ input: classes.centerateText }}
         onChange={(event) => {
           setValueChanged(event.target.value);

@@ -1,30 +1,33 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Container, InputLabel, MenuItem, Select, TextField, Typography } from '@material-ui/core';
+import { Button, Container, InputLabel, MenuItem, Select, TextField, Typography } from '@material-ui/core';
 import { useStyles } from 'components/Modal/ModalWindow.styles';
 import { buttonTextConstants } from 'utils/buttonTextConstants';
 import CustomButton from 'components/CustomButton';
-import { addIssue, editIssue } from 'reduxstore/issuesSlice';
+import { Issue } from 'services/serviceTypes';
 import { IIssue } from 'defaultTypes';
+import { createRoomIssue, updateRoomIssue } from 'services/httpRoom';
 import { closeModal } from 'reduxstore/modalSlice/modalSlice';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import { useIssueStyles } from './CreateIssue.styles';
 
 const CreateIssue: React.FC = () => {
   const classes = useStyles();
-  const editableIssueID = useTypedSelector((state) => state.modal.editableIssueID);
-  const issuesList = useTypedSelector((state) => state.issues);
   const issueClasses = useIssueStyles();
+  const issuesList = useTypedSelector((state) => state.issues); // return from redux
+  const { room } = useTypedSelector((state) => state.currentUser);
+  const editableIssueID = useTypedSelector((state) => state.modal.editableIssueID);
   const dispatch = useDispatch();
 
-  const currentIssue = issuesList.find((issue) => issue.issueID === editableIssueID);
+  const currentIssue = issuesList.find((issue) => issue._id === editableIssueID);
+  console.log(editableIssueID, issuesList);
 
   const [issueState, setIssueState] = useState<IIssue>({
-    issueID: currentIssue?.issueID || '',
-    issueName: currentIssue?.issueName || '',
-    issueLink: currentIssue?.issueLink || '',
-    issuePriority: currentIssue?.issuePriority || 'medium',
-    issueStatus: currentIssue?.issueStatus || 'opened',
+    issueID: currentIssue?._id || '',
+    issueName: currentIssue?.issueTitle || '',
+    issueLink: currentIssue?.link || '',
+    issuePriority: currentIssue?.priority || 'medium',
+    isCurrent: false,
   });
 
   interface IMaterialsSelectChangeEvent {
@@ -39,6 +42,20 @@ const CreateIssue: React.FC = () => {
       [name]: value,
     };
     setIssueState(issue);
+  };
+
+  const createEditIssue = async () => {
+    const issue: Issue = {
+      issueTitle: issueState.issueName,
+      priority: issueState.issuePriority,
+      link: issueState.issueLink,
+    };
+
+    if (editableIssueID) {
+      await updateRoomIssue(room!._id, editableIssueID, issue);
+      return;
+    }
+    await createRoomIssue(room!._id, issue);
   };
 
   const SelectPriority = () => {
@@ -98,18 +115,23 @@ const CreateIssue: React.FC = () => {
       </Container>
 
       <Container className={classes.buttonsBlock}>
-        <CustomButton
+        <Button
+          variant="contained"
+          color="primary"
           className={classes.btn}
-          buttonCaption={buttonTextConstants.YES}
+          disabled={issueState.issueName === ''}
           onClick={() => {
-            if (!currentIssue) {
-              dispatch(addIssue(issueState));
-            } else {
-              dispatch(editIssue(issueState));
-            }
+            // if (!currentIssue) {
+            //   dispatch(addIssue(issueState));
+            // } else {
+            //   dispatch(editIssue(issueState));
+            // }
+            createEditIssue();
             dispatch(closeModal());
           }}
-        />
+        >
+          {buttonTextConstants.YES}
+        </Button>
         <CustomButton
           className={classes.btn}
           buttonCaption={buttonTextConstants.NO}
