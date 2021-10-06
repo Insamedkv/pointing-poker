@@ -10,9 +10,10 @@ const SprintHeader: React.FC = () => {
   const classes = useStyles();
   const roomTitle = useTypedSelector((state) => state.currentUser.room?.roomTitle);
   const roomId = useTypedSelector((state) => state.currentUser.room?._id);
-  const isGameStarted = useTypedSelector((state) => state.currentUser.room?.isGameStarted);
+  const gameStatus = useTypedSelector((state) => state.currentUser.room?.gameStatus);
   const [newTitle, setNewTitle] = useState('');
   const { isDealer } = useTypedSelector((state) => state.currentUser);
+  const isGameStarted = gameStatus === 'started';
 
   useEffect(() => {
     socket.onTitleUpdate(setNewTitle);

@@ -12,17 +12,29 @@ const Statistic: React.FC = () => {
   const { currentIssue, isRoundstarted, userBets } = useTypedSelector((state) => state.game);
   const [currentBets, setCurrentBets] = useState<Array<Bet>>([]);
 
+  // const getCurrentBets = async () => {
+
+  // }
+
   useEffect(() => {
-    if (currentIssue !== '') getRoomBets(currentIssue).then((data) => setCurrentBets(data));
+    let isMounted = true;
+    if (currentIssue !== '') {
+      getRoomBets(currentIssue).then((data) => {
+        if (isMounted) setCurrentBets(data);
+      });
+    }
+    return () => {
+      isMounted = false;
+    };
   }, [currentIssue, userBets]);
 
   return (
     <>
-      {currentIssue && !isRoundstarted && currentBets.length > 0 && (
+      {currentBets.length > 0 && (
         <Container className={classes.statisticcontainer}>
           <SectionHeader header="Statistics" />
 
-          <Grid container spacing={2} justifyContent="center">
+          <Grid container spacing={1} justifyContent="center">
             <CreateStatistic issueId={currentIssue} />
           </Grid>
         </Container>

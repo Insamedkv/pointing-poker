@@ -29,7 +29,7 @@ const IssueCard: React.FC<IIssueProps> = ({ mode, issue }) => {
   const { room, isDealer } = useTypedSelector((state) => state.currentUser);
   const isCurrentIssue = issue?._id === useTypedSelector((state) => state.game.currentIssue);
   const isRoundstarted = useTypedSelector((state) => state.game.isRoundstarted);
-  const isGameStarted = room?.isGameStarted;
+  const isGameStarted = room?.gameStatus === 'started';
   const dispatch = useDispatch();
   const classes = useStyles();
   const isCreateMode = mode === 'create';

@@ -3,6 +3,7 @@ import { BackgrCardColor, AdditionalColors } from '../../../../utils/styleConsta
 
 export const useStyles = makeStyles(() => ({
   cardItem: {
+    fontSize: '32px',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     width: '100%',
@@ -15,12 +16,13 @@ export const useStyles = makeStyles(() => ({
     borderRadius: '0',
   },
   cardIcon: {
-    fontSize: '64px',
+    fontSize: '52px',
     fontWeight: 800,
     textShadow: '2px 2px 4px rgb(0, 0, 0, .4)',
     userSelect: 'none',
   },
   cardImageReverse: {
+    fontSize: '32px',
     transform: 'rotate(180deg)',
     alignSelf: 'flex-end',
     cursor: 'default',

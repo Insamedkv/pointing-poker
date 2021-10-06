@@ -115,10 +115,10 @@ export const setRoomRules = async (roomId: string, data: Rules) => {
   });
 };
 
-export const setGameStatus = async (roomId: string, isGameStarted: boolean) => {
+export const setGameStatus = async (roomId: string, gameStatus: string) => {
   return new Promise<Rules>(async (res, rej) => {
     try {
-      const response = await axios.put(`/room/${roomId}/gamestatus`, { isGameStarted });
+      const response = await axios.put(`/room/${roomId}/gamestatus`, { gameStatus });
       res(response.data);
     } catch (err) {
       rej(err);

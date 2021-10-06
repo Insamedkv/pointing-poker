@@ -55,9 +55,9 @@ export const App: FC = (): ReactElement => {
 
   return (
     <ThemeProvider theme={baseTheme}>
-      <Container className={modalType === ModalTypes.WAIT_MODAL ? classes.blurWrapper : classes.wrapper}>
-        <Header />
-        <Router>
+      <Router>
+        <Container className={modalType === ModalTypes.WAIT_MODAL ? classes.blurWrapper : classes.wrapper}>
+          <Header />
           <Switch>
             {routes.map((route) => (
               <Route key={route.path} exact={route.exact} component={route.component} path={route.path} />
@@ -65,9 +65,9 @@ export const App: FC = (): ReactElement => {
             <Redirect to="/404" />
           </Switch>
           <ModalWindow />
-        </Router>
-        <Footer />
-      </Container>
+          <Footer />
+        </Container>
+      </Router>
     </ThemeProvider>
   );
 };

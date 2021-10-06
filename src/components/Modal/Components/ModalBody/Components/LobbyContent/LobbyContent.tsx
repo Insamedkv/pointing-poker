@@ -90,7 +90,7 @@ const LobbyContent: React.FC = () => {
   };
 
   const isValid = (value: string): string | undefined => {
-    return value.match(/^[a-z ,.'-]*$/i) ? undefined : 'Invalid name!';
+    return value.match(/^[a-zа-я'-]*$/i) ? undefined : 'Invalid name!';
   };
 
   const setImage = (src: ArrayBuffer | string | null) => {

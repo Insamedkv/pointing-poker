@@ -5,6 +5,7 @@ import { pushMessage } from 'reduxstore/chatSlice/chatSlice';
 import { closeModal, waitModal } from 'reduxstore/modalSlice/modalSlice';
 import { setCurrentIssue, setUsersBets, stopRoundInRoom, toggleRoundInRoom } from 'reduxstore/gameSlice';
 import { kickOutPlayerModal } from 'reduxstore/modalSlice/modalActions';
+import { IGamePayloadStatus } from 'defaultTypes';
 import { Event } from './constants';
 import { Bet, IssueResp, SocketRules, VoteResult } from './serviceTypes';
 import { setGameStatus } from './httpRoom';
@@ -102,8 +103,8 @@ export class SocketService {
   }
 
   public onPlay(setGame: any): void {
-    this.socket.on(Event.ON_PLAY, (game: { roomId: string; isGameStarted: boolean }) => {
-      setGame(toggleGameInRoom(game.isGameStarted));
+    this.socket.on(Event.ON_PLAY, (game: { roomId: string; gameStatus: IGamePayloadStatus }) => {
+      setGame(toggleGameInRoom(game.gameStatus));
     });
   }
 
@@ -138,7 +139,8 @@ export class SocketService {
   }
 
   public finishGame(roomId: string): void {
-    setGameStatus(roomId, false);
+    setGameStatus(roomId, 'finished');
+    localStorage.clear();
     this.socket.emit(Event.FINISH_GAME, roomId);
   }
 

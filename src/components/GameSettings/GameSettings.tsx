@@ -138,7 +138,7 @@ const GameSettings: React.FC = () => {
               dispatch(changeScoreType(value as IScoreType));
             }}
           >
-            <MenuItem value={ScoreTypes.FIBONACHI}>Fibonachi</MenuItem>
+            <MenuItem value={ScoreTypes.FIBONACHI}>Fibonacсi</MenuItem>
             <MenuItem value={ScoreTypes.POWEROFTWO}>Power of two</MenuItem>
             <MenuItem value={ScoreTypes.CUSTOM}>Custom</MenuItem>
           </Select>
@@ -153,7 +153,7 @@ const GameSettings: React.FC = () => {
             input={{ label: '', value: gameSettings.shortScoreType }}
             onChange={(event) => {
               const { value } = event.target;
-              dispatch(setShortScoreType(value));
+              dispatch(setShortScoreType(value.slice(0, 3)));
             }}
           />
         }

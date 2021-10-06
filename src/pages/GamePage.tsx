@@ -56,7 +56,7 @@ const GamePage: React.FC = () => {
     socket.deleteUserFromRoom(setUsersList);
 
     if (room?._id) {
-      setGameStatus(room._id, true);
+      setGameStatus(room._id, 'started');
       getRoomUsers(room._id).then((data) => {
         if (isMounted && room.rules[0]) {
           setUsersList(data);
@@ -161,12 +161,12 @@ const GamePage: React.FC = () => {
         </Grid>
       </Grid>
 
-      <Statistic />
+      {currentIssue && !isRoundstarted && <Statistic />}
 
       {isRoundstarted && !isObserver && (
         <Grid container spacing={1} className={classes.cardContainer}>
           {cardList.map((value, index) => (
-            <Grid key={index} item xs={3}>
+            <Grid key={index} item xs={4} sm={3}>
               <CardItem
                 name={value as string}
                 className={classes.cardStyles}

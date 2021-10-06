@@ -55,7 +55,7 @@ const useStyles = makeStyles(({ palette }) =>
       border: `1px solid ${palette.divider}`,
       width: '100%',
       boxShadow: shadows[4],
-      textShadow: `1px 1px 4px ${palette.common.black}`,
+      textShadow: `1px 1px 4px ${palette.divider}`,
     },
   })
 );

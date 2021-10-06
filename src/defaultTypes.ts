@@ -93,7 +93,7 @@ export interface Room {
   users: Array<RoomUser>;
   issues: Array<Issue>;
   roomCreator: string;
-  isGameStarted: boolean;
+  gameStatus: 'pre' | 'started' | 'finished';
 }
 
 export enum ScoreTypes {
@@ -101,3 +101,5 @@ export enum ScoreTypes {
   POWEROFTWO = 'poweroftwo',
   CUSTOM = 'custom',
 }
+
+export type IGamePayloadStatus = 'started' | 'finished';

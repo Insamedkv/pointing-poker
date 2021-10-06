@@ -48,7 +48,7 @@ const CreateStatistic: React.FC<IProps> = ({ issueId }) => {
       const gtZero = percent > 0;
 
       const newElement = (
-        <Grid key={item} item xs={3}>
+        <Grid key={item} item xs={4} sm={3}>
           <CardItem name={item} className={classes.cardStyles} />
           <Typography align="center" variant="h5">
             {isNumber ? percentFormat : ''}

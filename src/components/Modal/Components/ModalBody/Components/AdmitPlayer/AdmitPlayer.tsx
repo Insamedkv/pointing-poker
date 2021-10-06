@@ -36,12 +36,12 @@ const AdmitPlayer: React.FC = () => {
       </Container>
 
       <Container>
-        <Typography variant="body1" align="center">
-          A you really want to invite{' '}
+        <Typography variant="body1" align="center" className={classesForText.bodyMessage}>
+          Do you really want to invite{' '}
           <Typography component="span" className={classesForText.playerName}>
             {userName?.firstName}
           </Typography>{' '}
-          in our game!
+          in our game?
         </Typography>
       </Container>
 

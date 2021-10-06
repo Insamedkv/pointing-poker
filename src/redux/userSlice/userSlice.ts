@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IUserInfo, Room } from 'defaultTypes';
+import { IGamePayloadStatus, IUserInfo, Room } from 'defaultTypes';
 import { SignupResp } from 'services/serviceTypes';
 
 interface IUserDatastate {
@@ -36,8 +36,8 @@ const userSlice = createSlice({
       const avaliableUsers: Array<string> = action.payload.map((user) => user._id as string);
       if (state.room) state.avaliableUsers = avaliableUsers;
     },
-    toggleGameInRoom: (state, action: PayloadAction<boolean>) => {
-      if (state.room) state.room.isGameStarted = action.payload;
+    toggleGameInRoom: (state, action: PayloadAction<IGamePayloadStatus>) => {
+      if (state.room) state.room.gameStatus = action.payload;
     },
     setObserverStatus: (state, action: PayloadAction<boolean>) => {
       state.isObserver = action.payload;
