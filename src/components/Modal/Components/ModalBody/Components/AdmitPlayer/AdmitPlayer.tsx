@@ -9,6 +9,8 @@ import { IUserInfo } from 'defaultTypes';
 import { useStyles } from 'components/Modal/ModalWindow.styles';
 import { deleteUserById } from 'services/httpUser';
 import { UserResp } from 'services/serviceTypes';
+import { updateRoomUsers } from 'reduxstore/userSlice';
+import { getRoomUsers } from 'services/httpRoom';
 import { useKickPlayerStyles } from '../KickPlayer/KickPlayer.styles';
 import { socket } from '../../../../../../index';
 
@@ -17,9 +19,14 @@ const AdmitPlayer: React.FC = () => {
   const classesForText = useKickPlayerStyles();
   const dispatch = useDispatch();
   const userName = useTypedSelector((state) => state.modal.player as IUserInfo);
+  const roomId = useTypedSelector((state) => state.currentUser.room?._id);
 
-  const admitPlayer = () => {
+  const admitPlayer = async () => {
     if (userName?._id) socket.unblur(userName._id);
+    if (roomId) {
+      const users = await getRoomUsers(roomId);
+      dispatch(updateRoomUsers(users));
+    }
     dispatch(closeModal());
   };
   const rejectPlayer = () => {
