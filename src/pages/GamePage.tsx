@@ -67,7 +67,7 @@ const GamePage: React.FC = () => {
 
     return () => {
       isMounted = false;
-      setUsersList([]);
+      // setUsersList([]);
     };
   }, [room]);
 
