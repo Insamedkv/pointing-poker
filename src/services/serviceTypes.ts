@@ -1,5 +1,4 @@
 import { Room } from 'defaultTypes';
-import { ICardItem } from 'reduxstore/settingsSlice/settingsActionTypes';
 
 // request interface
 export interface SignupData {

@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IUserInfo, Room, RoomUser } from 'defaultTypes';
-import { SignupResp, UserResp } from 'services/serviceTypes';
+import { IUserInfo, Room } from 'defaultTypes';
+import { SignupResp } from 'services/serviceTypes';
 
 interface IUserDatastate {
   userId: string;

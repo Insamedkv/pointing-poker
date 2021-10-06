@@ -49,7 +49,6 @@ export const App: FC = (): ReactElement => {
   }, []);
 
   useEffect(() => {
-    console.log('Set user id to:', userId);
     socket.removeListener(Event.ON_VOTE_START);
     socket.onVoteStart(dispatch, userId);
   }, [userId]);

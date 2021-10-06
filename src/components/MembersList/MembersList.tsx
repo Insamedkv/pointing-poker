@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { Container, Grid } from '@material-ui/core';
 import PersonPanel from 'components/PersonPanel';
-import { updateRoomUsers } from 'reduxstore/userSlice';
 import { getRoomUsers } from 'services/httpRoom';
 import { IUserInfo } from 'defaultTypes';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import { socket } from '../../index';
 
 const MembersList: React.FC = () => {
-  const dispatch = useDispatch();
   const { room } = useTypedSelector((state) => state.currentUser);
   const [usersList, setUsersList] = useState<Array<IUserInfo>>([]);
 
@@ -22,7 +19,6 @@ const MembersList: React.FC = () => {
     let isMounted = true;
 
     if (room?._id) {
-      // socket.onJoin(room._id);
       getRoomUsers(room._id).then((data) => {
         if (isMounted) {
           setUsersList(data);

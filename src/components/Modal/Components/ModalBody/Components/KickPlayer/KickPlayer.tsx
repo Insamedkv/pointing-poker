@@ -16,7 +16,7 @@ const KickPlayer: React.FC = () => {
   const kickPlayerclasses = useKickPlayerStyles();
   const dispatch = useDispatch();
   const { player, initiator } = useTypedSelector((state) => state.modal);
-  const { isDealer, room, startUsersNumber } = useTypedSelector((state) => state.currentUser);
+  const { room, startUsersNumber } = useTypedSelector((state) => state.currentUser);
 
   const isDealerInitiator = initiator?._id === room?.roomCreator;
 

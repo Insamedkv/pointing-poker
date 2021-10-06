@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IUserInfo } from 'defaultTypes';
-import { UserResp } from 'services/serviceTypes';
 import { kickOutPlayerModal } from './modalActions';
 import { IModalState, ModalTypes } from './modalActionTypes';
 
@@ -23,7 +22,6 @@ const modal = createSlice({
       modalType: ModalTypes.CREATE_ISSUE,
     }),
     editIssueModal: (state, action: PayloadAction<string>) => ({
-      // string = issue ID
       isOpen: true,
       modalType: ModalTypes.CREATE_ISSUE,
       editableIssueID: action.payload,

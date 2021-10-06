@@ -3,8 +3,6 @@ import { grey } from '@material-ui/core/colors';
 
 export const useStyles = makeStyles({
   cardStyles: {
-    // marginTop: '10px',
-    // width: '12%',
     maxWidth: '125px',
     height: '40%',
     minHeight: '200px',

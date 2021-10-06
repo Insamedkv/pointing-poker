@@ -12,7 +12,6 @@ import { useDispatch } from 'react-redux';
 import { setUserCredentials } from 'reduxstore/userSlice';
 import { SignupResp } from 'services/serviceTypes';
 import Chat from 'components/Chat';
-import { setGameStatus } from 'services/httpRoom';
 import { socket } from '../index';
 import { useStyles } from './GamePage.styles';
 
@@ -25,15 +24,12 @@ const LobbyPage: React.FC<ILobbyProps> = () => {
   const dispatch = useDispatch();
   const currentSession = restoreSession();
   const { userId, isDealer, isObserver } = useTypedSelector((state) => state.currentUser);
-  const roomId = useTypedSelector((state) => state.currentUser.room?._id);
 
   useEffect(() => {
     currentSession.then((data) => data && dispatch(setUserCredentials(data as SignupResp)));
-    // if (isDealer && roomId) setGameStatus(roomId, true);
   }, []);
 
   useEffect(() => {
-    console.log('isObserver:', isObserver);
     if (isObserver !== undefined && userId) socket.changeObserverStatus(userId, isObserver);
   }, [isObserver]);
 

@@ -5,7 +5,6 @@ import { setIssues } from 'reduxstore/issuesSlice';
 import IssueCard from 'components/IssueCard';
 import IssueList from 'components/IssueList';
 import { useTypedSelector } from 'hooks/useTypedSelector';
-import { createIssueModal } from 'reduxstore/modalSlice/modalSlice';
 import { getRoomIssues } from 'services/httpRoom';
 import { useStyles } from './IssueCreation.styles';
 import { socket } from '../../index';
@@ -32,9 +31,7 @@ const IssueCreation: React.FC = () => {
         <Grid item xs>
           <IssueCard mode="create" />
         </Grid>
-        {/* <Grid item sm={6}> */}
         <IssueList />
-        {/* </Grid> */}
       </Grid>
     </Container>
   );

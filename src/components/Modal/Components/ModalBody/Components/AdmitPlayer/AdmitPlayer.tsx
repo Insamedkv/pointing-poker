@@ -19,7 +19,6 @@ const AdmitPlayer: React.FC = () => {
   const userName = useTypedSelector((state) => state.modal.player as IUserInfo);
 
   const admitPlayer = () => {
-    console.log('admit player!');
     if (userName?._id) socket.unblur(userName._id);
     dispatch(closeModal());
   };

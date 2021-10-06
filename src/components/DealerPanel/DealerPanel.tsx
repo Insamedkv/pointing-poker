@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Redirect, useHistory } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { Container, Grid, Typography } from '@material-ui/core';
 import LinkToLobby from 'components/LinkToLobby';
 import PersonPanel from 'components/PersonPanel';
 import CustomButton from 'components/CustomButton';
 import { IUserInfo } from 'defaultTypes';
 import { buttonTextConstants } from 'utils/buttonTextConstants';
-import { deleteRoom, getRoomCreator, leaveRoom, setGameStatus, setRoomRules } from 'services/httpRoom';
+import { deleteRoom, getRoomCreator, leaveRoom, setRoomRules } from 'services/httpRoom';
 import { Rules } from 'services/serviceTypes';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import { useStyles } from './DealerPanel.styles';

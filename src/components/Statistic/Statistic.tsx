@@ -16,10 +16,6 @@ const Statistic: React.FC = () => {
     if (currentIssue !== '') getRoomBets(currentIssue).then((data) => setCurrentBets(data));
   }, [currentIssue, userBets]);
 
-  // useEffect(() => {
-  //   if (currentIssue !== '') getRoomBets(currentIssue).then((data) => setCurrentBets(data));
-  // }, [userBets]);
-
   return (
     <>
       {currentIssue && !isRoundstarted && currentBets.length > 0 && (

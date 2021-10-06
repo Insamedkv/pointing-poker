@@ -8,10 +8,6 @@ const useStyles = makeStyles(({ palette, typography, shadows }) =>
         background: 'transparent',
         scrollbarWidth: 'thin !important',
       },
-      // 'sdf': {
-      //   width: '0px',
-      //   background: 'transparent',
-      // },
     },
     chatMainContainer: {
       position: 'absolute',
@@ -41,7 +37,6 @@ const useStyles = makeStyles(({ palette, typography, shadows }) =>
       scrollbarWidth: 'none',
     },
     enterTextArea: {
-      // height: '12vh',
       padding: '0px',
       marginTop: '5px',
       position: 'sticky',
@@ -55,12 +50,10 @@ const useStyles = makeStyles(({ palette, typography, shadows }) =>
     messageField: {
       display: 'flex',
       height: '100%',
-      // width: '99%',
       flexDirection: 'column',
       justifyContent: 'space-between',
       background: 'aliceblue',
       borderRadius: '4px',
-      // padding: '7px 10px',
       fontSize: '18px',
     },
     inputMessageField: {

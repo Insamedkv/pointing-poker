@@ -1,15 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React from 'react';
 import SprintHeader from 'components/SprintHeader';
 import { Button, Container, Grid } from '@material-ui/core';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import IssueCard from 'components/IssueCard';
-import { downloadResults, getRoomBets } from 'services/httpRoom';
-import { setUsersBets } from 'reduxstore/gameSlice';
-import Statistic from 'components/Statistic';
+import { downloadResults } from 'services/httpRoom';
 import CreateStatistic from 'components/CreateStatistic/CreateStatistic';
-import { Bet, IssueResp } from 'services/serviceTypes';
-import { IIssue } from 'defaultTypes';
 import { useStyles } from './ResultsPage.styles';
 
 const ResultsPage: React.FC = () => {

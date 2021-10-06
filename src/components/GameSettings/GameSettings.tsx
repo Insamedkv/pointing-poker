@@ -1,15 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import {
-  Container,
-  Fade,
-  FormControl,
-  FormControlLabel,
-  InputLabel,
-  MenuItem,
-  Select,
-  Switch,
-} from '@material-ui/core';
+import { Container, Fade, FormControlLabel, InputLabel, MenuItem, Select, Switch } from '@material-ui/core';
 import CustomInput from 'components/CustomInput';
 import SectionHeader from 'components/SectionHeader';
 import { useTypedSelector } from 'hooks/useTypedSelector';
@@ -59,7 +50,6 @@ const GameSettings: React.FC = () => {
           />
         }
         label="Scrum master as player:"
-        // labelPlacement="start"
       />
       <FormControlLabel
         className={classes.controlSize}
@@ -83,7 +73,6 @@ const GameSettings: React.FC = () => {
           />
         }
         label="Admit all new users:"
-        // labelPlacement="start"
       />
       <FormControlLabel
         className={classes.controlSize}
@@ -107,7 +96,6 @@ const GameSettings: React.FC = () => {
           />
         }
         label="Auto show card after vote:"
-        // labelPlacement="start"
       />
       <FormControlLabel
         className={classes.controlSize}
@@ -131,9 +119,7 @@ const GameSettings: React.FC = () => {
           />
         }
         label="Is timer needed:"
-        // labelPlacement="start"
       />
-      {/* Score type: */}
       <FormControlLabel
         className={classes.controlSize}
         classes={{ label: classes.label }}
@@ -158,23 +144,7 @@ const GameSettings: React.FC = () => {
           </Select>
         }
         label="Score type:"
-        // labelPlacement="start"
       />
-      {/* <FormControlLabel
-        className={classes.controlSize}
-        classes={{ label: classes.label }}
-        control={
-          <CustomInput
-            input={{ label: '', value: gameSettings.scoreType }}
-            onChange={(event) => {
-              const { value } = event.target;
-              dispatch(setScoreType(value));
-            }}
-          />
-        }
-        label="Score type:"
-        labelPlacement="start"
-      /> */}
       <FormControlLabel
         className={classes.controlSize}
         classes={{ label: classes.label }}
@@ -188,7 +158,6 @@ const GameSettings: React.FC = () => {
           />
         }
         label="Score type(short):"
-        // labelPlacement="start"
       />
       <Fade in={gameSettings.isTimerNeeded}>
         <FormControlLabel
@@ -196,7 +165,6 @@ const GameSettings: React.FC = () => {
           classes={{ label: classes.label }}
           control={<SetTimeComponent />}
           label="Round time:"
-          // labelPlacement="start"
         />
       </Fade>
 

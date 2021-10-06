@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Button, Container, InputLabel, MenuItem, Select, TextField, Typography } from '@material-ui/core';
 import { useStyles } from 'components/Modal/ModalWindow.styles';
@@ -14,13 +14,12 @@ import { useIssueStyles } from './CreateIssue.styles';
 const CreateIssue: React.FC = () => {
   const classes = useStyles();
   const issueClasses = useIssueStyles();
-  const issuesList = useTypedSelector((state) => state.issues); // return from redux
+  const issuesList = useTypedSelector((state) => state.issues);
   const { room } = useTypedSelector((state) => state.currentUser);
   const editableIssueID = useTypedSelector((state) => state.modal.editableIssueID);
   const dispatch = useDispatch();
 
   const currentIssue = issuesList.find((issue) => issue._id === editableIssueID);
-  console.log(editableIssueID, issuesList);
 
   const [issueState, setIssueState] = useState<IIssue>({
     issueID: currentIssue?._id || '',
@@ -121,11 +120,6 @@ const CreateIssue: React.FC = () => {
           className={classes.btn}
           disabled={issueState.issueName === ''}
           onClick={() => {
-            // if (!currentIssue) {
-            //   dispatch(addIssue(issueState));
-            // } else {
-            //   dispatch(editIssue(issueState));
-            // }
             createEditIssue();
             dispatch(closeModal());
           }}

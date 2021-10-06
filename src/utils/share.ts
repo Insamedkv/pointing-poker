@@ -25,13 +25,11 @@ export const restoreSession = async () => {
   return res;
 };
 
-// modal functions
 export const openKickPlayerModal = async (userId: string, user: IUserInfo) => {
   const initiator = await getUserById(userId);
   return { user, initiator };
 };
 
-// number generators
 export function* fibonacciCardValues(): Generator<number> {
   let fn1 = 2;
   let fn2 = 1;

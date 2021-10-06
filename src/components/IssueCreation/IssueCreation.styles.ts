@@ -4,7 +4,6 @@ const useStyles = makeStyles(() =>
   createStyles({
     root: {
       minWidth: '452px',
-      // width: '550px',
       width: 'auto',
     },
   })

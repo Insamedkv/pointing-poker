@@ -1,7 +1,6 @@
 import React from 'react';
 import { Container, Grid, IconButton, Typography } from '@material-ui/core';
 import BlockIcon from '@material-ui/icons/Block';
-import PersonPanel from 'components/PersonPanel';
 import { IAvataraInfo, IUserInfo } from 'defaultTypes';
 import { useStyles } from 'components/Chat/Chat.styles';
 import Avatara from 'components/Avatara';

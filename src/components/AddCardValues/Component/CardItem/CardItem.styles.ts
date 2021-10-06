@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { BackgrCardColor, AdditionalColors } from '../../../../utils/styleConstants';
 
-export const useStyles = makeStyles(({ shadows }) => ({
+export const useStyles = makeStyles(() => ({
   cardItem: {
     overflow: 'hidden',
     textOverflow: 'ellipsis',

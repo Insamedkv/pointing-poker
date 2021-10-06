@@ -15,16 +15,6 @@ export const Timer: FC = () => {
   const dispatch = useDispatch();
   const { isRoundstarted } = useTypedSelector((state) => state.game);
 
-  // useEffect(() => {
-  //   if (seconds > 0 && isRoundstarted) {
-  //     timer();
-  //   } else if (room?._id) {
-  //     socket.stopRound(room._id);
-  //   } else {
-  //     dispatch(stopRoundInRoom());
-  //   }
-  // }, [isRoundstarted, seconds]);
-
   useEffect(() => {
     if (isRoundstarted && room && seconds > 0) {
       const timer = setTimeout(() => {

@@ -58,7 +58,6 @@ const MainPage: FC = (): ReactElement => {
         <Box className={classes.wrapSecondBlock} id="secondWrap">
           <TextField
             className={classes.inputURL}
-            // disableUnderline
             variant="outlined"
             error={error.isError}
             helperText={error.isError && error.errorMsg}

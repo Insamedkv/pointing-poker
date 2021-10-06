@@ -3,9 +3,6 @@ import { AdditionalColors } from 'utils/styleConstants';
 
 const useStyles = makeStyles(({ typography, palette, transitions, shadows }) =>
   createStyles({
-    // root: {
-    //   margin: 0,
-    // },
     selectSize: {
       maxWidth: '441px',
       minWidth: '350px',

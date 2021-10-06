@@ -47,7 +47,6 @@ const GamePage: React.FC = () => {
         const isNewUser = avaliableUsers.includes(item._id as string);
         return !isNewUser;
       });
-      console.log('NEW USER:', user);
       useAdmitModal(user);
     }
   }, [usersList]);
@@ -106,9 +105,6 @@ const GamePage: React.FC = () => {
     if (isRoundstarted) {
       dispatch(setBet(value));
       socket.bet(betObj);
-      // if (room?.rules[0]?.autoRotateCardsAfterVote) {
-      //   socket.bet(betObj);
-      // }
     }
   };
 
@@ -120,13 +116,11 @@ const GamePage: React.FC = () => {
 
       <Grid container className={classes.setupWidth} spacing={4}>
         <Grid item xs>
-          {/* <Grid item sm> */}
           <SectionHeader header="Issues" />
           <IssueList />
           {isDealer && <IssueCard mode="create" />}
         </Grid>
         <Grid item className={classes.setupGrid} xs>
-          {/* <Grid item className={classes.setupGrid} md> */}
           {isTimerNeeded && <Timer />}
           {isDealer && (
             <Container className={classes.setubGridButtons}>
@@ -144,22 +138,17 @@ const GamePage: React.FC = () => {
                     socket.stopRound(room?._id);
                     getRoomBets(currentIssue).then((data) => {
                       dispatch(setUsersBets(data));
-                      console.log('We get it:', data);
                     });
                   }
                 }}
               >
                 {isRoundstarted ? buttonTextConstants.STOP_ROUND : buttonTextConstants.RUN_ROUND}
               </Button>
-              {/* <Button color="primary" variant="contained">
-                {buttonTextConstants.NEXT_ISSUE}
-              </Button> */}
             </Container>
           )}
         </Grid>
 
         <Grid item xs>
-          {/* <USER SCORES> */}
           <SectionHeader header="Users scores" />
           {usersList.map((user: IUserInfo) => (
             <Grid key={user._id} item>

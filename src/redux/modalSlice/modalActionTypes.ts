@@ -61,8 +61,8 @@ export interface IConnectToLobbyPayload {
 }
 
 export interface IKickPlayerPayload {
-  player: UserResp; // ID
-  initiator: UserResp; // ID
+  player: UserResp;
+  initiator: UserResp;
 }
 
 export interface ICreateIssueActionPayload {
