@@ -37,6 +37,9 @@
     }],
     "no-underscore-dangle": "off",
     "@typescript-eslint/naming-convention": "off",
+    "prettier/prettier": ["error", {
+      "endOfLine":"auto"
+    }]
   },
   "ignorePatterns": ["*config.js"]
 }
