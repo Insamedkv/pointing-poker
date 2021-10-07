@@ -39,7 +39,7 @@ const DealerPanel: React.FC = () => {
       leaveRoom(room._id).then(() => {
         localStorage.clear();
         dispatch(toggleGameInRoom('finished'));
-        window.location.href = `${window.location.origin}/pointing-poker`;
+        window.location.href = window.location.origin;
       });
     }
   };
@@ -130,7 +130,7 @@ const DealerPanel: React.FC = () => {
           </Grid>
         )}
       </Grid>
-      {link && room?.gameStatus === 'started' && <Redirect to={`/pointing-poker/game/${link}`} />}
+      {link && room?.gameStatus === 'started' && <Redirect to={`/game/${link}`} />}
     </div>
   );
 };

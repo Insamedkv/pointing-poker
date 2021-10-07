@@ -31,9 +31,9 @@ module.exports = ({ development }) => ({
   },
   output: {
     filename: '[name].[contenthash].js',
-    path: path.resolve(__dirname, 'pointing-poker'),
+    path: path.resolve(__dirname, 'dist'),
     assetModuleFilename: 'assets/[hash][ext]',
-    publicPath: '/pointing-poker/',
+    publicPath: '/',
   },
   module: {
     rules: [

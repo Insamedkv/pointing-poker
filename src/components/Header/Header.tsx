@@ -16,7 +16,7 @@ export const Header: FC = (): ReactElement => {
       <Container className={classes.container}>
         <Box className={classes.containerHigh} bgcolor="primary.main"></Box>
         <Box className={classes.containerLow} bgcolor="secondary.main"></Box>
-        <NavLink to="/pointing-poker">
+        <NavLink to="/">
           <Avatar alt="Logo" src={Logo} className={classes.containerLogo} />
         </NavLink>
         <IconButton className={classes.containerIcon} onClick={() => dispatch(toggleChat())}>

@@ -6,9 +6,7 @@
   "scripts": {
     "build": "webpack",
     "dev": "webpack serve --env development lint",
-    "lint": "eslint --ext .ts,.tsx src --fix",
-    "predeploy":"npm run build",
-    "deploy":"gh-pages -d pointing-poker"
+    "lint": "eslint --ext .ts,.tsx src --fix"
   },
   "prettier": {
     "singleQuote": true,

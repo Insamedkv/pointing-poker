@@ -57,7 +57,7 @@ const LobbyContent: React.FC = () => {
     localStorage.setItem('poker-auth', response.authorization);
     localStorage.setItem('poker-session', JSON.stringify(sessionData));
 
-    setLobbyLink(`/pointing-poker/lobby/${modalState.roomId || response.room._id}`);
+    setLobbyLink(`/lobby/${modalState.roomId || response.room._id}`);
     dispatch(setUserCredentials(response));
     dispatch(closeModal());
   };

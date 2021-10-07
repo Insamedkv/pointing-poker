@@ -26,14 +26,14 @@ export class SocketService {
   public onKick(): void {
     this.socket.on(Event.KICK, () => {
       alert('You were kicked');
-      window.location.href = `${document.location.origin}/pointing-poker`;
+      window.location.href = document.location.origin;
     });
   }
 
   public onDeleteRoom(): void {
     this.socket.on(Event.ROOM_DELETE, () => {
       alert('Room has been deleted!');
-      window.location.href = `${document.location.origin}/pointing-poker`;
+      window.location.href = document.location.origin;
     });
   }
 

@@ -18,20 +18,20 @@ console.log(BASEPATH);
 
 const routes = [
   {
-    path: `/pointing-poker`,
+    path: `/`,
     component: MainPage,
     exact: true,
   },
   {
-    path: '/pointing-poker/lobby/:roomId/',
+    path: '/lobby/:roomId/',
     component: LobbyPage,
   },
   {
-    path: '/pointing-poker/game/:roomId/',
+    path: '/game/:roomId/',
     component: GamePage,
   },
   {
-    path: '/pointing-poker/results',
+    path: '/results',
     component: ResultsPage,
     exact: true,
   },
