@@ -7,7 +7,7 @@ import PersonPanel from 'components/PersonPanel';
 import CustomButton from 'components/CustomButton';
 import { IUserInfo } from 'defaultTypes';
 import { buttonTextConstants } from 'utils/buttonTextConstants';
-import { deleteRoom, getRoomCreator, leaveRoom, setRoomRules } from 'services/httpRoom';
+import { deleteRoom, getRoomCreator, leaveRoom, setGameStatus, setRoomRules } from 'services/httpRoom';
 import { Rules } from 'services/serviceTypes';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import { toggleGameInRoom } from 'reduxstore/userSlice';
@@ -74,7 +74,7 @@ const DealerPanel: React.FC = () => {
     };
 
     if (room?._id) {
-      const resp = await setRoomRules(room._id, laws);
+      await setRoomRules(room._id, laws);
       socket.play(room._id);
     }
   };

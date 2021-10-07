@@ -104,7 +104,6 @@ export class SocketService {
 
   public onPlay(setGame: any): void {
     this.socket.on(Event.ON_PLAY, (game: { roomId: string; gameStatus: IGamePayloadStatus }) => {
-      console.log('response for start game:', game.gameStatus, 'in room', game.roomId);
       setGame(toggleGameInRoom(game.gameStatus));
     });
   }

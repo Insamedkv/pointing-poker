@@ -7,7 +7,7 @@ import DealerPanel from 'components/DealerPanel';
 import IssueList from 'components/IssueList';
 import SectionHeader from 'components/SectionHeader';
 import { restoreSession } from 'utils/share';
-import { setUserCredentials } from 'reduxstore/userSlice';
+import { setUserCredentials, toggleGameInRoom } from 'reduxstore/userSlice';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import { Timer } from 'components/Timer';
 import { buttonTextConstants } from 'utils/buttonTextConstants';
@@ -56,7 +56,7 @@ const GamePage: React.FC = () => {
     socket.deleteUserFromRoom(setUsersList);
 
     if (room?._id) {
-      setGameStatus(room._id, 'started');
+      dispatch(toggleGameInRoom('started'));
       getRoomUsers(room._id).then((data) => {
         if (isMounted && room.rules[0]) {
           setUsersList(data);
@@ -67,7 +67,6 @@ const GamePage: React.FC = () => {
 
     return () => {
       isMounted = false;
-      // setUsersList([]);
     };
   }, [room]);
 
