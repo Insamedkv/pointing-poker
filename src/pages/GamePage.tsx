@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 import { Button, Container, Grid } from '@material-ui/core';
 import SprintHeader from 'components/SprintHeader';
 import DealerPanel from 'components/DealerPanel';
-import Chat from 'components/Chat';
 import IssueList from 'components/IssueList';
 import SectionHeader from 'components/SectionHeader';
 import { restoreSession } from 'utils/share';
@@ -19,6 +18,7 @@ import { CardItem } from 'components/AddCardValues/Component/CardItem';
 import UserScore from 'components/UserScore';
 import { Bet } from 'services/serviceTypes';
 import { admitPlayerModal } from 'reduxstore/modalSlice/modalSlice';
+import Chat from 'components/Chat';
 import { setBet, setUsersBets } from 'reduxstore/gameSlice';
 import Statistic from 'components/Statistic';
 import { useStyles } from './GamePage.styles';
@@ -112,8 +112,8 @@ const GamePage: React.FC = () => {
   return (
     <Container className={classes.gamePageContainer}>
       <SprintHeader />
-      <Chat />
       <DealerPanel />
+      <Chat />
 
       <Grid container className={classes.setupWidth} spacing={4}>
         <Grid item xs>

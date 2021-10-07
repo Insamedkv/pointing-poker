@@ -14,8 +14,6 @@ import ModalWindow from './components/Modal/index';
 import { GamePage, LobbyPage, ResultsPage } from './pages';
 import { socket } from './index';
 
-console.log(BASEPATH);
-
 const routes = [
   {
     path: `/`,
@@ -48,6 +46,7 @@ export const App: FC = (): ReactElement => {
     socket.onDeleteRoom();
     socket.onBlur(dispatch);
     socket.getIssues(dispatch);
+    socket.onMessage(dispatch);
   }, []);
 
   useEffect(() => {

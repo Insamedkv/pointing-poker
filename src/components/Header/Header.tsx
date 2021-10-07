@@ -4,10 +4,12 @@ import { useDispatch } from 'react-redux';
 import { AppBar, Avatar, Box, Container, IconButton } from '@material-ui/core';
 import { toggleChat } from 'reduxstore/chatSlice/chatSlice';
 import { Chat } from '@material-ui/icons';
+import { useTypedSelector } from 'hooks/useTypedSelector';
 import { useStyles } from './Header.styles';
 import Logo from '../../asset/logo.png';
 
 export const Header: FC = (): ReactElement => {
+  const room = useTypedSelector((state) => state.currentUser.room);
   const dispatch = useDispatch();
   const classes = useStyles();
 
@@ -19,9 +21,11 @@ export const Header: FC = (): ReactElement => {
         <NavLink to="/">
           <Avatar alt="Logo" src={Logo} className={classes.containerLogo} />
         </NavLink>
-        <IconButton className={classes.containerIcon} onClick={() => dispatch(toggleChat())}>
-          <Chat />
-        </IconButton>
+        {room && (
+          <IconButton className={classes.containerIcon} onClick={() => dispatch(toggleChat())}>
+            <Chat />
+          </IconButton>
+        )}
       </Container>
     </AppBar>
   );

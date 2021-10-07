@@ -18,7 +18,6 @@ const Chat: React.FC = () => {
 
   useEffect(() => {
     getMessages().then((msgs) => dispatch(setMessages(msgs)));
-    socket.onMessage(dispatch);
   }, []);
 
   return (
