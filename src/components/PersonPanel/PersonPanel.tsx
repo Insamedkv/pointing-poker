@@ -25,7 +25,7 @@ const PersonPanel: React.FC<IPersonPanelProps> = ({ userInfo, avaSize }) => {
 
   const isMe = userInfo._id === userId;
   const isNotRoomCreator = room?.roomCreator !== userInfo._id;
-  const isVoteAvaliable = avaliableUsers.length > 4;
+  const isVoteAvaliable = avaliableUsers.length > 3;
 
   const openKickModalByPlayer = async () => {
     const initiator = await getUserById(userId);

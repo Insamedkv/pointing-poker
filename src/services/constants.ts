@@ -1,3 +1,5 @@
+export const BASEPATH = document.location.origin;
+
 export enum Event {
   CONNECT = 'connect',
   JOIN = 'join',

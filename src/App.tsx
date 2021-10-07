@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import { Container, ThemeProvider } from '@material-ui/core';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import { ModalTypes } from 'reduxstore/modalSlice/modalActionTypes';
-import { Event } from 'services/constants';
+import { BASEPATH, Event } from 'services/constants';
 import MainPage from './pages/MainPage';
 import { Header } from './components/Header/index';
 import { Footer } from './components/Footer/index';
@@ -14,22 +14,24 @@ import ModalWindow from './components/Modal/index';
 import { GamePage, LobbyPage, ResultsPage } from './pages';
 import { socket } from './index';
 
+console.log(BASEPATH);
+
 const routes = [
   {
-    path: '/',
+    path: `/pointing-poker`,
     component: MainPage,
     exact: true,
   },
   {
-    path: '/lobby/:roomId/',
+    path: '/pointing-poker/lobby/:roomId/',
     component: LobbyPage,
   },
   {
-    path: '/game/:roomId/',
+    path: '/pointing-poker/game/:roomId/',
     component: GamePage,
   },
   {
-    path: '/results',
+    path: '/pointing-poker/results',
     component: ResultsPage,
     exact: true,
   },
@@ -62,7 +64,7 @@ export const App: FC = (): ReactElement => {
             {routes.map((route) => (
               <Route key={route.path} exact={route.exact} component={route.component} path={route.path} />
             ))}
-            <Redirect to="/404" />
+            <Redirect to="/dist/404" />
           </Switch>
           <ModalWindow />
           <Footer />

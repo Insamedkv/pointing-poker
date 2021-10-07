@@ -72,7 +72,7 @@ const GamePage: React.FC = () => {
   }, [room]);
 
   useEffect(() => {
-    const toResults = `/results`;
+    const toResults = `/pointing-poker/results`;
     socket.getUsersInRoom(setUsersList);
     socket.admitUser(dispatch);
     socket.onRunRound(dispatch);

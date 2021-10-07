@@ -26,14 +26,14 @@ export class SocketService {
   public onKick(): void {
     this.socket.on(Event.KICK, () => {
       alert('You were kicked');
-      window.location.href = document.location.origin;
+      window.location.href = `${document.location.origin}/pointing-poker`;
     });
   }
 
   public onDeleteRoom(): void {
     this.socket.on(Event.ROOM_DELETE, () => {
       alert('Room has been deleted!');
-      window.location.href = document.location.origin;
+      window.location.href = `${document.location.origin}/pointing-poker`;
     });
   }
 
@@ -104,6 +104,7 @@ export class SocketService {
 
   public onPlay(setGame: any): void {
     this.socket.on(Event.ON_PLAY, (game: { roomId: string; gameStatus: IGamePayloadStatus }) => {
+      console.log('response for start game:', game.gameStatus, 'in room', game.roomId);
       setGame(toggleGameInRoom(game.gameStatus));
     });
   }

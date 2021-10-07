@@ -39,7 +39,7 @@ const DealerPanel: React.FC = () => {
       leaveRoom(room._id).then(() => {
         localStorage.clear();
         dispatch(toggleGameInRoom('finished'));
-        window.location.href = window.location.origin;
+        window.location.href = `${window.location.origin}/pointing-poker`;
       });
     }
   };
@@ -58,9 +58,9 @@ const DealerPanel: React.FC = () => {
     return () => {
       isMounted = false;
     };
-  }, [room]);
+  }, [room?._id]);
 
-  const startGame = () => {
+  const startGame = async () => {
     const roundTime = rules.time.minutes * 60 + rules.time.seconds;
     const arrayOfValues = cardTypes.map((card) => card.value);
     const laws: Rules = {
@@ -73,8 +73,8 @@ const DealerPanel: React.FC = () => {
       roundTime,
     };
 
-    if (room) {
-      setRoomRules(room._id, laws);
+    if (room?._id) {
+      const resp = await setRoomRules(room._id, laws);
       socket.play(room._id);
     }
   };
@@ -130,7 +130,7 @@ const DealerPanel: React.FC = () => {
           </Grid>
         )}
       </Grid>
-      {link && room?.gameStatus === 'started' && <Redirect to={`/game/${link}`} />}
+      {link && room?.gameStatus === 'started' && <Redirect to={`/pointing-poker/game/${link}`} />}
     </div>
   );
 };

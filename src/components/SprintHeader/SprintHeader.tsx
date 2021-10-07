@@ -13,11 +13,11 @@ const SprintHeader: React.FC = () => {
   const gameStatus = useTypedSelector((state) => state.currentUser.room?.gameStatus);
   const [newTitle, setNewTitle] = useState('');
   const { isDealer } = useTypedSelector((state) => state.currentUser);
-  const isGameStarted = gameStatus === 'started';
+  const isGonfigureGame = gameStatus === 'pre' || gameStatus === undefined;
 
   useEffect(() => {
     socket.onTitleUpdate(setNewTitle);
-  }, [roomId]);
+  }, []);
 
   useEffect(() => {
     if (roomTitle) setNewTitle(roomTitle);
@@ -30,7 +30,7 @@ const SprintHeader: React.FC = () => {
   return (
     <>
       <Container className={classes.container}>
-        {isDealer && !isGameStarted ? (
+        {isDealer && isGonfigureGame ? (
           <>
             <Typography variant="h3" className={classes.root}>
               <InputLabel className={classes.inputLabel}>

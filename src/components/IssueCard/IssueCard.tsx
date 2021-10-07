@@ -29,13 +29,15 @@ const IssueCard: React.FC<IIssueProps> = ({ mode, issue }) => {
   const { room, isDealer } = useTypedSelector((state) => state.currentUser);
   const isCurrentIssue = issue?._id === useTypedSelector((state) => state.game.currentIssue);
   const isRoundstarted = useTypedSelector((state) => state.game.isRoundstarted);
-  const isGameStarted = room?.gameStatus === 'started';
+  const isGameInProcess = room?.gameStatus !== 'finished';
   const dispatch = useDispatch();
   const classes = useStyles();
   const isCreateMode = mode === 'create';
 
   const setAsCurrent = () => {
-    if (!isRoundstarted && isDealer && issue?._id && room?._id) socket.setActiveIssue(room._id, issue._id);
+    if (!isRoundstarted && isDealer && issue?._id && room?._id && isGameInProcess) {
+      socket.setActiveIssue(room._id, issue._id);
+    }
   };
 
   const addNewIssue = () => {
@@ -53,7 +55,7 @@ const IssueCard: React.FC<IIssueProps> = ({ mode, issue }) => {
   };
 
   const setControls = (): JSX.Element => {
-    if (!isGameStarted) {
+    if (room?.gameStatus === undefined) {
       return (
         <>
           <EditOutlinedIcon

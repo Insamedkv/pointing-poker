@@ -3,6 +3,7 @@ import { createStyles, makeStyles } from '@material-ui/core';
 const useStyles = makeStyles(({ palette }) =>
   createStyles({
     resultContainer: {
+      minHeight: 'calc(100vh - 120px)',
       padding: '40px 0 40px 0',
     },
     issueContainer: {
